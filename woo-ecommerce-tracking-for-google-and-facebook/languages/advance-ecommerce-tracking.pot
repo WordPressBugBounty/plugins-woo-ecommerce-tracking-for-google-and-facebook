@@ -1,14 +1,14 @@
-# Copyright (C) 2024 theDotstore
+# Copyright (C) 2026 theDotstore
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Advance Ecommerce Tracking Premium (Premium) 3.8.0\n"
+"Project-Id-Version: Advance Ecommerce Tracking Premium (Premium) 3.8.2\n"
 "Report-Msgid-Bugs-To: https://www.multidots.com/contact/\n"
-"POT-Creation-Date: 2024-07-15 11:40:57+00:00\n"
+"POT-Creation-Date: 2026-01-02 09:03:07+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2024-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2026-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Sagar Jariwala <sagar.jariwala@multidots.com>\n"
 "Language-Team: Sagar Jariwala <sagar.jariwala@multidots.com>\n"
 "Language: en\n"
@@ -22,30 +22,30 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
-"X-Generator: grunt-wp-i18n 1.0.3\n"
+"X-Generator: grunt-wp-i18n 1.0.4\n"
 
-#: admin/class-advance-ecommerce-tracking-admin.php:396
-#: admin/class-advance-ecommerce-tracking-admin.php:442
+#: admin/class-advance-ecommerce-tracking-admin.php:392
+#: admin/class-advance-ecommerce-tracking-admin.php:438
 #: admin/partials/aet-et-settings.php:551
 #: admin/partials/aet-et-settings.php:742
 #: admin/partials/aet-et-settings.php:936
 msgid "Custom Event"
 msgstr ""
 
-#: admin/class-advance-ecommerce-tracking-admin.php:420
-#: admin/class-advance-ecommerce-tracking-admin.php:437
+#: admin/class-advance-ecommerce-tracking-admin.php:416
+#: admin/class-advance-ecommerce-tracking-admin.php:433
 msgid "Ecommerce Tracking"
 msgstr ""
 
-#: admin/class-advance-ecommerce-tracking-admin.php:430
+#: admin/class-advance-ecommerce-tracking-admin.php:426
 msgid "License"
 msgstr ""
 
-#: admin/class-advance-ecommerce-tracking-admin.php:447
+#: admin/class-advance-ecommerce-tracking-admin.php:443
 msgid "Get Premium"
 msgstr ""
 
-#: admin/class-advance-ecommerce-tracking-admin.php:606
+#: admin/class-advance-ecommerce-tracking-admin.php:602
 msgid ""
 "<strong>We need your support</strong> to keep updating and improving the "
 "plugin. Please <a href=\"%1$s\" target=\"_blank\">help us by leaving a good "
@@ -1238,119 +1238,130 @@ msgstr ""
 msgid "My Account"
 msgstr ""
 
-#: advance-ecommerce-tracking.php:259
+#: advance-ecommerce-tracking.php:231
+msgid ""
+"Same functionality plugin found: <a href=\"%s\" target=\"_blank\">Google "
+"Site Kit</a> is also active. It may conflict with analytics reports. We "
+"recommend disabling one of them."
+msgstr ""
+
+#: advance-ecommerce-tracking.php:232
+msgid "Dismiss"
+msgstr ""
+
+#: advance-ecommerce-tracking.php:292
 msgid ""
 "<strong>Advance Ecommerce Tracking Pro is successfully installed and ready "
 "to go.</strong>"
 msgstr ""
 
-#: advance-ecommerce-tracking.php:264
+#: advance-ecommerce-tracking.php:297
 msgid ""
 "<strong>Advance Ecommerce Tracking is successfully installed and ready to "
 "go.</strong>"
 msgstr ""
 
-#: advance-ecommerce-tracking.php:273
+#: advance-ecommerce-tracking.php:305
 msgid "Click on settings button and do your setting as per your requirement."
 msgstr ""
 
-#: advance-ecommerce-tracking.php:286
+#: advance-ecommerce-tracking.php:318
 msgid "Settings"
 msgstr ""
 
-#: advance-ecommerce-tracking.php:393
+#: advance-ecommerce-tracking.php:409
 msgid "Activate Plugin"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:180
+#: public/class-advance-ecommerce-tracking-public.php:183
 msgid "send"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:181
+#: public/class-advance-ecommerce-tracking-public.php:184
 msgid "event"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:182
+#: public/class-advance-ecommerce-tracking-public.php:185
 msgid "External"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:183
+#: public/class-advance-ecommerce-tracking-public.php:186
 msgid "Link"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:184
+#: public/class-advance-ecommerce-tracking-public.php:187
 msgid "Click"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:185
+#: public/class-advance-ecommerce-tracking-public.php:188
 msgid "Email"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:186
+#: public/class-advance-ecommerce-tracking-public.php:189
 msgid "File"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:187
+#: public/class-advance-ecommerce-tracking-public.php:190
 msgid "Download"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:188
+#: public/class-advance-ecommerce-tracking-public.php:191
 msgid "Apply"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:189
+#: public/class-advance-ecommerce-tracking-public.php:192
 msgid "Coupon"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:190
-#: public/class-advance-ecommerce-tracking-public.php:230
+#: public/class-advance-ecommerce-tracking-public.php:193
+#: public/class-advance-ecommerce-tracking-public.php:233
 msgid "Cart"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:191
+#: public/class-advance-ecommerce-tracking-public.php:194
 msgid "Checkout"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:192
+#: public/class-advance-ecommerce-tracking-public.php:195
 msgid "Add to Cart"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:193
+#: public/class-advance-ecommerce-tracking-public.php:196
 msgid "ApplyCoupon"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:194
+#: public/class-advance-ecommerce-tracking-public.php:197
 msgid "AddToCart"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:195
+#: public/class-advance-ecommerce-tracking-public.php:198
 msgid "RemoveFromCart"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:197
+#: public/class-advance-ecommerce-tracking-public.php:200
 msgid "Form"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:198
+#: public/class-advance-ecommerce-tracking-public.php:201
 msgid "Comment"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:220
+#: public/class-advance-ecommerce-tracking-public.php:223
 msgid "Search Result"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:222
+#: public/class-advance-ecommerce-tracking-public.php:225
 msgid "Product category"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:224
+#: public/class-advance-ecommerce-tracking-public.php:227
 msgid "Product tag"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:226
+#: public/class-advance-ecommerce-tracking-public.php:229
 msgid "Shop"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:228
+#: public/class-advance-ecommerce-tracking-public.php:231
 msgid "Product Detail"
 msgstr ""

@@ -93,15 +93,11 @@ class Advance_Ecommerce_Tracking_Admin {
             $aet_args['post__in'] = array($get_post_id);
         }
         $aet_all_event_list = new WP_Query($aet_args);
+        $aet_all_event = $aet_all_event_list->get_posts();
         if ( !empty( $get_post_id ) ) {
-            $aet_all_event = $aet_all_event_list->get_posts();
-            if ( !empty( $aet_all_event ) ) {
-                return $aet_all_event[0];
-            }
-        } else {
-            $aet_all_event = $aet_all_event_list->get_posts();
-            return $aet_all_event;
+            return ( !empty( $aet_all_event ) ? $aet_all_event[0] : null );
         }
+        return $aet_all_event;
     }
 
     /**

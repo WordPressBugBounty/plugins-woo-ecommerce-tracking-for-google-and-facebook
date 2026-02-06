@@ -16,7 +16,7 @@
  * Plugin Name: Advance Ecommerce Tracking
  * Plugin URI:        https://www.thedotstore.com/woocommerce-enhanced-ecommerce-analytics-integration-with-conversion-tracking
  * Description:       Allows you to use Enhanced Ecommerce tracking without adding any new complex codes on your WooCommerce.
- * Version:           3.8.1
+ * Version:           3.8.2
  * Author:            theDotstore
  * Author URI:        https://www.thedotstore.com
  * License:           GPLv3 or later
@@ -26,8 +26,8 @@
  * Requires Plugins:  woocommerce
  *
  * WC requires at least: 5.3
- * WC tested up to:      9.8.1
- * WP tested up to:      6.8
+ * WC tested up to:      10.4.3
+ * WP tested up to:      6.9
  * Requires PHP:         7.2
  * Requires at least:    5.0
  */
@@ -35,42 +35,47 @@
 if ( !defined( 'WPINC' ) ) {
     die;
 }
-if ( !function_exists( 'aet_fs' ) ) {
-    // Create a helper function for easy SDK access.
-    function aet_fs() {
-        global $aet_fs;
-        if ( !isset( $aet_fs ) ) {
-            // Include Freemius SDK.
-            require_once dirname( __FILE__ ) . '/freemius/start.php';
-            $aet_fs = fs_dynamic_init( array(
-                'id'              => '3475',
-                'slug'            => 'advance-ecommerce-tracking',
-                'type'            => 'plugin',
-                'public_key'      => 'pk_0dbe70558f17f7a0881498011f656',
-                'is_premium'      => false,
-                'premium_suffix'  => 'Premium',
-                'has_addons'      => false,
-                'has_paid_plans'  => true,
-                'has_affiliation' => 'selected',
-                'menu'            => array(
-                    'slug'       => 'aet-et-settings',
-                    'first-path' => 'admin.php?page=aet-et-settings',
-                    'contact'    => false,
-                    'support'    => false,
-                    'network'    => true,
-                ),
-                'is_live'         => true,
-            ) );
+if ( function_exists( 'aet_fs' ) ) {
+    aet_fs()->set_basename( false, __FILE__ );
+} else {
+    if ( !function_exists( 'aet_fs' ) ) {
+        // Create a helper function for easy SDK access.
+        function aet_fs() {
+            global $aet_fs;
+            if ( !isset( $aet_fs ) ) {
+                // Include Freemius SDK.
+                require_once dirname( __FILE__ ) . '/freemius/start.php';
+                // @phpstan-ignore-next-line
+                $aet_fs = fs_dynamic_init( array(
+                    'id'              => '3475',
+                    'slug'            => 'advance-ecommerce-tracking',
+                    'type'            => 'plugin',
+                    'public_key'      => 'pk_0dbe70558f17f7a0881498011f656',
+                    'is_premium'      => false,
+                    'premium_suffix'  => 'Premium',
+                    'has_addons'      => false,
+                    'has_paid_plans'  => true,
+                    'has_affiliation' => 'selected',
+                    'menu'            => array(
+                        'slug'       => 'aet-et-settings',
+                        'first-path' => 'admin.php?page=aet-et-settings',
+                        'contact'    => false,
+                        'support'    => false,
+                        'network'    => true,
+                    ),
+                    'is_live'         => true,
+                ) );
+            }
+            return $aet_fs;
         }
-        return $aet_fs;
-    }
 
-    // Init Freemius.
-    aet_fs();
-    // Signal that SDK was initiated.
-    do_action( 'aet_fs_loaded' );
-    aet_fs()->get_upgrade_url();
-    aet_fs()->add_action( 'after_uninstall', 'aet_fs_uninstall_cleanup' );
+        // Init Freemius.
+        aet_fs();
+        // Signal that SDK was initiated.
+        do_action( 'aet_fs_loaded' );
+        aet_fs()->get_upgrade_url();
+        aet_fs()->add_action( 'after_uninstall', 'aet_fs_uninstall_cleanup' );
+    }
 }
 /**
  * Currently plugin version.
@@ -78,7 +83,7 @@ if ( !function_exists( 'aet_fs' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 if ( !defined( 'AET_VERSION' ) ) {
-    define( 'AET_VERSION', '3.8.1' );
+    define( 'AET_VERSION', '3.8.2' );
 }
 if ( !defined( 'AET_PLUGIN_URL' ) ) {
     define( 'AET_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -109,20 +114,24 @@ if ( !defined( 'AET_STORE_URL' ) ) {
  * The code that runs during plugin activation.
  * This action is documented in includes/class-advance-ecommerce-tracking-activator.php
  */
-function activate_advance_ecommerce_tracking() {
-    require_once plugin_dir_path( __FILE__ ) . 'includes/class-advance-ecommerce-tracking-activator.php';
-    Advance_Ecommerce_Tracking_Activator::activate();
-}
+if ( !function_exists( 'activate_advance_ecommerce_tracking' ) ) {
+    function activate_advance_ecommerce_tracking() {
+        require_once plugin_dir_path( __FILE__ ) . 'includes/class-advance-ecommerce-tracking-activator.php';
+        Advance_Ecommerce_Tracking_Activator::activate();
+    }
 
+}
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-advance-ecommerce-tracking-deactivator.php
  */
-function deactivate_advance_ecommerce_tracking() {
-    require_once plugin_dir_path( __FILE__ ) . 'includes/class-advance-ecommerce-tracking-deactivator.php';
-    Advance_Ecommerce_Tracking_Deactivator::deactivate();
-}
+if ( !function_exists( 'deactivate_advance_ecommerce_tracking' ) ) {
+    function deactivate_advance_ecommerce_tracking() {
+        require_once plugin_dir_path( __FILE__ ) . 'includes/class-advance-ecommerce-tracking-deactivator.php';
+        Advance_Ecommerce_Tracking_Deactivator::deactivate();
+    }
 
+}
 register_activation_hook( __FILE__, 'activate_advance_ecommerce_tracking' );
 register_deactivation_hook( __FILE__, 'deactivate_advance_ecommerce_tracking' );
 /**
@@ -139,130 +148,187 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-advance-ecommerce-tracking
  *
  * @since    3.0
  */
-function run_advance_ecommerce_tracking() {
-    $plugin = new Advance_Ecommerce_Tracking();
-    $plugin->run();
-}
-
-add_action( 'plugins_loaded', 'aet_plugin_init' );
-function aet_plugin_init() {
-    /* Check if WooCommerce is Active */
-    $active_plugins = get_option( 'active_plugins', array() );
-    /* If this is a multisite installation, consider network-wide plugins */
-    if ( is_multisite() ) {
-        $network_active_plugins = get_site_option( 'active_sitewide_plugins', array() );
-        $active_plugins = array_merge( $active_plugins, array_keys( $network_active_plugins ) );
-        $active_plugins = array_unique( $active_plugins );
-        /* If WooCommerce is not active, display an admin notice and deactivate this plugin */
-        if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', $active_plugins ), true ) ) {
-            add_action( 'admin_notices', 'aet_plugin_admin_notice' );
-            add_action( 'admin_init', 'aet_deactivate_plugin' );
-        } else {
-            /* If WooCommerce is active, run advance eCommerce tracking */
-            run_advance_ecommerce_tracking();
-        }
-    } else {
-        /* For non-multisite installations, check if WooCommerce is active */
-        if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
-            /* If WooCommerce is not active, display an admin notice and deactivate this plugin */
-            add_action( 'admin_notices', 'aet_plugin_admin_notice' );
-            add_action( 'admin_init', 'aet_deactivate_plugin' );
-        } else {
-            /* If WooCommerce is active, run advance eCommerce tracking */
-            run_advance_ecommerce_tracking();
-        }
+if ( !function_exists( 'run_advance_ecommerce_tracking' ) ) {
+    function run_advance_ecommerce_tracking() {
+        $plugin = new Advance_Ecommerce_Tracking();
+        $plugin->run();
     }
-    /* Load the plugin's text domain for localization */
-    load_plugin_textdomain( 'advance-ecommerce-tracking', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-}
 
+}
+add_action( 'plugins_loaded', 'aet_plugin_init' );
+if ( !function_exists( 'aet_plugin_init' ) ) {
+    function aet_plugin_init() {
+        /* Check if WooCommerce is Active */
+        $active_plugins = get_option( 'active_plugins', array() );
+        /* If this is a multisite installation, consider network-wide plugins */
+        if ( is_multisite() ) {
+            $network_active_plugins = get_site_option( 'active_sitewide_plugins', array() );
+            $active_plugins = array_merge( $active_plugins, array_keys( $network_active_plugins ) );
+            $active_plugins = array_unique( $active_plugins );
+            /* If WooCommerce is not active, display an admin notice and deactivate this plugin */
+            if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', $active_plugins ), true ) ) {
+                add_action( 'admin_notices', 'aet_plugin_admin_notice' );
+                add_action( 'admin_init', 'aet_deactivate_plugin' );
+            } else {
+                /* If WooCommerce is active, run advance eCommerce tracking */
+                run_advance_ecommerce_tracking();
+            }
+        } else {
+            /* For non-multisite installations, check if WooCommerce is active */
+            if ( !in_array( 'woocommerce/woocommerce.php', apply_filters( 'active_plugins', get_option( 'active_plugins' ) ), true ) ) {
+                /* If WooCommerce is not active, display an admin notice and deactivate this plugin */
+                add_action( 'admin_notices', 'aet_plugin_admin_notice' );
+                add_action( 'admin_init', 'aet_deactivate_plugin' );
+            } else {
+                /* If WooCommerce is active, run advance eCommerce tracking */
+                run_advance_ecommerce_tracking();
+            }
+        }
+        /* Load the plugin's text domain for localization */
+        load_plugin_textdomain( 'advance-ecommerce-tracking', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+    }
+
+}
 /**
  * Show admin notice in case of WooCommerce plguin is missing
  */
-function aet_plugin_admin_notice() {
-    $aet_plugin = AET_PLUGIN_NAME;
-    $wc_plugin = 'WooCommerce';
-    echo '<div class="error"><p>' . sprintf( wp_kses_post( '%1$s is deactivated as it requires %2$s  to be installed and active.' ), '<strong>' . esc_html( $aet_plugin ) . '</strong>', '<strong>' . esc_html( $wc_plugin ) . '</strong>' ) . '</p></div>';
-}
+if ( !function_exists( 'aet_plugin_admin_notice' ) ) {
+    function aet_plugin_admin_notice() {
+        $aet_plugin = AET_PLUGIN_NAME;
+        $wc_plugin = 'WooCommerce';
+        echo '<div class="error"><p>' . sprintf( wp_kses_post( '%1$s is deactivated as it requires %2$s  to be installed and active.' ), '<strong>' . esc_html( $aet_plugin ) . '</strong>', '<strong>' . esc_html( $wc_plugin ) . '</strong>' ) . '</p></div>';
+    }
 
+}
+/**
+ * Show admin notice if Google Site Kit plugin is active
+ *
+ * @since    3.8.2
+ */
+if ( !function_exists( 'aet_google_site_kit_conflict_notice' ) ) {
+    function aet_google_site_kit_conflict_notice() {
+        if ( get_user_meta( get_current_user_id(), 'aet_dismiss_site_kit_notice', true ) ) {
+            return;
+        }
+        $active_plugins = get_option( 'active_plugins', array() );
+        if ( is_multisite() ) {
+            $network_active_plugins = get_site_option( 'active_sitewide_plugins', array() );
+            $active_plugins = array_merge( $active_plugins, array_keys( $network_active_plugins ) );
+        }
+        if ( in_array( 'google-site-kit/google-site-kit.php', $active_plugins, true ) ) {
+            $aet_plugin = AET_PLUGIN_NAME;
+            $site_kit_url = 'https://wordpress.org/plugins/google-site-kit/';
+            $dismiss_url = wp_nonce_url( add_query_arg( 'aet-dismiss-site-kit', '1' ), 'aet_dismiss_site_kit', '_aet_nonce' );
+            echo '<div class="notice notice-warning is-dismissible"><p>';
+            echo '<strong>' . esc_html( $aet_plugin ) . ':</strong> ';
+            echo sprintf( wp_kses_post( __( 'Same functionality plugin found: <a href="%s" target="_blank">Google Site Kit</a> is also active. It may conflict with analytics reports. We recommend disabling one of them.', 'advance-ecommerce-tracking' ) ), esc_url( $site_kit_url ) );
+            echo ' <a href="' . esc_url( $dismiss_url ) . '">' . esc_html__( 'Dismiss', 'advance-ecommerce-tracking' ) . '</a>';
+            echo '</p></div>';
+        }
+    }
+
+}
+/**
+ * Handle notice dismissal
+ *
+ * @since    3.8.2
+ */
+if ( !function_exists( 'aet_dismiss_site_kit_notice' ) ) {
+    function aet_dismiss_site_kit_notice() {
+        if ( isset( $_GET['aet-dismiss-site-kit'] ) && isset( $_GET['_aet_nonce'] ) && wp_verify_nonce( sanitize_text_field( $_GET['_aet_nonce'] ), 'aet_dismiss_site_kit' ) ) {
+            update_user_meta( get_current_user_id(), 'aet_dismiss_site_kit_notice', '1' );
+            wp_safe_redirect( remove_query_arg( array('aet-dismiss-site-kit', '_aet_nonce') ) );
+            exit;
+        }
+    }
+
+}
+add_action( 'admin_init', 'aet_dismiss_site_kit_notice' );
+add_action( 'admin_notices', 'aet_google_site_kit_conflict_notice' );
 /**
  * Deactivate the plugin.
  */
-function aet_deactivate_plugin() {
-    deactivate_plugins( plugin_basename( __FILE__ ) );
-    $activate_plugin_unset = filter_input( INPUT_GET, 'activate', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    unset($activate_plugin_unset);
-}
+if ( !function_exists( 'aet_deactivate_plugin' ) ) {
+    function aet_deactivate_plugin() {
+        deactivate_plugins( plugin_basename( __FILE__ ) );
+        $activate_plugin_unset = filter_input( INPUT_GET, 'activate', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        unset($activate_plugin_unset);
+    }
 
+}
 /**
  * Admin notice for plugin activation.
  *
  * @since    3.0
  */
-function aet_admin_notice_function() {
-    $screen = get_current_screen();
-    $screen_id = ( $screen ? $screen->id : '' );
-    if ( strpos( $screen_id, 'dotstore-plugins_page' ) || strpos( $screen_id, 'plugins' ) ) {
-        $aet_admin = filter_input( INPUT_GET, 'aet-hide-notice', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-        $wc_notice_nonce = filter_input( INPUT_GET, '_aet_notice_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-        if ( isset( $aet_admin ) && $aet_admin === 'aet_admin' && wp_verify_nonce( sanitize_text_field( $wc_notice_nonce ), 'aet_hide_notices_nonce' ) ) {
-            delete_transient( 'aet-admin-notice' );
-        }
-        /* Check transient, if available display notice */
-        if ( get_transient( 'aet-admin-notice' ) ) {
-            ?>
+if ( !function_exists( 'aet_admin_notice_function' ) ) {
+    function aet_admin_notice_function() {
+        $screen = get_current_screen();
+        $screen_id = ( $screen ? $screen->id : '' );
+        if ( strpos( $screen_id, 'dotstore-plugins_page' ) || strpos( $screen_id, 'plugins' ) ) {
+            $aet_admin = filter_input( INPUT_GET, 'aet-hide-notice', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            $wc_notice_nonce = filter_input( INPUT_GET, '_aet_notice_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+            if ( isset( $aet_admin ) && $aet_admin === 'aet_admin' && wp_verify_nonce( sanitize_text_field( $wc_notice_nonce ), 'aet_hide_notices_nonce' ) ) {
+                delete_transient( 'aet-admin-notice' );
+            }
+            /* Check transient, if available display notice */
+            if ( get_transient( 'aet-admin-notice' ) ) {
+                ?>
 			<div id="message"
 			     class="updated woocommerce-message woocommerce-admin-promo-messages welcome-panel aet-panel">
 				<a class="woocommerce-message-close notice-dismiss"
 				   href="<?php 
-            echo esc_url( wp_nonce_url( add_query_arg( 'aet-hide-notice', 'aet_admin' ), 'aet_hide_notices_nonce', '_aet_notice_nonce' ) );
-            ?>">
+                echo esc_url( wp_nonce_url( add_query_arg( 'aet-hide-notice', 'aet_admin' ), 'aet_hide_notices_nonce', '_aet_notice_nonce' ) );
+                ?>">
 				</a>
 				<p>
 					<?php 
-            echo sprintf( wp_kses( __( '<strong>Advance Ecommerce Tracking is successfully installed and ready to go.</strong>', 'advance-ecommerce-tracking' ), array(
-                'strong' => array(),
-            ), esc_url( admin_url( 'options-general.php' ) ) ) );
-            ?>
+                echo sprintf( wp_kses( __( '<strong>Advance Ecommerce Tracking is successfully installed and ready to go.</strong>', 'advance-ecommerce-tracking' ), array(
+                    'strong' => array(),
+                ), esc_url( admin_url( 'options-general.php' ) ) ) );
+                ?>
 				</p>
 				<p>
 					<?php 
-            echo wp_kses_post( __( 'Click on settings button and do your setting as per your requirement.', 'advance-ecommerce-tracking' ) );
-            ?>
+                echo wp_kses_post( __( 'Click on settings button and do your setting as per your requirement.', 'advance-ecommerce-tracking' ) );
+                ?>
 				</p>
 				<?php 
-            $url = add_query_arg( array(
-                'page' => 'aet-pro-list',
-            ), admin_url( 'admin.php' ) );
-            ?>
+                $url = add_query_arg( array(
+                    'page' => 'aet-pro-list',
+                ), admin_url( 'admin.php' ) );
+                ?>
 				<p>
 					<a href="<?php 
-            echo esc_url( $url );
-            ?>" class="button button-primary">
+                echo esc_url( $url );
+                ?>" class="button button-primary">
 						<?php 
-            esc_html_e( 'Settings', 'advance-ecommerce-tracking' );
-            ?>
+                esc_html_e( 'Settings', 'advance-ecommerce-tracking' );
+                ?>
 					</a>
 				</p>
 			</div>
 			<?php 
+            }
+        } else {
+            return;
         }
-    } else {
-        return;
     }
-}
 
-function aet_upgrade_completed(  $upgrader_object, $options  ) {
-    $our_plugin = plugin_basename( __FILE__ );
-    if ( $options['action'] == 'update' && $options['type'] == 'plugin' && isset( $options['plugins'] ) ) {
-        foreach ( $options['plugins'] as $plugin ) {
-            if ( $plugin === $our_plugin ) {
-                delete_transient( 'aet_updated' );
+}
+if ( !function_exists( 'aet_upgrade_completed' ) ) {
+    function aet_upgrade_completed(  $upgrader_object, $options  ) {
+        $our_plugin = plugin_basename( __FILE__ );
+        if ( $options['action'] === 'update' && $options['type'] === 'plugin' && isset( $options['plugins'] ) ) {
+            foreach ( $options['plugins'] as $plugin ) {
+                if ( $plugin === $our_plugin ) {
+                    delete_transient( 'aet_updated' );
+                }
             }
         }
     }
-}
 
+}
 add_action(
     'upgrader_process_complete',
     'aet_upgrade_completed',

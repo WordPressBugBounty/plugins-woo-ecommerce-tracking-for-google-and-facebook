@@ -4,19 +4,19 @@ Plugin URI: https://wordpress.org/plugins/woo-ecommerce-tracking-for-google-and-
 Author: Thedotstore
 Author URI: https://www.thedotstore.com/
 Contributors: dots, jaydeep-rami, jitendrabanjara1991
-Stable tag: 3.8.1
+Stable tag: 3.8.2
 Tags: Analytics, E-commerce, Google Analytics, E-commerce Tracking, Statistics
 Requires at least: 5.0
 Requires PHP: 7.2
-Tested up to: 6.8
-WC tested up to: 9.8.1
+Tested up to: 6.9
+WC tested up to: 10.4.3
 WC requires at least: 5.3
 Donate link: 
 Copyright: (c) 2015-2019 Thedotstore all rights reserved (support@thedotstore.com)
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Track sales analytics, conversions and understand consumer behavior using google analytics (with ecommerce tracking) and facebook pixel.
+Track sales analytics, conversions and understand consumer behavior using google analytics (with ecommerce tracking).
 
 == Description ==
 
@@ -74,13 +74,7 @@ Upgrade to Enhanced <a href ="https://bit.ly/39rAI9r" target="_blank">Ecommerce 
 <li>Quick & Easy Integration with Multiple Analytics tools</li>
 <li>WooCommerce Ecommerce tracking</li>
 <li>Enable WooCommerce Google Analytics Integration</li>
-<li>Enable Google Adwords Conversion tracking</li>
-<li>Integrate your eCommerce store with Woopra analytics tools</li>
-<li>Integrate your eCommerce store with Gosquared analytics tools</li>
-<li>Enable Facebook ad Conversion Tracking</li>
 <li>Submit the Conversion Value to Google Analytics</li>
-<li>Integrate your eCommerce store with Gosquared analytics tools</li>
-<li>Enable Twitter ad E-commerce Conversion Tracking</li>
 <li>Tracking Total Order Revenue</li>
 
 == 💁 How to’s Plugin Guide ==
@@ -146,21 +140,6 @@ Open any page of your site, right-click, select Inspect → Network tab, and the
 = Q: Why does Google Analytics indicate the tracking code isn't detected even though it's installed? =
 Google Analytics requires some time to begin reflecting data. It is advised to wait at least 24 hours. If issues persist, consult the Google Analytics Help Center.
 
-= Q: How do I set up Google Adwords Conversion Tracking for my WooCommerce store? =
-Follow the guidance document on Google Adwords Conversion and Set Up Google Adwords Conversion Tracking. No code adjustments are needed; the plugin automates these steps.
-
-= Q: What is Woopra, and how do I integrate it with my site? =
-Woopra specializes in customer analytics. You can integrate Woopra by signing into your account (or creating one) and enabling tracking through the plugin settings.
-
-= Q: How can I set up Gosquared Tracking on my site? =
-Sign into your Gosquared Account or create a new one, enable gosquared tracking, and input your tracking ID and Gosquared Tracking API Key in the plugin settings.
-
-= Q: Do I need to manually insert the Facebook Pixel code? =
-No manual code insertion is needed. Simply enter your Pixel ID into the designated field in the plugin's admin area.
-
-= How can I verify if the Facebook Pixel has been added to my site? =
-Use the Chrome Pixel Helper extension. After installation, navigate to your site, and the extension will indicate whether the Pixel is active.
-
 = Where can I find more documentation or get support? =
 For comprehensive guides, tutorials, and FAQ, visit our <a href ="https://bit.ly/39rAI9r" target="_blank">Enhanced Ecommerce Google Analytics for WooCommerce</a> plugin page. For direct support or to provide feedback, please create a <a href="https://www.thedotstore.com/support">support ticket here</a>.
 
@@ -185,6 +164,11 @@ Absolutely. The plugin enables you to set up and track custom events, giving you
 Automatic updates should work great for you.  As always, though, we recommend backing up your site prior to making any updates just to be sure nothing goes wrong.
 
 == Changelog ==
+= 3.8.2 =
+* [Bug Fix] Minor bug fixes.
+* [Enhancement] Compatible with WooCommerce 10.4.x
+* [Enhancement] Compatible with WordPress 6.9
+
 = 3.8.1 =
 * [Enhancement] Minor security update.
 * [Enhancement] Compatible with WooCommerce 9.8.x

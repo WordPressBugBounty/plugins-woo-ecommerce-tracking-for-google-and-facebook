@@ -156,13 +156,16 @@ class Advance_Ecommerce_Tracking_Public {
          * between the defined hooks and the functions defined in this
          * class.
          */
-        wp_enqueue_style(
-            $this->plugin_name,
-            plugin_dir_url( __FILE__ ) . 'css/advance-ecommerce-tracking-public.css',
-            array(),
-            $this->version,
-            'all'
-        );
+        $css_file_path = plugin_dir_path( __FILE__ ) . 'css/advance-ecommerce-tracking-public.css';
+        if ( file_exists( $css_file_path ) && filesize( $css_file_path ) > 0 ) {
+            wp_enqueue_style(
+                $this->plugin_name,
+                plugin_dir_url( __FILE__ ) . 'css/advance-ecommerce-tracking-public.css',
+                array(),
+                $this->version,
+                'all'
+            );
+        }
     }
 
     /**
@@ -322,6 +325,7 @@ class Advance_Ecommerce_Tracking_Public {
             $aet_options = apply_filters( 'aet_tracking_options_end', $aet_options );
             return $aet_options;
         }
+        return $aet_options;
     }
 
     /**
@@ -508,7 +512,7 @@ class Advance_Ecommerce_Tracking_Public {
             $enhance_ecommerce_tracking = $this->aet_data['enhance_ecommerce_tracking'];
             if ( 'on' === $enhance_ecommerce_tracking ) {
                 $aet_placed_order_success = get_post_meta( $order_id, 'aet_placed_order_success', true );
-                if ( 'true' === $aet_placed_order_success ) {
+                if ( 'true' === $aet_placed_order_success || true === $aet_placed_order_success ) {
                     return;
                 }
                 $order = wc_get_order( $order_id );
@@ -623,9 +627,8 @@ class Advance_Ecommerce_Tracking_Public {
                 $paypal_url = add_query_arg( 'utm_nooverride', '1', $paypal_url );
                 return $paypal_url;
             }
-        } else {
-            return $paypal_url;
         }
+        return $paypal_url;
     }
 
     /**
@@ -734,6 +737,10 @@ class Advance_Ecommerce_Tracking_Public {
      */
     public function aet_ga_thankyou( $order_id ) {
         global $woocommerce;
+        $aet_placed_order_success = get_post_meta( $order_id, 'aet_ga_placed_order_success', true );
+        if ( 'true' === $aet_placed_order_success || true === $aet_placed_order_success ) {
+            return;
+        }
         // Get the order and output tracking code
         $order = new WC_Order($order_id);
         $code = '';
@@ -791,11 +798,9 @@ class Advance_Ecommerce_Tracking_Public {
                         $loop_count++;
                     }
                 }
+                $discount = 0;
                 if ( !empty( $_product->get_regular_price() ) && !empty( $_product->get_sale_price() ) ) {
-                    $discount = $this->cal_prod_discount( $_product->get_regular_price(), $_product->get_sale_price() );
-                }
-                if ( empty( $discount ) ) {
-                    $discount = 0;
+                    $discount = wc_format_decimal( (float) $_product->get_regular_price() - (float) $_product->get_sale_price(), wc_get_price_decimals() );
                 }
                 $qty = $item["qty"];
                 if ( empty( $qty ) ) {
@@ -803,9 +808,13 @@ class Advance_Ecommerce_Tracking_Public {
                 } else {
                     $qty = esc_js( $item["qty"] );
                 }
+                $sku = ( !empty( $_product->get_sku() ) ? $_product->get_sku() : 'SKU_' . $_product->get_id() );
+                $item_brand = apply_filters( 'aet_item_brand', '' );
+                $brand_property = ( !empty( $item_brand ) ? 'item_brand: "' . esc_js( $item_brand ) . '",' : '' );
                 $orderpage_prod .= '{
-					item_id: "SKU_' . esc_js( $_product->get_id() ) . '",
-					item_name: "' . esc_js( $_product->get_title() ) . '",
+					item_id: "' . esc_js( $sku ) . '",
+					item_name: "' . html_entity_decode( addslashes( $_product->get_name() ) ) . '",
+					' . $brand_property . '
 					coupon: "' . esc_js( $coupons_list ) . '",
 					currency: "' . esc_js( $currency ) . '",
 					discount: ' . esc_js( $discount ) . ',
@@ -829,6 +838,7 @@ class Advance_Ecommerce_Tracking_Public {
 			tax: ' . esc_js( $order->get_total_tax() ) . ',
 			items: [ ' . $orderpage_prod . ' ],
 		});';
+        update_post_meta( $order_id, 'aet_ga_placed_order_success', 'true' );
         $this->wc_version_compare( $code );
     }
 
