@@ -2,9 +2,9 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Advance Ecommerce Tracking Premium (Premium) 3.8.2\n"
+"Project-Id-Version: Advance Ecommerce Tracking Premium (Premium) 3.8.3\n"
 "Report-Msgid-Bugs-To: https://www.multidots.com/contact/\n"
-"POT-Creation-Date: 2026-01-02 09:03:07+00:00\n"
+"POT-Creation-Date: 2026-03-20 10:46:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,28 +24,28 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.4\n"
 
-#: admin/class-advance-ecommerce-tracking-admin.php:392
-#: admin/class-advance-ecommerce-tracking-admin.php:438
-#: admin/partials/aet-et-settings.php:551
-#: admin/partials/aet-et-settings.php:742
-#: admin/partials/aet-et-settings.php:936
+#: admin/class-advance-ecommerce-tracking-admin.php:521
+#: admin/class-advance-ecommerce-tracking-admin.php:567
+#: admin/partials/aet-et-settings.php:573
+#: admin/partials/aet-et-settings.php:770
+#: admin/partials/aet-et-settings.php:970
 msgid "Custom Event"
 msgstr ""
 
-#: admin/class-advance-ecommerce-tracking-admin.php:416
-#: admin/class-advance-ecommerce-tracking-admin.php:433
+#: admin/class-advance-ecommerce-tracking-admin.php:545
+#: admin/class-advance-ecommerce-tracking-admin.php:562
 msgid "Ecommerce Tracking"
 msgstr ""
 
-#: admin/class-advance-ecommerce-tracking-admin.php:426
+#: admin/class-advance-ecommerce-tracking-admin.php:555
 msgid "License"
 msgstr ""
 
-#: admin/class-advance-ecommerce-tracking-admin.php:443
+#: admin/class-advance-ecommerce-tracking-admin.php:572
 msgid "Get Premium"
 msgstr ""
 
-#: admin/class-advance-ecommerce-tracking-admin.php:602
+#: admin/class-advance-ecommerce-tracking-admin.php:731
 msgid ""
 "<strong>We need your support</strong> to keep updating and improving the "
 "plugin. Please <a href=\"%1$s\" target=\"_blank\">help us by leaving a good "
@@ -53,9 +53,9 @@ msgid ""
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:13 admin/partials/aet-cat-list.php:365
-#: admin/partials/aet-et-settings.php:565
-#: admin/partials/aet-et-settings.php:758
-#: admin/partials/aet-et-settings.php:952
+#: admin/partials/aet-et-settings.php:587
+#: admin/partials/aet-et-settings.php:786
+#: admin/partials/aet-et-settings.php:986
 msgid "Google Analytics Custom Event"
 msgstr ""
 
@@ -64,6 +64,7 @@ msgid "Add New Event"
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:26 admin/partials/aet-cat-list.php:236
+#: admin/partials/aet-cat-list.php:381
 msgid "Selector"
 msgstr ""
 
@@ -75,16 +76,14 @@ msgstr ""
 
 #: admin/partials/aet-cat-list.php:37 admin/partials/aet-cat-list.php:60
 #: admin/partials/aet-cat-list.php:247 admin/partials/aet-cat-list.php:270
-#: admin/partials/aet-et-settings.php:484
-#: admin/partials/aet-et-settings.php:506
-#: admin/partials/aet-et-settings.php:675
-#: admin/partials/aet-et-settings.php:697
-#: admin/partials/aet-et-settings.php:869
-#: admin/partials/aet-et-settings.php:891
+#: admin/partials/aet-et-settings.php:480
+#: admin/partials/aet-et-settings.php:693
+#: admin/partials/aet-et-settings.php:893
 msgid " Click Here"
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:46 admin/partials/aet-cat-list.php:256
+#: admin/partials/aet-cat-list.php:382
 msgid "Selector Type"
 msgstr ""
 
@@ -103,7 +102,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:69 admin/partials/aet-cat-list.php:279
-#: admin/partials/aet-cat-list.php:384
+#: admin/partials/aet-cat-list.php:383
 msgid "Event Category"
 msgstr ""
 
@@ -115,7 +114,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:82 admin/partials/aet-cat-list.php:292
-#: admin/partials/aet-cat-list.php:385
+#: admin/partials/aet-cat-list.php:384
 msgid "Event Action"
 msgstr ""
 
@@ -127,7 +126,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:95 admin/partials/aet-cat-list.php:305
-#: admin/partials/aet-cat-list.php:386
+#: admin/partials/aet-cat-list.php:385
 msgid "Event Label"
 msgstr ""
 
@@ -139,7 +138,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:108 admin/partials/aet-cat-list.php:318
-#: admin/partials/aet-cat-list.php:387
+#: admin/partials/aet-cat-list.php:386
 msgid "Event Value"
 msgstr ""
 
@@ -150,6 +149,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:120 admin/partials/aet-cat-list.php:330
+#: admin/partials/aet-cat-list.php:387
 msgid "Non-Interaction"
 msgstr ""
 
@@ -166,9 +166,9 @@ msgid "Using this option, you can set event type interaction or non-interaction.
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:132 admin/partials/aet-cat-list.php:342
-#: admin/partials/aet-et-settings.php:525
-#: admin/partials/aet-et-settings.php:716
-#: admin/partials/aet-et-settings.php:910
+#: admin/partials/aet-et-settings.php:499
+#: admin/partials/aet-et-settings.php:712
+#: admin/partials/aet-et-settings.php:912
 msgid " Note: "
 msgstr ""
 
@@ -182,7 +182,7 @@ msgid ""
 msgstr ""
 
 #: admin/partials/aet-cat-list.php:145 admin/partials/aet-cat-list.php:170
-#: admin/partials/aet-et-settings.php:139
+#: admin/partials/aet-et-settings.php:141
 msgid "Submit"
 msgstr ""
 
@@ -240,18 +240,6 @@ msgstr ""
 msgid "Delete (Selected)"
 msgstr ""
 
-#: admin/partials/aet-cat-list.php:381
-msgid "Html Selector"
-msgstr ""
-
-#: admin/partials/aet-cat-list.php:382
-msgid "Type"
-msgstr ""
-
-#: admin/partials/aet-cat-list.php:383
-msgid "Event Name"
-msgstr ""
-
 #: admin/partials/aet-cat-list.php:388
 msgid "Actions"
 msgstr ""
@@ -272,86 +260,78 @@ msgstr ""
 msgid "Save changes"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:88
+#: admin/partials/aet-et-settings.php:90
 msgid "Ecommerce Tracking Configuration"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:105
+#: admin/partials/aet-et-settings.php:107
 msgid "Welcome to Ecommerce Tracking"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:109
+#: admin/partials/aet-et-settings.php:111
 msgid ""
 "Ecommerce Tracking makes it \"effortless\" to setup Google Analytics in "
 "WordPress, the Right way.\n"
 "\t\t\t\t\t\t\t\t\t\tYou can watch video tutorial."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:115
+#: admin/partials/aet-et-settings.php:117
 msgid "Start to Setup"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:118
+#: admin/partials/aet-et-settings.php:120
 msgid "Documentation"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:126
+#: admin/partials/aet-et-settings.php:128
 msgid "OR Enter manually analytics id in below field"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:132
+#: admin/partials/aet-et-settings.php:134
 msgid "Enter GA4 ID"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:156
+#: admin/partials/aet-et-settings.php:158
 msgid "Google Analytics Account"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:161
+#: admin/partials/aet-et-settings.php:163
 msgid "Reconnect to Wizard"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:164
-#: admin/partials/aet-et-settings.php:194
+#: admin/partials/aet-et-settings.php:166
+#: admin/partials/aet-et-settings.php:196
 msgid "Disconnect"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:168
+#: admin/partials/aet-et-settings.php:170
 msgid ""
 "You can change analytics ID using Reconnect button and also\n"
 "\t\t\t\t\t\t\t\t\t\tyou can disconnect analytics ID if not need."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:179
+#: admin/partials/aet-et-settings.php:181
 msgid "Google Analytics 4 Account"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:187
+#: admin/partials/aet-et-settings.php:189
 msgid "Active Google Analytics 4 Account"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:200
+#: admin/partials/aet-et-settings.php:202
 msgid "You can disconnect analytics ID if not need. "
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:202
+#: admin/partials/aet-et-settings.php:204
 msgid "View More"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:212
+#: admin/partials/aet-et-settings.php:214
 msgid "Enable Analytics Tracking"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:220
-msgid "UA - Deprecated"
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:221
-msgid "GA4"
-msgstr ""
-
 #: admin/partials/aet-et-settings.php:222
-msgid "BOTH"
+msgid "GA4"
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:228
@@ -406,7 +386,9 @@ msgstr ""
 #: admin/partials/aet-et-settings.php:292
 #: admin/partials/aet-et-settings.php:316
 #: admin/partials/aet-et-settings.php:341
-msgid "You can view this report in Behavior > Site Search."
+msgid ""
+"View in GA4: Reports > Engagement > Events (event name: "
+"view_search_results)."
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:337
@@ -458,109 +440,62 @@ msgid ""
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:414
-#: admin/partials/aet-et-settings.php:603
-#: admin/partials/aet-et-settings.php:797
+#: admin/partials/aet-et-settings.php:625
+#: admin/partials/aet-et-settings.php:825
 msgid "Add Code to Track the Login Step of Guest Users (Optional)"
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:424
-#: admin/partials/aet-et-settings.php:614
-#: admin/partials/aet-et-settings.php:808
+#: admin/partials/aet-et-settings.php:636
+#: admin/partials/aet-et-settings.php:836
 msgid "This feature will fire event when the guest user process for a checkout."
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:431
-#: admin/partials/aet-et-settings.php:621
-#: admin/partials/aet-et-settings.php:815
+#: admin/partials/aet-et-settings.php:643
+#: admin/partials/aet-et-settings.php:843
 msgid "Demographics and Interests Reports for Remarketing and Advertising"
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:440
-#: admin/partials/aet-et-settings.php:631
-#: admin/partials/aet-et-settings.php:825
+#: admin/partials/aet-et-settings.php:653
+#: admin/partials/aet-et-settings.php:853
 msgid "Track 404 (Not found) Errors"
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:446
-#: admin/partials/aet-et-settings.php:637
+#: admin/partials/aet-et-settings.php:659
 msgid ""
 "This feature will be sent event to analytics whenever a user lands on your "
 "404 Error Page.\n"
-"\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - 404 Error)"
+"\t\t\t\t\t\t\t\t\t\tView in GA4: Reports > Engagement > Events (event name: "
+"404 Error)."
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:453
-#: admin/partials/aet-et-settings.php:644
-#: admin/partials/aet-et-settings.php:838
+#: admin/partials/aet-et-settings.php:666
+#: admin/partials/aet-et-settings.php:866
 msgid "File Downloads"
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:459
-#: admin/partials/aet-et-settings.php:650
+#: admin/partials/aet-et-settings.php:672
 msgid ""
 "This feature will be sent event to analytics whenever a user view or\n"
 "\t\t\t\t\t\t\t\t\t\tdownload file from this type(zip, exe, pdf, doc, docx, "
 "xls, ppt, csv, xml).\n"
-"\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - File Download)"
+"\t\t\t\t\t\t\t\t\t\tView in GA4: Reports > Engagement > Events (event name: "
+"file_download)."
 msgstr ""
 
 #: admin/partials/aet-et-settings.php:467
-#: admin/partials/aet-et-settings.php:658
-#: admin/partials/aet-et-settings.php:852
-msgid "Enhanced Link Attribution"
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:475
-#: admin/partials/aet-et-settings.php:666
-msgid ""
-"Enhanced Link Attribution improves the accuracy of your In-Page Analytics "
-"report by automatically\n"
-"\t\t\t\t\t\t\t\t\t\tdifferentiating between multiple links to the same URL "
-"on a single page by using link element IDs."
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:477
-#: admin/partials/aet-et-settings.php:668
-#: admin/partials/aet-et-settings.php:862
-msgid " Note:"
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:478
-#: admin/partials/aet-et-settings.php:669
-msgid ""
-" for the most accurate link attribution,\n"
-"\t\t\t\t\t\t\t\t\t\teach of the links on your page should have a unique "
-"element ID."
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:480
-#: admin/partials/aet-et-settings.php:671
-#: admin/partials/aet-et-settings.php:865
-msgid "Please enable "
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:481
-#: admin/partials/aet-et-settings.php:672
-#: admin/partials/aet-et-settings.php:866
-msgid "Use enhanced link attribution"
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:482
-#: admin/partials/aet-et-settings.php:673
-#: admin/partials/aet-et-settings.php:867
-msgid " option for this feature."
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:493
-#: admin/partials/aet-et-settings.php:684
-#: admin/partials/aet-et-settings.php:878
+#: admin/partials/aet-et-settings.php:680
+#: admin/partials/aet-et-settings.php:880
 msgid "User ID Tracking"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:501
-#: admin/partials/aet-et-settings.php:692
+#: admin/partials/aet-et-settings.php:475
+#: admin/partials/aet-et-settings.php:688
 msgid ""
 "You can send a User ID when a pageview (or other data) is sent to Google "
 "Analytics.\n"
@@ -569,31 +504,31 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t\t\teven if the sessions are on different devices."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:504
-#: admin/partials/aet-et-settings.php:695
-#: admin/partials/aet-et-settings.php:889
+#: admin/partials/aet-et-settings.php:478
+#: admin/partials/aet-et-settings.php:691
+#: admin/partials/aet-et-settings.php:891
 msgid ""
 " Please follow screenshot how to enable this option on google analytics "
 "section."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:515
-#: admin/partials/aet-et-settings.php:706
-#: admin/partials/aet-et-settings.php:900
+#: admin/partials/aet-et-settings.php:489
+#: admin/partials/aet-et-settings.php:702
+#: admin/partials/aet-et-settings.php:902
 msgid "Form Tracking"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:523
-#: admin/partials/aet-et-settings.php:714
+#: admin/partials/aet-et-settings.php:497
+#: admin/partials/aet-et-settings.php:710
 msgid ""
-"This feature will be send forms event to analytics when forms are submitted "
-"on site.\n"
-"\t\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events "
-"section. (Category Name - Form)"
+"This feature will send form events to analytics when forms are submitted on "
+"your site.\n"
+"\t\t\t\t\t\t\t\t\t\t\tView in GA4: Reports > Engagement > Events (event "
+"name: Form)."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:526
-#: admin/partials/aet-et-settings.php:717
+#: admin/partials/aet-et-settings.php:500
+#: admin/partials/aet-et-settings.php:713
 msgid ""
 " We get default form name for those plugins. Contact Form 7, WPForms, "
 "Formidable Forms, Mailchimp Form, Gravity Form, Caldera Forms, Ninja Form.\n"
@@ -603,29 +538,79 @@ msgid ""
 "been submitted."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:529
-#: admin/partials/aet-et-settings.php:720
-#: admin/partials/aet-et-settings.php:914
+#: admin/partials/aet-et-settings.php:503
+#: admin/partials/aet-et-settings.php:716
+#: admin/partials/aet-et-settings.php:916
 msgid " <input type=\"hidden\" name=\"aet_form\" value=\"Enter your form name\"/>"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:538
-#: admin/partials/aet-et-settings.php:729
-#: admin/partials/aet-et-settings.php:923
+#: admin/partials/aet-et-settings.php:512
+#: admin/partials/aet-et-settings.php:725
+#: admin/partials/aet-et-settings.php:925
 msgid "Comment Tracking"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:544
-#: admin/partials/aet-et-settings.php:735
+#: admin/partials/aet-et-settings.php:518
+#: admin/partials/aet-et-settings.php:731
 msgid ""
-"This feature will be send data to analytics when comment is posted on your "
+"This feature will send data to analytics when a comment is posted on your "
 "website.\n"
-"\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - Comment)"
+"\t\t\t\t\t\t\t\t\t\tView in GA4: Reports > Engagement > Events (event name: "
+"Comment)."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:562
-#: admin/partials/aet-et-settings.php:755
+#: admin/partials/aet-et-settings.php:525
+#: admin/partials/aet-et-settings.php:738
+#: admin/partials/aet-et-settings.php:938
+msgid "Sign In Tracking"
+msgstr ""
+
+#: admin/partials/aet-et-settings.php:531
+msgid ""
+"Sends a sign_in event to analytics when a user logs in. View in GA4: "
+"Reports > Engagement > Events (event name: sign_in)."
+msgstr ""
+
+#: admin/partials/aet-et-settings.php:537
+#: admin/partials/aet-et-settings.php:746
+#: admin/partials/aet-et-settings.php:946
+msgid "Sign Out Tracking"
+msgstr ""
+
+#: admin/partials/aet-et-settings.php:543
+msgid ""
+"Sends a sign_out event to analytics when a user logs out. View in GA4: "
+"Reports > Engagement > Events (event name: sign_out)."
+msgstr ""
+
+#: admin/partials/aet-et-settings.php:549
+#: admin/partials/aet-et-settings.php:754
+#: admin/partials/aet-et-settings.php:954
+msgid "Leaving Product Review Tracking"
+msgstr ""
+
+#: admin/partials/aet-et-settings.php:555
+msgid ""
+"Sends a leave_product_review event when a customer submits a product "
+"review. View in GA4: Reports > Engagement > Events (event name: "
+"leave_product_review)."
+msgstr ""
+
+#: admin/partials/aet-et-settings.php:561
+#: admin/partials/aet-et-settings.php:762
+#: admin/partials/aet-et-settings.php:962
+msgid "Sign Up Tracking"
+msgstr ""
+
+#: admin/partials/aet-et-settings.php:567
+msgid ""
+"Enable to send a sign_up event when a visitor registers. Disable to stop "
+"tracking this event. View in GA4: Reports > Engagement > Events (event "
+"name: sign_up)."
+msgstr ""
+
+#: admin/partials/aet-et-settings.php:584
+#: admin/partials/aet-et-settings.php:783
 msgid ""
 "With custom events, you can track important actions as per your "
 "requirement.\n"
@@ -634,52 +619,37 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t\t\twith name "
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:574
-#: admin/partials/aet-et-settings.php:767
-#: admin/partials/aet-et-settings.php:961
+#: admin/partials/aet-et-settings.php:596
+#: admin/partials/aet-et-settings.php:795
+#: admin/partials/aet-et-settings.php:995
 msgid "Excluding traking for roles"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:592
-#: admin/partials/aet-et-settings.php:785
+#: admin/partials/aet-et-settings.php:614
+#: admin/partials/aet-et-settings.php:813
 msgid ""
 "With this features, users that have roles from above selected roles\n"
 "\t\t\t\t\t\t\t\t\t\twill not be tracked into Google Analytics."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:831
+#: admin/partials/aet-et-settings.php:859
 msgid ""
 "This feature will be sent event to analytics whenever a user lands on your "
 "404 Error Page.\n"
-"\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - 404 Error)"
+"\t\t\t\t\t\t\t\t\tView in GA4: Reports > Engagement > Events (event name: "
+"404 Error)."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:844
+#: admin/partials/aet-et-settings.php:872
 msgid ""
 "This feature will be sent event to analytics whenever a user view or\n"
 "\t\t\t\t\t\t\t\t\tdownload file from this type(zip, exe, pdf, doc, docx, "
 "xls, ppt, csv, xml).\n"
-"\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - File Download)"
+"\t\t\t\t\t\t\t\t\tView in GA4: Reports > Engagement > Events (event name: "
+"file_download)."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:860
-msgid ""
-"Enhanced Link Attribution improves the accuracy of your In-Page Analytics "
-"report by automatically\n"
-"\t\t\t\t\t\t\t\t\tdifferentiating between multiple links to the same URL on "
-"a single page by using link element IDs."
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:863
-msgid ""
-" for the most accurate link attribution,\n"
-"\t\t\t\t\t\t\t\t\teach of the links on your page should have a unique "
-"element ID."
-msgstr ""
-
-#: admin/partials/aet-et-settings.php:886
+#: admin/partials/aet-et-settings.php:888
 msgid ""
 "You can send a User ID when a pageview (or other data) is sent to Google "
 "Analytics.\n"
@@ -688,15 +658,15 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t\teven if the sessions are on different devices."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:908
+#: admin/partials/aet-et-settings.php:910
 msgid ""
-"This feature will be send forms event to analytics when forms are submitted "
-"on site.\n"
-"\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - Form)"
+"This feature will send form events to analytics when forms are submitted on "
+"your site.\n"
+"\t\t\t\t\t\t\t\t\t\tView in GA4: Reports > Engagement > Events (event name: "
+"Form)."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:911
+#: admin/partials/aet-et-settings.php:913
 msgid ""
 " We get default form name for those plugins. Contact Form 7, WPForms, "
 "Formidable Forms, Mailchimp Form, Gravity Form, Caldera Forms, Ninja Form.\n"
@@ -706,15 +676,15 @@ msgid ""
 "been submitted."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:929
+#: admin/partials/aet-et-settings.php:931
 msgid ""
-"This feature will be send data to analytics when comment is posted on your "
+"This feature will send data to analytics when a comment is posted on your "
 "website.\n"
-"\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - Comment)"
+"\t\t\t\t\t\t\t\t\tView in GA4: Reports > Engagement > Events (event name: "
+"Comment)."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:949
+#: admin/partials/aet-et-settings.php:983
 msgid ""
 "With custom events, you can track important actions as per your "
 "requirement.\n"
@@ -723,25 +693,25 @@ msgid ""
 "\t\t\t\t\t\t\t\t\t\twith name "
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:979
+#: admin/partials/aet-et-settings.php:1013
 msgid ""
 "With this features, users that have roles from above selected roles\n"
 "\t\t\t\t\t\t\t\t\twill not be tracked into Google Analytics."
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:989
+#: admin/partials/aet-et-settings.php:1023
 msgid "Privacy Policy*"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:993
+#: admin/partials/aet-et-settings.php:1027
 msgid "Accept Privacy Policy of Plugin"
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:994
+#: admin/partials/aet-et-settings.php:1028
 msgid "By using theDotstore Plugin, you agree to theDotstore plugin's "
 msgstr ""
 
-#: admin/partials/aet-et-settings.php:995
+#: admin/partials/aet-et-settings.php:1029
 msgid "Privacy Policy"
 msgstr ""
 
@@ -1249,119 +1219,103 @@ msgstr ""
 msgid "Dismiss"
 msgstr ""
 
-#: advance-ecommerce-tracking.php:292
-msgid ""
-"<strong>Advance Ecommerce Tracking Pro is successfully installed and ready "
-"to go.</strong>"
-msgstr ""
-
-#: advance-ecommerce-tracking.php:297
-msgid ""
-"<strong>Advance Ecommerce Tracking is successfully installed and ready to "
-"go.</strong>"
-msgstr ""
-
-#: advance-ecommerce-tracking.php:305
-msgid "Click on settings button and do your setting as per your requirement."
-msgstr ""
-
-#: advance-ecommerce-tracking.php:318
-msgid "Settings"
-msgstr ""
-
-#: advance-ecommerce-tracking.php:409
+#: advance-ecommerce-tracking.php:342
 msgid "Activate Plugin"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:183
+#: public/class-advance-ecommerce-tracking-public.php:162
 msgid "send"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:184
+#: public/class-advance-ecommerce-tracking-public.php:163
 msgid "event"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:185
+#: public/class-advance-ecommerce-tracking-public.php:164
 msgid "External"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:186
+#: public/class-advance-ecommerce-tracking-public.php:165
 msgid "Link"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:187
+#: public/class-advance-ecommerce-tracking-public.php:166
 msgid "Click"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:188
+#: public/class-advance-ecommerce-tracking-public.php:167
 msgid "Email"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:189
+#: public/class-advance-ecommerce-tracking-public.php:168
 msgid "File"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:190
+#: public/class-advance-ecommerce-tracking-public.php:169
 msgid "Download"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:191
+#: public/class-advance-ecommerce-tracking-public.php:170
 msgid "Apply"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:192
+#: public/class-advance-ecommerce-tracking-public.php:171
 msgid "Coupon"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:193
-#: public/class-advance-ecommerce-tracking-public.php:233
+#: public/class-advance-ecommerce-tracking-public.php:172
+#: public/class-advance-ecommerce-tracking-public.php:216
 msgid "Cart"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:194
+#: public/class-advance-ecommerce-tracking-public.php:173
 msgid "Checkout"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:195
+#: public/class-advance-ecommerce-tracking-public.php:174
 msgid "Add to Cart"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:196
+#: public/class-advance-ecommerce-tracking-public.php:175
 msgid "ApplyCoupon"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:197
+#: public/class-advance-ecommerce-tracking-public.php:176
 msgid "AddToCart"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:198
+#: public/class-advance-ecommerce-tracking-public.php:177
 msgid "RemoveFromCart"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:200
+#: public/class-advance-ecommerce-tracking-public.php:179
 msgid "Form"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:201
+#: public/class-advance-ecommerce-tracking-public.php:180
 msgid "Comment"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:223
+#: public/class-advance-ecommerce-tracking-public.php:181
+msgid "Leave product review"
+msgstr ""
+
+#: public/class-advance-ecommerce-tracking-public.php:206
 msgid "Search Result"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:225
+#: public/class-advance-ecommerce-tracking-public.php:208
 msgid "Product category"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:227
+#: public/class-advance-ecommerce-tracking-public.php:210
 msgid "Product tag"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:229
+#: public/class-advance-ecommerce-tracking-public.php:212
 msgid "Shop"
 msgstr ""
 
-#: public/class-advance-ecommerce-tracking-public.php:231
+#: public/class-advance-ecommerce-tracking-public.php:214
 msgid "Product Detail"
 msgstr ""

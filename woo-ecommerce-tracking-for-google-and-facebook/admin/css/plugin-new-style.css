@@ -164,6 +164,7 @@ header.dots-header{background-color:#fff;border-radius:5px;box-shadow:0 4px 10px
 #general_setting .switch input{display:none;}
 select#selector_type,#event_interation_type{width:175px;}
 .msbb-cls{margin-left:10px!important;}
+#custom-event-listing a.fee-action-button.button-primary:focus {padding: 5px 4px !important;}
 
 /* Freemius My Account page style */
 #fs_account .has-sidebar-content{display:-webkit-box;display:-ms-flexbox;display:flex;-ms-flex-wrap:wrap;flex-wrap:wrap;}

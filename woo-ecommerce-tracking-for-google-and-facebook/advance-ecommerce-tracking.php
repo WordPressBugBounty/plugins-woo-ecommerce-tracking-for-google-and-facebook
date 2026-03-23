@@ -16,7 +16,7 @@
  * Plugin Name: Advance Ecommerce Tracking
  * Plugin URI:        https://www.thedotstore.com/woocommerce-enhanced-ecommerce-analytics-integration-with-conversion-tracking
  * Description:       Allows you to use Enhanced Ecommerce tracking without adding any new complex codes on your WooCommerce.
- * Version:           3.8.2
+ * Version:           3.8.3
  * Author:            theDotstore
  * Author URI:        https://www.thedotstore.com
  * License:           GPLv3 or later
@@ -26,8 +26,8 @@
  * Requires Plugins:  woocommerce
  *
  * WC requires at least: 5.3
- * WC tested up to:      10.4.3
- * WP tested up to:      6.9
+ * WC tested up to:      10.6.0
+ * WP tested up to:      6.9.3
  * Requires PHP:         7.2
  * Requires at least:    5.0
  */
@@ -47,23 +47,24 @@ if ( function_exists( 'aet_fs' ) ) {
                 require_once dirname( __FILE__ ) . '/freemius/start.php';
                 // @phpstan-ignore-next-line
                 $aet_fs = fs_dynamic_init( array(
-                    'id'              => '3475',
-                    'slug'            => 'advance-ecommerce-tracking',
-                    'type'            => 'plugin',
-                    'public_key'      => 'pk_0dbe70558f17f7a0881498011f656',
-                    'is_premium'      => false,
-                    'premium_suffix'  => 'Premium',
-                    'has_addons'      => false,
-                    'has_paid_plans'  => true,
-                    'has_affiliation' => 'selected',
-                    'menu'            => array(
+                    'id'               => '3475',
+                    'slug'             => 'advance-ecommerce-tracking',
+                    'type'             => 'plugin',
+                    'public_key'       => 'pk_0dbe70558f17f7a0881498011f656',
+                    'is_premium'       => false,
+                    'premium_suffix'   => 'Premium',
+                    'has_addons'       => false,
+                    'has_paid_plans'   => true,
+                    'has_affiliation'  => 'selected',
+                    'menu'             => array(
                         'slug'       => 'aet-et-settings',
                         'first-path' => 'admin.php?page=aet-et-settings',
                         'contact'    => false,
                         'support'    => false,
                         'network'    => true,
                     ),
-                    'is_live'         => true,
+                    'is_live'          => true,
+                    'is_org_compliant' => true,
                 ) );
             }
             return $aet_fs;
@@ -83,7 +84,7 @@ if ( function_exists( 'aet_fs' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 if ( !defined( 'AET_VERSION' ) ) {
-    define( 'AET_VERSION', '3.8.2' );
+    define( 'AET_VERSION', '3.8.3' );
 }
 if ( !defined( 'AET_PLUGIN_URL' ) ) {
     define( 'AET_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -256,66 +257,6 @@ if ( !function_exists( 'aet_deactivate_plugin' ) ) {
     }
 
 }
-/**
- * Admin notice for plugin activation.
- *
- * @since    3.0
- */
-if ( !function_exists( 'aet_admin_notice_function' ) ) {
-    function aet_admin_notice_function() {
-        $screen = get_current_screen();
-        $screen_id = ( $screen ? $screen->id : '' );
-        if ( strpos( $screen_id, 'dotstore-plugins_page' ) || strpos( $screen_id, 'plugins' ) ) {
-            $aet_admin = filter_input( INPUT_GET, 'aet-hide-notice', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            $wc_notice_nonce = filter_input( INPUT_GET, '_aet_notice_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-            if ( isset( $aet_admin ) && $aet_admin === 'aet_admin' && wp_verify_nonce( sanitize_text_field( $wc_notice_nonce ), 'aet_hide_notices_nonce' ) ) {
-                delete_transient( 'aet-admin-notice' );
-            }
-            /* Check transient, if available display notice */
-            if ( get_transient( 'aet-admin-notice' ) ) {
-                ?>
-			<div id="message"
-			     class="updated woocommerce-message woocommerce-admin-promo-messages welcome-panel aet-panel">
-				<a class="woocommerce-message-close notice-dismiss"
-				   href="<?php 
-                echo esc_url( wp_nonce_url( add_query_arg( 'aet-hide-notice', 'aet_admin' ), 'aet_hide_notices_nonce', '_aet_notice_nonce' ) );
-                ?>">
-				</a>
-				<p>
-					<?php 
-                echo sprintf( wp_kses( __( '<strong>Advance Ecommerce Tracking is successfully installed and ready to go.</strong>', 'advance-ecommerce-tracking' ), array(
-                    'strong' => array(),
-                ), esc_url( admin_url( 'options-general.php' ) ) ) );
-                ?>
-				</p>
-				<p>
-					<?php 
-                echo wp_kses_post( __( 'Click on settings button and do your setting as per your requirement.', 'advance-ecommerce-tracking' ) );
-                ?>
-				</p>
-				<?php 
-                $url = add_query_arg( array(
-                    'page' => 'aet-pro-list',
-                ), admin_url( 'admin.php' ) );
-                ?>
-				<p>
-					<a href="<?php 
-                echo esc_url( $url );
-                ?>" class="button button-primary">
-						<?php 
-                esc_html_e( 'Settings', 'advance-ecommerce-tracking' );
-                ?>
-					</a>
-				</p>
-			</div>
-			<?php 
-            }
-        } else {
-            return;
-        }
-    }
-
-}
 if ( !function_exists( 'aet_upgrade_completed' ) ) {
     function aet_upgrade_completed(  $upgrader_object, $options  ) {
         $our_plugin = plugin_basename( __FILE__ );
@@ -431,3 +372,24 @@ add_action( 'before_woocommerce_init', function () {
         \Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
     }
 } );
+// Sign in / Sign out / Sign up tracking: set transients for GA4 event on next page load.
+add_action(
+    'wp_login',
+    'aet_track_sign_in_set_transient',
+    10,
+    2
+);
+add_action( 'wp_logout', 'aet_track_sign_out_set_transient', 10 );
+add_action(
+    'user_register',
+    'aet_track_sign_up_set_transient',
+    10,
+    1
+);
+// Refund tracking: queue refund data when order is fully refunded.
+add_action(
+    'woocommerce_order_fully_refunded',
+    'aet_track_refund_queue',
+    10,
+    2
+);

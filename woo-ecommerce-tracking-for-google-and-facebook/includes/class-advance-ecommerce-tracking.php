@@ -214,68 +214,27 @@ if ( !class_exists( 'Advance_Ecommerce_Tracking' ) ) {
             if ( !is_admin() ) {
                 $plugin_public = new Advance_Ecommerce_Tracking_Public($this->get_plugin_name(), $this->get_version());
                 $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-                $ua = get_option( 'selected_data_ua_et' );
+                $aet_et_tracking_settings = json_decode( get_option( 'aet_et_tracking_settings' ), true );
+                $mepfour = ( !empty( $aet_et_tracking_settings['manually_et_px_ver_4'] ) ? $aet_et_tracking_settings['manually_et_px_ver_4'] : '' );
                 $track_user = aet_tracking_user( 'et' );
-                if ( $ua ) {
-                    $aet_et_tracking_settings = json_decode( get_option( 'aet_et_tracking_settings' ), true );
-                    $mepfour = ( isset( $aet_et_tracking_settings['manually_et_px_ver_4'] ) ? $aet_et_tracking_settings['manually_et_px_ver_4'] : '' );
-                    if ( empty( $mepfour ) ) {
-                        $mepfour = false;
-                    }
-                    if ( !empty( $aet_et_tracking_settings ) && isset( $aet_et_tracking_settings['at_enable'] ) && isset( $aet_et_tracking_settings['enhance_ecommerce_tracking'] ) ) {
-                        $aet_enable = $aet_et_tracking_settings['at_enable'];
-                        $enhance_ecommerce_tracking = $aet_et_tracking_settings['enhance_ecommerce_tracking'];
-                    } else {
-                        $aet_enable = 'off';
-                        $enhance_ecommerce_tracking = 'off';
-                        $mepfour = false;
+                if ( !empty( $aet_et_tracking_settings ) && isset( $aet_et_tracking_settings['at_enable'] ) && isset( $aet_et_tracking_settings['enhance_ecommerce_tracking'] ) ) {
+                    $aet_enable = $aet_et_tracking_settings['at_enable'];
+                    $enhance_ecommerce_tracking = $aet_et_tracking_settings['enhance_ecommerce_tracking'];
+                    if ( in_array( $aet_enable, array('UA', 'BOTH', 'on'), true ) ) {
+                        $aet_enable = 'GA4';
                     }
                 } else {
                     $aet_enable = 'off';
                     $enhance_ecommerce_tracking = 'off';
                     $mepfour = false;
                 }
-                if ( 'UA' === $aet_enable || 'BOTH' === $aet_enable || 'on' === $aet_enable ) {
-                    $this->loader->add_action( 'wp_head', $plugin_public, 'aet_add_tracking_code' );
-                    if ( 'on' === $enhance_ecommerce_tracking ) {
-                        $this->loader->add_filter(
-                            'aet_tracking_require_filter',
-                            $plugin_public,
-                            'aet_require_ec',
-                            10,
-                            2
-                        );
-                        $this->loader->add_action( 'woocommerce_after_checkout_form', $plugin_public, 'aet_checkout_process' );
-                        $this->loader->add_action(
-                            'woocommerce_checkout_order_processed',
-                            $plugin_public,
-                            'aet_store_order_id',
-                            10,
-                            2
-                        );
-                        $this->loader->add_action(
-                            'woocommerce_order_status_processing',
-                            $plugin_public,
-                            'aet_order_pro_comp',
-                            10
-                        );
-                        $this->loader->add_action(
-                            'woocommerce_order_status_completed',
-                            $plugin_public,
-                            'aet_order_pro_comp',
-                            10
-                        );
-                        $this->loader->add_action(
-                            'woocommerce_thankyou',
-                            $plugin_public,
-                            'aet_order_pro_comp',
-                            10
-                        );
-                        $this->loader->add_filter( 'woocommerce_get_return_url', $plugin_public, 'aet_change_return_url' );
-                        $this->loader->add_filter( 'http_request_timeout', $plugin_public, 'aet_post_timeout' );
-                    }
+                if ( empty( $mepfour ) ) {
+                    $mepfour = false;
                 }
-                if ( ('BOTH' === $aet_enable || 'GA4' === $aet_enable) && $track_user ) {
+                if ( 'GA4' === $aet_enable && $track_user ) {
+                    if ( aet_fs()->is__premium_only() && aet_fs()->can_use_premium_code() ) {
+                        $this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts__premium_only' );
+                    }
                     if ( 'on' === $enhance_ecommerce_tracking && $mepfour !== false ) {
                         $this->loader->add_action(
                             'woocommerce_thankyou',
@@ -286,8 +245,7 @@ if ( !class_exists( 'Advance_Ecommerce_Tracking' ) ) {
                         );
                     }
                 }
-                $aet_4_enable = $aet_enable;
-                if ( ('GA4' === $aet_4_enable || 'BOTH' === $aet_4_enable) && $track_user ) {
+                if ( 'GA4' === $aet_enable && $track_user && $mepfour !== false ) {
                     if ( $mepfour !== false ) {
                         $this->loader->add_action( 'wp_head', $plugin_public, 'aet_4_add_tracking_code' );
                     }

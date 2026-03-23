@@ -4,12 +4,12 @@ Plugin URI: https://wordpress.org/plugins/woo-ecommerce-tracking-for-google-and-
 Author: Thedotstore
 Author URI: https://www.thedotstore.com/
 Contributors: dots, jaydeep-rami, jitendrabanjara1991
-Stable tag: 3.8.2
+Stable tag: 3.8.3
 Tags: Analytics, E-commerce, Google Analytics, E-commerce Tracking, Statistics
 Requires at least: 5.0
 Requires PHP: 7.2
-Tested up to: 6.9
-WC tested up to: 10.4.3
+Tested up to: 6.9.3
+WC tested up to: 10.6.0
 WC requires at least: 5.3
 Donate link: 
 Copyright: (c) 2015-2019 Thedotstore all rights reserved (support@thedotstore.com)
@@ -147,7 +147,7 @@ For comprehensive guides, tutorials, and FAQ, visit our <a href ="https://bit.ly
 This plugin provides in-depth tracking of customer behavior, product impressions, and purchase activities. It allows for personalized marketing strategies, dynamic remarketing, and detailed insights into the customer journey, ultimately helping optimize store performance.
 
 = Q: Is the plugin compatible with Google Analytics 4? =
-Yes, our plugin is designed to seamlessly integrate with both Universal Analytics and Google Analytics 4, ensuring you can keep tracking your WooCommerce website effectively.
+Yes, our plugin is designed to seamlessly integrate with Google Analytics 4 (GA4), ensuring you can keep tracking your WooCommerce website effectively.
 
 = Q: Can I track custom events with this plugin? =
 Absolutely. The plugin enables you to set up and track custom events, giving you further insights into how users interact with your store, which is crucial for optimizing and enhancing the shopping experience.
@@ -164,6 +164,12 @@ Absolutely. The plugin enables you to set up and track custom events, giving you
 Automatic updates should work great for you.  As always, though, we recommend backing up your site prior to making any updates just to be sure nothing goes wrong.
 
 == Changelog ==
+= 3.8.3 =
+* [New] Added event tracking for manually created orders
+* [Bug Fix] Addressed minor security-related issues
+* [Enhancement] Compatible with WooCommerce 10.6.x
+* [Enhancement] Compatible with WordPress 6.9.x
+
 = 3.8.2 =
 * [Bug Fix] Minor bug fixes.
 * [Enhancement] Compatible with WooCommerce 10.4.x

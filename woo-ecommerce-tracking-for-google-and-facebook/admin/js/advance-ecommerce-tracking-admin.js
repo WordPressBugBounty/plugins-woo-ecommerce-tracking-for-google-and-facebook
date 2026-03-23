@@ -29,7 +29,7 @@
 		 * Although scripts in the WordPress core, Plugins and Themes may be
 		 * practising this, we should strive to set a better example in our own work.
 		 */
-		$(window).load(function () {
+		$(window).on('load', function () {
 			function getUrlVars () {
 				var vars = [], hash, get_current_url;
 				get_current_url = window.location.href;
@@ -132,10 +132,8 @@
 				let get_attr = $('#manually_' + btn_attr + '_px').attr('data-attr');
 				let get_val = $.trim($('#manually_' + btn_attr + '_px').val());
 				let get_attr_two = $('#manually_' + btn_attr + '_px').attr('data-attr-two');
-				console.log(get_val);
 				
 				if ('' === get_val) {
-					console.log('blank');
 					let sub_wizard_field = document.getElementById('sub_wizard_field').getElementsByClassName('field_div')[0];
 					if ($('#main_error_div').length === 0) {
 						let div = document.createElement('div');
@@ -301,7 +299,6 @@
 					$.ajax({
 						type: 'GET',
 						url: aet_vars.ajaxurl,
-						nonce: aet_vars.aet_chk_nonce_ajax,
 						data: {
 							'action': 'aet_wc_multiple_delete_row__premium_only',
 							'nonce': aet_vars.aet_chk_nonce_ajax,
@@ -351,8 +348,7 @@
 					cors: true,
 					contentType:'application/json',
 					
-					success: function (data) {
-						console.log(data);
+					success: function () {
 					},
 					error: function () {
 					}
@@ -422,8 +418,7 @@
 				$.ajax({
 					url: aet_vars.ajaxurl,
 					data: wizardData,
-					success: function ( success ) {
-						console.log(success);
+					success: function (  ) {
 					}
 				});
 			});
@@ -534,11 +529,9 @@
 	            name: 'Advance Ecommerce Tracking',
 	            subtitle: 'You’re a step closer to our Pro features',
 	            licenses: jQuery('input[name="licence"]:checked').val(),
-	            purchaseCompleted: function( response ) {
-	                console.log (response);
+	            purchaseCompleted: function(  ) {
 	            },
-	            success: function (response) {
-	                console.log (response);
+	            success: function () {
 	            }
 	        });
 	    }

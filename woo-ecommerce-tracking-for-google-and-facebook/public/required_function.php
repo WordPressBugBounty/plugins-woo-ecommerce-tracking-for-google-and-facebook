@@ -128,284 +128,196 @@ function aet_get_all_aet_tracking_data(  $args  ) {
 }
 
 /**
- * API for Measurement protocol.
+ * Get purchase tracking data for an order.
+ * Used by frontend thank you page and admin order tracking for manual orders.
  *
+ * @param int $order_id Order ID.
+ * @return array|false Array of tracking data or false if order invalid.
  * @since 3.0
  */
-function aet_measurement_protocol_api_url() {
-    $debug = DEBUG_OPTION;
-    if ( true === $debug ) {
-        return esc_url( 'https://www.google-analytics.com/debug/collect' );
-    } else {
-        return esc_url( 'https://www.google-analytics.com/collect' );
-    }
-}
-
-/**
- * Output for the debug.
- *
- * @param array|mixed $var
- *
- * @since 3.0
- */
-function aet_measurement_protocol_api_debug_output(  $var  ) {
-    return;
-}
-
-/**
- * Analytics API call.
- *
- * @param array $aet_api_args
- *
- * @return mixed $response
- *
- * @since 3.0
- */
-function aet_measurement_protocol_api_call(  $aet_api_args = array()  ) {
-    $get_http_client_ip = filter_input( INPUT_SERVER, 'HTTP_CLIENT_IP', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    $get_http_x_forwarded = filter_input( INPUT_SERVER, 'HTTP_X_FORWARDED_FOR', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    $get_http_remote_address = filter_input( INPUT_SERVER, 'REMOTE_ADDR', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    $get_http_accept_lang = filter_input( INPUT_SERVER, 'HTTP_ACCEPT_LANGUAGE', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    $get_request_uri = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    $get_http_user_agent = filter_input( INPUT_SERVER, 'HTTP_USER_AGENT', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    $user_agent = '';
-    if ( !empty( $aet_api_args['user-agent'] ) ) {
-        $user_agent = $aet_api_args['user-agent'];
-        unset($aet_api_args['user-agent']);
-    }
-    $order_id = 0;
-    if ( !empty( $aet_api_args['payment_id'] ) ) {
-        $order_id = $aet_api_args['payment_id'];
-        unset($aet_api_args['payment_id']);
-    }
-    if ( is_user_logged_in() ) {
-        $aet_api_args['uid'] = get_current_user_id();
-    }
-    $defaults = array(
-        't'  => 'event',
-        'ec' => '',
-        'ea' => '',
-        'el' => '',
-        'ev' => null,
-    );
-    $body = array_merge( $defaults, $aet_api_args );
-    $client_ip = '';
-    if ( !empty( $get_http_client_ip ) && !filter_var( $get_http_client_ip, FILTER_VALIDATE_IP ) === false ) {
-        $client_ip = $get_http_client_ip;
-    } elseif ( !empty( $get_http_x_forwarded ) && !filter_var( $get_http_x_forwarded, FILTER_VALIDATE_IP ) === false ) {
-        $client_ip = $get_http_x_forwarded;
-    } else {
-        $client_ip = $get_http_remote_address;
-    }
-    $site_language = ( isset( $get_http_accept_lang ) ? explode( ',', $get_http_accept_lang ) : array() );
-    $site_language = reset( $site_language );
-    $site_language = sanitize_text_field( $site_language );
-    $default_body = array(
-        'v'   => '1',
-        'tid' => aet_get_tracking_id( 'et' ),
-        'cid' => aet_measurement_protocol_get_client_id( $order_id ),
-        'ni'  => true,
-        'dh'  => str_replace( array('http://', 'https://'), '', site_url() ),
-        'dp'  => $get_request_uri,
-        'dt'  => get_the_title(),
-        'ul'  => $site_language,
-        'uip' => $client_ip,
-        'ua'  => ( !empty( $user_agent ) ? $user_agent : $get_http_user_agent ),
-        'z'   => time(),
-    );
-    $body = wp_parse_args( $body, $default_body );
-    foreach ( $body as $key => $value ) {
-        if ( empty( $value ) ) {
-            unset($body[$key]);
-        }
-    }
-    $aet_api_args = array(
-        'method'   => 'POST',
-        'blocking' => false,
-        'body'     => $body,
-    );
-    if ( !empty( $user_agent ) ) {
-        $aet_api_args['user-agent'] = $user_agent;
-    }
-    $response = wp_remote_post( aet_measurement_protocol_api_url(), $aet_api_args );
-    if ( true === DEBUG_OPTION ) {
-        aet_measurement_protocol_api_debug_output( $body );
-        aet_measurement_protocol_api_debug_output( $response );
-    } else {
-        return $response;
-    }
-}
-
-/**
- * Check page is reload or not.
- *
- * @return string $url
- *
- * @since 3.0
- */
-function aet_is_page_reload() {
-    $get_request_uri = filter_input( INPUT_SERVER, 'REQUEST_URI', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    $get_http_refer = filter_input( INPUT_SERVER, 'HTTP_REFERER', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    if ( !isset( $get_http_refer ) ) {
+function aet_get_purchase_tracking_data(  $order_id  ) {
+    if ( !function_exists( 'wc_get_order' ) || !function_exists( 'wc_format_decimal' ) ) {
         return false;
     }
-    return wp_parse_url( $get_http_refer, PHP_URL_PATH ) === wp_parse_url( $get_request_uri, PHP_URL_PATH );
-}
-
-/**
- * Get client id regarding order id.
- *
- * @return bool $order_id
- *
- * @return string $order_id_wth_uuid if $order is not empty otherwise it will return $ga_uuid.
- *                if $ga_uuid is empty then it generate clients id from cookie and return client id.
- *
- * @since 3.0
- */
-function aet_measurement_protocol_get_client_id(  $order_id = false  ) {
-    if ( is_object( $order_id ) ) {
-        $order_id = $order_id->ID;
-    }
-    $ga_uuid = aet_measurement_protocol_get_uuid();
-    $order_id_wth_uuid = ( !empty( $order_id ) ? get_post_meta( $order_id, 'order_id_wth_uuid', true ) : false );
-    if ( !empty( $order_id ) && !empty( $order_id_wth_uuid ) ) {
-        return $order_id_wth_uuid;
-    } else {
-        if ( !empty( $ga_uuid ) ) {
-            return $ga_uuid;
-        } else {
-            return aet_measurement_protocol_generate_uuid();
-        }
-    }
-}
-
-/**
- * It will returns the client id from cookie. Like: GA1.2.XXXXXXX.YYYYY _ga=1.2.XXXXXXX.YYYYYY -- We want the XXXXXXX.YYYYYY part.
- *
- * @return bool|string false
- *
- * @link  https://developers.google.com/analytics/devguides/collection/analyticsjs/domains#getClientId
- *
- * @since 3.0
- */
-function aet_measurement_protocol_get_uuid() {
-    $cookie_ga = filter_input( INPUT_COOKIE, '_ga', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    if ( empty( $cookie_ga ) ) {
+    $order = wc_get_order( $order_id );
+    if ( !$order || !is_a( $order, 'WC_Order' ) ) {
         return false;
     }
-    $ga_cookie = $cookie_ga;
-    $cookie_parts = explode( '.', $ga_cookie );
-    if ( is_array( $cookie_parts ) && !empty( $cookie_parts[2] ) && !empty( $cookie_parts[3] ) ) {
-        $uuid = (string) $cookie_parts[2] . '.' . (string) $cookie_parts[3];
-        if ( is_string( $uuid ) ) {
-            return $uuid;
-        } else {
-            return false;
+    global $woocommerce;
+    $woo_version = ( isset( $woocommerce->version ) && !empty( $woocommerce->version ) ? $woocommerce->version : '3.0' );
+    $payment_method = $order->get_payment_method();
+    $coupons_list = '';
+    if ( version_compare( $woo_version, '3.7', '>' ) ) {
+        $codes = $order->get_coupon_codes();
+        if ( !empty( $codes ) ) {
+            $coupons_list = ( is_array( $codes ) ? implode( ', ', $codes ) : (string) $codes );
         }
     } else {
-        return false;
+        $codes = $order->get_coupon_codes();
+        if ( !empty( $codes ) ) {
+            $coupons_list = ( is_array( $codes ) ? implode( ', ', $codes ) : (string) $codes );
+        }
     }
-}
-
-/**
- * Generate temporarily uuid.
- *
- * @return string Like: %04x%04x-%04x-%04x-%04x-%04x%04x%04x
- *
- * @since 3.0
- */
-function aet_measurement_protocol_generate_uuid() {
-    return sprintf(
-        '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-        wp_rand( 0, 0xffff ),
-        wp_rand( 0, 0xffff ),
-        wp_rand( 0, 0xffff ),
-        wp_rand( 0, 0xfff ) | 0x4000,
-        wp_rand( 0, 0x3fff ) | 0x8000,
-        wp_rand( 0, 0xffff ),
-        wp_rand( 0, 0xffff ),
-        wp_rand( 0, 0xffff )
+    $currency = get_woocommerce_currency();
+    $orderpage_prod = '';
+    $items = $order->get_items();
+    if ( !empty( $items ) ) {
+        foreach ( $items as $item ) {
+            $_product = ( is_callable( array($item, 'get_product') ) ? $item->get_product() : null );
+            if ( !$_product || !is_a( $_product, 'WC_Product' ) ) {
+                continue;
+            }
+            $product_id = ( version_compare( $woo_version, '2.7', '<' ) && isset( $_product->ID ) ? $_product->ID : $_product->get_id() );
+            $categories = get_the_terms( $product_id, 'product_cat' );
+            $allcategories = '';
+            if ( !empty( $categories ) && !is_wp_error( $categories ) ) {
+                $cat_count = 2;
+                $loop_count = 1;
+                foreach ( $categories as $term ) {
+                    if ( 1 === $loop_count ) {
+                        $allcategories .= 'item_category: "' . esc_js( $term->name ) . '",';
+                    } else {
+                        $allcategories .= 'item_category' . $cat_count . ': "' . esc_js( $term->name ) . '",';
+                        $cat_count++;
+                    }
+                    $loop_count++;
+                }
+            }
+            $discount = 0;
+            $regular = $_product->get_regular_price();
+            $sale = $_product->get_sale_price();
+            if ( !empty( $regular ) && !empty( $sale ) ) {
+                $decimals = ( function_exists( 'wc_get_price_decimals' ) ? wc_get_price_decimals() : 2 );
+                $discount = wc_format_decimal( (float) $regular - (float) $sale, $decimals );
+            }
+            $qty = 1;
+            if ( is_array( $item ) && isset( $item['qty'] ) ) {
+                $qty = $item['qty'];
+            } elseif ( is_callable( array($item, 'get_quantity') ) ) {
+                $qty = $item->get_quantity();
+            }
+            $qty_js = ( empty( $qty ) || '' === $qty ? '""' : esc_js( $qty ) );
+            $sku = $_product->get_sku();
+            $sku = ( !empty( $sku ) ? $sku : 'SKU_' . $product_id );
+            $item_brand = apply_filters( 'aet_item_brand', '' );
+            $brand_property = ( !empty( $item_brand ) ? 'item_brand: "' . esc_js( $item_brand ) . '",' : '' );
+            $item_total = ( is_callable( array($order, 'get_item_total') ) ? $order->get_item_total( $item ) : 0 );
+            $orderpage_prod .= '{
+				item_id: "' . esc_js( $sku ) . '",
+				item_name: "' . html_entity_decode( addslashes( $_product->get_name() ) ) . '",
+				' . $brand_property . '
+				coupon: "' . esc_js( $coupons_list ) . '",
+				currency: "' . esc_js( $currency ) . '",
+				discount: ' . esc_js( $discount ) . ',
+				price: ' . esc_js( $item_total ) . ',
+				' . $allcategories . '
+				quantity: ' . $qty_js . '
+			},';
+        }
+        $orderpage_prod = rtrim( $orderpage_prod, ',' );
+    }
+    return array(
+        'currency'       => $currency,
+        'transaction_id' => $order->get_order_number(),
+        'value'          => $order->get_total(),
+        'coupons_list'   => $coupons_list,
+        'shipping'       => $order->get_shipping_total(),
+        'tax'            => $order->get_total_tax(),
+        'payment_method' => $payment_method,
+        'items_json'     => $orderpage_prod,
     );
 }
 
 /**
- * Check user role is log-in or not for tracking.
+ * Set transient to fire sign_in event on next frontend page load.
+ * Only when sign_in_tracking is enabled and premium code is allowed.
  *
- * @param string $args
- *
- * @return bool $track_user
+ * @param string  $user_login Username.
+ * @param WP_User $user       User object.
  *
  * @since 3.0
  */
-function aet_ft_tracking_user(  $args  ) {
-    $user = wp_get_current_user();
-    $track_user = true;
-    if ( is_multisite() && is_super_admin() ) {
-        $track_user = false;
+function aet_track_sign_in_set_transient(  $user_login, $user  ) {
+    if ( !function_exists( 'aet_fs' ) || !aet_fs()->is__premium_only() || !aet_fs()->can_use_premium_code() ) {
+        return;
     }
-    $ua = aet_get_tracking_id( $args );
-    if ( empty( $ua ) ) {
-        $track_user = false;
+    $settings = json_decode( (string) get_option( 'aet_et_tracking_settings', '{}' ), true );
+    if ( empty( $settings['sign_in_tracking'] ) || 'on' !== $settings['sign_in_tracking'] ) {
+        return;
     }
-    return apply_filters( 'aet_ft_tracking_user', $track_user, $user );
+    set_transient( 'aet_ga4_track_sign_in', 1, 60 );
 }
 
 /**
- * Check ecommerce tracking is enable or not for fb.
- *
- * @param string $args
- *
- * @return string $fb_ecommerce_tracking
+ * Set transient to fire sign_out event on next frontend page load.
+ * Only when sign_out_tracking is enabled and premium code is allowed.
  *
  * @since 3.0
  */
-function aet_check_fb_ecommerce_tracking(  $args  ) {
-    $aet_et_tracking_settings = aet_get_setting_option( $args );
-    $fb_ecommerce_tracking = ( empty( $aet_et_tracking_settings->fb_ecommerce_tracking ) ? '' : $aet_et_tracking_settings->fb_ecommerce_tracking );
-    return $fb_ecommerce_tracking;
+function aet_track_sign_out_set_transient() {
+    if ( !function_exists( 'aet_fs' ) || !aet_fs()->is__premium_only() || !aet_fs()->can_use_premium_code() ) {
+        return;
+    }
+    $settings = json_decode( (string) get_option( 'aet_et_tracking_settings', '{}' ), true );
+    if ( empty( $settings['sign_out_tracking'] ) || 'on' !== $settings['sign_out_tracking'] ) {
+        return;
+    }
+    set_transient( 'aet_ga4_track_sign_out', 1, 60 );
 }
 
 /**
- * Check google conversion tracking is enable or not for fb.
+ * Set transient to fire sign_up event on next frontend page load.
+ * Only when sign_up_tracking is enabled and premium code is allowed.
  *
- * @param string $args
- *
- * @return string $gc_enable
+ * @param int $user_id User ID.
  *
  * @since 3.0
  */
-function aet_check_gc_conversion_tracking(  $args  ) {
-    $aet_et_tracking_settings = aet_get_setting_option( $args );
-    $gc_enable = ( empty( $aet_et_tracking_settings->gc_enable ) ? '' : $aet_et_tracking_settings->gc_enable );
-    return $gc_enable;
+function aet_track_sign_up_set_transient(  $user_id  ) {
+    if ( !function_exists( 'aet_fs' ) || !aet_fs()->is__premium_only() || !aet_fs()->can_use_premium_code() ) {
+        return;
+    }
+    $settings = json_decode( (string) get_option( 'aet_et_tracking_settings', '{}' ), true );
+    if ( empty( $settings['sign_up_tracking'] ) || 'on' !== $settings['sign_up_tracking'] ) {
+        return;
+    }
+    set_transient( 'aet_ga4_track_sign_up', 1, 60 );
 }
 
 /**
- * Check google conversion id is empty or not for fb.
+ * Queue refund data to send refund event on next frontend page load.
+ * Part of Enhanced Ecommerce; runs when order is fully refunded (no separate setting).
  *
- * @param string $args
- *
- * @return string $gc_id
- *
- * @since 3.0
- */
-function aet_check_gc_id(  $args  ) {
-    $aet_et_tracking_settings = aet_get_setting_option( $args );
-    $gc_id = ( empty( $aet_et_tracking_settings->gc_id ) ? '' : $aet_et_tracking_settings->gc_id );
-    return $gc_id;
-}
-
-/**
- * Check google conversion id is empty or not for fb.
- *
- * @param string $args
- *
- * @return string $gc_label
+ * @param int $order_id Order ID.
+ * @param int $refund_id Refund ID (optional, WC 2.2+).
  *
  * @since 3.0
  */
-function aet_check_gc_label(  $args  ) {
-    $aet_et_tracking_settings = aet_get_setting_option( $args );
-    $gc_label = ( empty( $aet_et_tracking_settings->gc_label ) ? '' : $aet_et_tracking_settings->gc_label );
-    return $gc_label;
+function aet_track_refund_queue(  $order_id, $refund_id = 0  ) {
+    if ( !function_exists( 'aet_fs' ) || !aet_fs()->is__premium_only() || !aet_fs()->can_use_premium_code() ) {
+        return;
+    }
+    if ( !function_exists( 'wc_get_order' ) ) {
+        return;
+    }
+    $order = wc_get_order( $order_id );
+    if ( !$order || !is_a( $order, 'WC_Order' ) ) {
+        return;
+    }
+    $total_refunded = $order->get_total_refunded();
+    $currency = $order->get_currency();
+    $transaction_id = $order->get_order_number();
+    if ( empty( $transaction_id ) ) {
+        $transaction_id = (string) $order_id;
+    }
+    $pending = get_option( 'aet_ga4_pending_refunds', array() );
+    if ( !is_array( $pending ) ) {
+        $pending = array();
+    }
+    $pending[] = array(
+        'transaction_id' => $transaction_id,
+        'value'          => (float) $total_refunded,
+        'currency'       => $currency,
+    );
+    update_option( 'aet_ga4_pending_refunds', $pending );
 }

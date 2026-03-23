@@ -182,12 +182,14 @@ class Advance_Ecommerce_Tracking_Admin {
          * between the defined hooks and the functions defined in this
          * class.
          */
+        $this->aet_track_admin_order_ga4( $hook );
         if ( false !== strpos( $hook, '_aet' ) ) {
             global $wp;
             $current_url = home_url( add_query_arg( $wp->query_vars, $wp->request ) );
             wp_enqueue_script(
                 $this->plugin_name . '-api',
                 esc_url( 'https://apis.google.com/js/api.js' ),
+                array(),
                 $this->version,
                 false
             );
@@ -236,6 +238,116 @@ class Advance_Ecommerce_Tracking_Admin {
                 'all'
             );
         }
+    }
+
+    /**
+     * Track manually created admin orders in GA4.
+     * Fires purchase event when admin views an order that hasn't been tracked yet.
+     * Prevents duplicate tracking via aet_ga_placed_order_success meta.
+     *
+     * @param string $hook The current admin page hook.
+     * @since 3.0
+     */
+    public function aet_track_admin_order_ga4( $hook ) {
+        if ( !current_user_can( 'edit_shop_orders' ) ) {
+            return;
+        }
+        $order_id = 0;
+        // Support legacy post-based URL: post.php?post=123&action=edit
+        // phpcs:disable WordPress.Security.NonceVerification.Recommended -- GET params from WordPress/WooCommerce core URLs; read-only to identify which order page is being viewed.
+        if ( 'post.php' === $hook && isset( $_GET['post'] ) ) {
+            $order_id = absint( $_GET['post'] );
+            if ( get_post_type( $order_id ) !== 'shop_order' ) {
+                return;
+            }
+        } elseif ( ('woocommerce_page_wc-orders' === $hook || 'toplevel_page_wc-orders' === $hook || 'admin_page_wc-orders' === $hook || false !== strpos( $hook, 'wc-orders' )) && isset( $_GET['action'] ) && 'edit' === sanitize_text_field( wp_unslash( $_GET['action'] ) ) && isset( $_GET['id'] ) ) {
+            $order_id = absint( $_GET['id'] );
+        } elseif ( isset( $_GET['page'] ) && ('wc-orders' === sanitize_text_field( wp_unslash( $_GET['page'] ) ) || 0 === strpos( sanitize_text_field( wp_unslash( $_GET['page'] ) ), 'wc-orders' )) && isset( $_GET['action'] ) && 'edit' === sanitize_text_field( wp_unslash( $_GET['action'] ) ) && isset( $_GET['id'] ) ) {
+            $order_id = absint( $_GET['id'] );
+        }
+        // phpcs:enable WordPress.Security.NonceVerification.Recommended
+        if ( !$order_id ) {
+            return;
+        }
+        // Safely check dependencies.
+        if ( !function_exists( 'wc_get_order' ) ) {
+            return;
+        }
+        $order = wc_get_order( $order_id );
+        if ( !$order || !is_a( $order, 'WC_Order' ) ) {
+            return;
+        }
+        // Skip if already tracked (frontend thank you or previous admin view).
+        // Use order meta API for HPOS compatibility.
+        $already_tracked = $order->get_meta( 'aet_ga_placed_order_success' );
+        if ( 'true' === $already_tracked || true === $already_tracked ) {
+            return;
+        }
+        // Only track orders in paid/fulfillable status.
+        $order_status = $order->get_status();
+        if ( !in_array( $order_status, array('processing', 'completed'), true ) ) {
+            return;
+        }
+        $aet_et_tracking_settings = json_decode( get_option( 'aet_et_tracking_settings' ), true );
+        if ( empty( $aet_et_tracking_settings ) || !is_array( $aet_et_tracking_settings ) ) {
+            return;
+        }
+        $ga4_id = ( !empty( $aet_et_tracking_settings['manually_et_px_ver_4'] ) ? $aet_et_tracking_settings['manually_et_px_ver_4'] : '' );
+        if ( empty( $ga4_id ) ) {
+            return;
+        }
+        // Check GA4 and enhanced ecommerce are enabled.
+        $aet_enable = ( isset( $aet_et_tracking_settings['at_enable'] ) ? $aet_et_tracking_settings['at_enable'] : 'off' );
+        $enhance_ecommerce = ( isset( $aet_et_tracking_settings['enhance_ecommerce_tracking'] ) ? $aet_et_tracking_settings['enhance_ecommerce_tracking'] : 'off' );
+        if ( !in_array( $aet_enable, array(
+            'UA',
+            'BOTH',
+            'on',
+            'GA4'
+        ), true ) || 'on' !== $enhance_ecommerce ) {
+            return;
+        }
+        if ( !function_exists( 'aet_get_purchase_tracking_data' ) ) {
+            return;
+        }
+        $data = aet_get_purchase_tracking_data( $order_id );
+        if ( !$data || !is_array( $data ) ) {
+            return;
+        }
+        // Mark as tracked BEFORE output to prevent duplicate on refresh.
+        // Use order meta API for HPOS compatibility.
+        $order->update_meta_data( 'aet_ga_placed_order_success', 'true' );
+        $order->save();
+        $ga4_id_attr = esc_attr( $ga4_id );
+        $currency = esc_js( ( isset( $data['currency'] ) ? $data['currency'] : get_woocommerce_currency() ) );
+        $trans_id = esc_js( ( isset( $data['transaction_id'] ) ? $data['transaction_id'] : (string) $order_id ) );
+        $value = ( is_numeric( $data['value'] ) ? floatval( $data['value'] ) : 0 );
+        $coupons = esc_js( ( isset( $data['coupons_list'] ) ? $data['coupons_list'] : '' ) );
+        $shipping = ( is_numeric( $data['shipping'] ) ? floatval( $data['shipping'] ) : 0 );
+        $tax = ( is_numeric( $data['tax'] ) ? floatval( $data['tax'] ) : 0 );
+        wp_enqueue_script(
+            'aet-ga4-admin-order-track',
+            'https://www.googletagmanager.com/gtag/js?id=' . $ga4_id_attr,
+            array(),
+            null,
+            true
+        );
+        $purchase_js = 'window.dataLayer = window.dataLayer || [];
+                        function gtag(){dataLayer.push(arguments);}
+                        gtag("js", new Date());
+                        gtag("config", "' . $ga4_id_attr . '");
+                        gtag("event", "purchase", {
+                            event_category: "Enhanced-Ecommerce",
+                            event_label: "purchase",
+                            currency: "' . $currency . '",
+                            transaction_id: "' . $trans_id . '",
+                            value: ' . $value . ',
+                            coupon: "' . $coupons . '",
+                            shipping: ' . $shipping . ',
+                            tax: ' . $tax . ',
+                            items: [ ' . (( isset( $data['items_json'] ) ? $data['items_json'] : '' )) . ' ]
+                        });';
+        wp_add_inline_script( 'aet-ga4-admin-order-track', $purchase_js, 'after' );
     }
 
     /**
@@ -619,7 +731,10 @@ class Advance_Ecommerce_Tracking_Admin {
                 $manually_et_px_ver_4 = filter_input( INPUT_POST, 'manually_et_px_ver_4', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                 $tracking_settings_array['manually_et_px_ver_4'] = $manually_et_px_ver_4;
                 $get_at_tracking_option_enable = filter_input( INPUT_POST, 'at_enable', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-                $at_tracking_option_enable = ( isset( $get_at_tracking_option_enable ) ? sanitize_text_field( $get_at_tracking_option_enable ) : 'UA' );
+                $at_tracking_option_enable = ( isset( $get_at_tracking_option_enable ) ? sanitize_text_field( $get_at_tracking_option_enable ) : 'GA4' );
+                if ( in_array( $at_tracking_option_enable, array('UA', 'BOTH', 'on'), true ) ) {
+                    $at_tracking_option_enable = 'GA4';
+                }
                 $tracking_settings_array['at_enable'] = $at_tracking_option_enable;
                 $get_enhance_ecommerce_tracking = filter_input( INPUT_POST, 'enhance_ecommerce_tracking', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                 $enhance_ecommerce_tracking = ( isset( $get_enhance_ecommerce_tracking ) ? sanitize_text_field( $get_enhance_ecommerce_tracking ) : 'off' );
