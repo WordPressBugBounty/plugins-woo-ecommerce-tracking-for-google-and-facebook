@@ -139,6 +139,121 @@ class Advance_Ecommerce_Tracking_Public {
     }
 
     /**
+     * Blocks eligible for the "Conversion Tracking" panel, mapped to the CSS
+     * class of the specific <a> tag to target inside that block's markup.
+     * Leave the value null to target the block's first <a> tag.
+     *
+     * Keep in sync with AET_TRACKABLE_BLOCKS in
+     * admin/js/aet-block-conversion-tracking.js
+     *
+     * @since 3.1
+     */
+    private $aet_conversion_trackable_blocks = array(
+        'core/button'      => null,
+        'core/file'        => 'wp-block-file__button',
+        'core/social-link' => null,
+        'core/image'       => null,
+        'core/read-more'   => null,
+        'core/search'      => null,
+    );
+
+    /**
+     * Human-readable label per trackable block, used for event_category /
+     * event name on the front end. Keep keys in sync with
+     * $aet_conversion_trackable_blocks above.
+     *
+     * @since 3.1
+     */
+    private $aet_conversion_block_labels = array(
+        'core/button'      => 'Button',
+        'core/file'        => 'File',
+        'core/social-link' => 'Social Link',
+        'core/image'       => 'Image',
+        'core/read-more'   => 'Read More',
+        'core/search'      => 'Search',
+    );
+
+    /**
+     * Inject data-aet-conversion-tracking / data-aet-conversion-label
+     * attributes into the correct <a> tag of any trackable block whose
+     * "Enable Conversion Tracking" toggle was switched on in the editor.
+     *
+     * Hooked on `render_block` so it works regardless of theme/template,
+     * and requires no change to the saved block markup.
+     *
+     * @param string $block_content The block's rendered HTML.
+     * @param array  $block         Parsed block data, including blockName and attrs.
+     *
+     * @return string
+     * @since 3.1
+     */
+    public function aet_add_conversion_tracking_attributes( $block_content, $block ) {
+        $trackable_blocks = $this->aet_conversion_trackable_blocks;
+        if ( empty( $block['blockName'] ) || !array_key_exists( $block['blockName'], $trackable_blocks ) ) {
+            return $block_content;
+        }
+        if ( empty( $block['attrs']['aetEnableConversionTracking'] ) ) {
+            return $block_content;
+        }
+        if ( empty( $block_content ) ) {
+            return $block_content;
+        }
+        $anchor_class = $trackable_blocks[$block['blockName']];
+        $tag_len = 3;
+        // Length of the opening tag fragment we search/insert after, e.g. '<a ' or '<button '.
+        // Locate the right clickable tag: a specific class if one is configured
+        // (e.g. core/file's download button), otherwise the block's first anchor.
+        if ( $anchor_class && preg_match(
+            '/<a[^>]*class="[^"]*' . preg_quote( $anchor_class, '/' ) . '[^"]*"[^>]*>/i',
+            $block_content,
+            $tag_match,
+            PREG_OFFSET_CAPTURE
+        ) ) {
+            $pos = $tag_match[0][1];
+        } else {
+            $pos = strpos( $block_content, '<a ' );
+        }
+        // No anchor found — try a submit button/input instead (e.g. core/search).
+        if ( false === $pos ) {
+            $pos = strpos( $block_content, '<button ' );
+            if ( false !== $pos ) {
+                $tag_len = 8;
+                // Length of '<button '.
+            }
+        }
+        if ( false === $pos && preg_match(
+            '/<input[^>]*type="submit"[^>]*>/i',
+            $block_content,
+            $input_match,
+            PREG_OFFSET_CAPTURE
+        ) ) {
+            $pos = $input_match[0][1] + 6;
+            // Position right after '<input'.
+            $tag_len = 1;
+            // Just need a single space before inserting attributes.
+        }
+        // Nothing clickable found (e.g. unlinked image, buttonless search) — nothing to do.
+        if ( false === $pos ) {
+            return $block_content;
+        }
+        $label = ( !empty( $block['attrs']['aetConversionLabel'] ) ? sanitize_text_field( $block['attrs']['aetConversionLabel'] ) : '' );
+        // Fall back to the anchor's visible text when no custom label was set.
+        if ( '' === $label ) {
+            $remaining = substr( $block_content, $pos );
+            if ( preg_match( '/<(a|button)[^>]*>(.*?)<\\/(a|button)>/is', $remaining, $anchor_match ) ) {
+                $label = wp_strip_all_tags( $anchor_match[2] );
+            }
+            if ( '' === $label && preg_match( '/<img[^>]*\\salt="([^"]*)"/i', $remaining, $alt_match ) ) {
+                $label = $alt_match[1];
+            }
+        }
+        $insert_at = $pos + $tag_len;
+        $block_label = ( !empty( $this->aet_conversion_block_labels[$block['blockName']] ) ? $this->aet_conversion_block_labels[$block['blockName']] : 'Block' );
+        $attributes = 'data-aet-conversion-tracking="true" data-aet-conversion-label="' . esc_attr( $label ) . '" data-aet-block-type="' . esc_attr( $block_label ) . '" ';
+        return substr( $block_content, 0, $insert_at ) . $attributes . substr( $block_content, $insert_at );
+    }
+
+    /**
      * Add analytics-4 tracking code here.
      *
      * @since 3.0
@@ -146,7 +261,6 @@ class Advance_Ecommerce_Tracking_Public {
     public function aet_4_add_tracking_code() {
         // Global site tag (gtag.js) - Google Analytics
         $aet_4_data = $this->aet_4_data;
-        $ip_anonymization = $this->aet_data['ip_anonymization'];
         $aet_et_tracking_settings = json_decode( get_option( 'aet_et_tracking_settings' ), true );
         $demography = ( isset( $aet_et_tracking_settings['demogr_int_rema_adver'] ) ? $aet_et_tracking_settings['demogr_int_rema_adver'] : '' );
         $mepfour = ( isset( $aet_et_tracking_settings['manually_et_px_ver_4'] ) ? $aet_et_tracking_settings['manually_et_px_ver_4'] : '' );
@@ -154,9 +268,6 @@ class Advance_Ecommerce_Tracking_Public {
         $demography_status = '';
         if ( isset( $demography ) && "off" === $demography ) {
             $demography_status = "gtag('set', 'allow_ad_personalization_signals', false );";
-        }
-        if ( "on" === $ip_anonymization ) {
-            $config_params['anonymize_ip'] = true;
         }
         // User ID tracking for GA4 - uses aet_track_user_property__premium_only when enabled
         $user_id_tracking = ( isset( $this->aet_data['user_id_tracking'] ) ? $this->aet_data['user_id_tracking'] : '' );
@@ -254,18 +365,21 @@ class Advance_Ecommerce_Tracking_Public {
             $this->aet_add_inline_script( $event_code );
         }
         // Refund events: fire pending refunds when order was fully refunded (Enhanced Ecommerce, no separate setting).
-        $pending_refunds = get_option( 'aet_ga4_pending_refunds', array() );
-        if ( is_array( $pending_refunds ) && !empty( $pending_refunds ) ) {
-            foreach ( $pending_refunds as $refund ) {
-                $transaction_id = ( isset( $refund['transaction_id'] ) ? $refund['transaction_id'] : '' );
-                $value = ( isset( $refund['value'] ) ? (float) $refund['value'] : 0 );
-                $currency = ( isset( $refund['currency'] ) ? $refund['currency'] : get_woocommerce_currency() );
-                if ( !empty( $transaction_id ) ) {
-                    $event_code = 'gtag("event", "refund", { event_category: "Enhanced-Ecommerce", event_label: "refund", transaction_id: "' . esc_js( $transaction_id ) . '", value: ' . esc_js( $value ) . ', currency: "' . esc_js( $currency ) . '" });';
-                    $this->aet_add_inline_script( $event_code );
+        // Skip browser refunds when Measurement Protocol backend tracking handles them.
+        if ( !function_exists( 'aet_is_mp_backend_tracking_enabled' ) || !aet_is_mp_backend_tracking_enabled() ) {
+            $pending_refunds = get_option( 'aet_ga4_pending_refunds', array() );
+            if ( is_array( $pending_refunds ) && !empty( $pending_refunds ) ) {
+                foreach ( $pending_refunds as $refund ) {
+                    $transaction_id = ( isset( $refund['transaction_id'] ) ? $refund['transaction_id'] : '' );
+                    $value = ( isset( $refund['value'] ) ? (float) $refund['value'] : 0 );
+                    $currency = ( isset( $refund['currency'] ) ? $refund['currency'] : get_woocommerce_currency() );
+                    if ( !empty( $transaction_id ) ) {
+                        $event_code = 'gtag("event", "refund", { event_category: "Enhanced-Ecommerce", event_label: "refund", transaction_id: "' . esc_js( $transaction_id ) . '", value: ' . esc_js( $value ) . ', currency: "' . esc_js( $currency ) . '" });';
+                        $this->aet_add_inline_script( $event_code );
+                    }
                 }
+                update_option( 'aet_ga4_pending_refunds', array() );
             }
-            update_option( 'aet_ga4_pending_refunds', array() );
         }
     }
 
@@ -283,6 +397,9 @@ class Advance_Ecommerce_Tracking_Public {
         }
         $aet_placed_order_success = $order->get_meta( 'aet_ga_placed_order_success', true );
         if ( 'true' === $aet_placed_order_success || true === $aet_placed_order_success ) {
+            return;
+        }
+        if ( 'yes' === $order->get_meta( '_aet_backend_purchase_sent', true ) ) {
             return;
         }
         // Get the order and output tracking code
@@ -369,6 +486,14 @@ class Advance_Ecommerce_Tracking_Public {
             $orderpage_prod = rtrim( $orderpage_prod, "," );
         }
         $tvc_sc = $order->get_shipping_total();
+        // Measurement Protocol: purchase is sent server-side only (no browser purchase event).
+        if ( function_exists( 'aet_is_mp_backend_tracking_enabled' ) && aet_is_mp_backend_tracking_enabled() ) {
+            AET_GA4_Measurement_Protocol::instance()->queue_purchase_for_order( $order_id );
+            if ( !empty( $code ) ) {
+                $this->wc_version_compare( $code );
+            }
+            return;
+        }
         $code .= '
 		gtag("event", "purchase", {
 			event_category:"Enhanced-Ecommerce",

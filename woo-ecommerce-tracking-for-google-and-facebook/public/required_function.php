@@ -78,21 +78,6 @@ function aet_check_enhance_ecommerce_enable(  $args  ) {
 }
 
 /**
- * Check IP anonymization is enable or not.
- *
- * @param string $args
- *
- * @return string $ip_anonymization
- *
- * @since 3.0
- */
-function aet_check_ip_anonymization(  $args  ) {
-    $aet_et_tracking_settings = aet_get_setting_option( $args );
-    $ip_anonymization = ( empty( $aet_et_tracking_settings->ip_anonymization ) ? '' : $aet_et_tracking_settings->ip_anonymization );
-    return $ip_anonymization;
-}
-
-/**
  * Check google analytics opt out enable or not.
  *
  * @param string $args
@@ -120,8 +105,6 @@ function aet_get_all_aet_tracking_data(  $args  ) {
     $pass_aet_array = array();
     $enhance_ecommerce_tracking = aet_check_enhance_ecommerce_enable( $args );
     $pass_aet_array['enhance_ecommerce_tracking'] = $enhance_ecommerce_tracking;
-    $ip_anonymization = aet_check_ip_anonymization( $args );
-    $pass_aet_array['ip_anonymization'] = $ip_anonymization;
     $google_analytics_opt_out = aet_check_google_analytics_opt_out( $args );
     $pass_aet_array['google_analytics_opt_out'] = $google_analytics_opt_out;
     return $pass_aet_array;
@@ -160,6 +143,7 @@ function aet_get_purchase_tracking_data(  $order_id  ) {
     }
     $currency = get_woocommerce_currency();
     $orderpage_prod = '';
+    $items_array = array();
     $items = $order->get_items();
     if ( !empty( $items ) ) {
         foreach ( $items as $item ) {
@@ -170,14 +154,17 @@ function aet_get_purchase_tracking_data(  $order_id  ) {
             $product_id = ( version_compare( $woo_version, '2.7', '<' ) && isset( $_product->ID ) ? $_product->ID : $_product->get_id() );
             $categories = get_the_terms( $product_id, 'product_cat' );
             $allcategories = '';
+            $item_payload = array();
             if ( !empty( $categories ) && !is_wp_error( $categories ) ) {
                 $cat_count = 2;
                 $loop_count = 1;
                 foreach ( $categories as $term ) {
                     if ( 1 === $loop_count ) {
                         $allcategories .= 'item_category: "' . esc_js( $term->name ) . '",';
+                        $item_payload['item_category'] = $term->name;
                     } else {
                         $allcategories .= 'item_category' . $cat_count . ': "' . esc_js( $term->name ) . '",';
+                        $item_payload['item_category' . $cat_count] = $term->name;
                         $cat_count++;
                     }
                     $loop_count++;
@@ -213,6 +200,19 @@ function aet_get_purchase_tracking_data(  $order_id  ) {
 				' . $allcategories . '
 				quantity: ' . $qty_js . '
 			},';
+            $item_payload['item_id'] = $sku;
+            $item_payload['item_name'] = html_entity_decode( $_product->get_name() );
+            if ( !empty( $item_brand ) ) {
+                $item_payload['item_brand'] = $item_brand;
+            }
+            if ( !empty( $coupons_list ) ) {
+                $item_payload['coupon'] = $coupons_list;
+            }
+            $item_payload['currency'] = $currency;
+            $item_payload['discount'] = (float) $discount;
+            $item_payload['price'] = (float) $item_total;
+            $item_payload['quantity'] = (int) $qty;
+            $items_array[] = $item_payload;
         }
         $orderpage_prod = rtrim( $orderpage_prod, ',' );
     }
@@ -225,7 +225,21 @@ function aet_get_purchase_tracking_data(  $order_id  ) {
         'tax'            => $order->get_total_tax(),
         'payment_method' => $payment_method,
         'items_json'     => $orderpage_prod,
+        'items'          => $items_array,
     );
+}
+
+/**
+ * Whether Measurement Protocol backend purchase tracking is enabled.
+ *
+ * @return bool
+ * @since 3.8.4
+ */
+function aet_is_mp_backend_tracking_enabled() {
+    if ( !class_exists( 'AET_GA4_Measurement_Protocol' ) ) {
+        return false;
+    }
+    return AET_GA4_Measurement_Protocol::instance()->is_enabled();
 }
 
 /**
@@ -295,6 +309,12 @@ function aet_track_sign_up_set_transient(  $user_id  ) {
  */
 function aet_track_refund_queue(  $order_id, $refund_id = 0  ) {
     if ( !function_exists( 'aet_fs' ) || !aet_fs()->is__premium_only() || !aet_fs()->can_use_premium_code() ) {
+        return;
+    }
+    unset($refund_id);
+    // When Measurement Protocol backend tracking is enabled, refunds go server-side only.
+    if ( function_exists( 'aet_is_mp_backend_tracking_enabled' ) && aet_is_mp_backend_tracking_enabled() ) {
+        AET_GA4_Measurement_Protocol::instance()->queue_refund_for_order( $order_id );
         return;
     }
     if ( !function_exists( 'wc_get_order' ) ) {

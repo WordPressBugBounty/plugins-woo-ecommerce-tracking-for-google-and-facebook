@@ -27,12 +27,38 @@ function aet_custom_event_free_plugin_content() {
 							<tbody>
 							<tr valign="top">
 								<th class="titledesc" scope="row">
-									<label for="onoffswitch"><?php 
-    esc_html_e( 'Selector', 'advance-ecommerce-tracking' );
+									<label for="event_type" class="event-label"><?php 
+    esc_html_e( 'Event Type', 'advance-ecommerce-tracking' );
     ?></label>
+									<p class="short-description"><?php 
+    esc_html_e( 'Choose what action you want to track', 'advance-ecommerce-tracking' );
+    ?></p>
 								</th>
 								<td class="forminp">
-									<input type="text" name="selector_attr" id="selector_attr" placeholder="Enter selector" value="contact-me" required disabled />
+									<select name="event_type" id="event_type" disabled>
+										<option value="click" selected="selected"><?php 
+    esc_html_e( 'Click on Selector', 'advance-ecommerce-tracking' );
+    ?></option>
+									</select>
+									<span class="advance_ecommerce_tracking_tab_description"></span>
+									<p class="description" style="display:none;">
+										<?php 
+    esc_html_e( 'Choose what fires this event. Based on the event type the rest of the settings below will change.', 'advance-ecommerce-tracking' );
+    ?>
+									</p>
+								</td>
+							</tr>
+							<tr valign="top" class="aet-field-click aet-field-scroll_depth">
+								<th class="titledesc" scope="row">
+									<label for="selector_attr" class="event-label"><?php 
+    esc_html_e( 'Selector', 'advance-ecommerce-tracking' );
+    ?></label>
+									<p class="short-description"><?php 
+    esc_html_e( 'Enter the class, ID, or selector of the element you want to track.', 'advance-ecommerce-tracking' );
+    ?></p>
+								</th>
+								<td class="forminp">
+									<input type="text" name="selector_attr" id="selector_attr" placeholder="Enter selector (Scroll Depth: leave empty to track the whole page)" value="contact-me" disabled />
 									<span class="advance_ecommerce_tracking_tab_description"></span>
 									<p class="description" style="display:none;">
 										<?php 
@@ -48,11 +74,14 @@ function aet_custom_event_free_plugin_content() {
 									</p>
 								</td>
 							</tr>
-							<tr valign="top">
+							<tr valign="top" class="aet-field-click aet-field-scroll_depth">
 								<th class="titledesc" scope="row">
-									<label for="onoffswitch"><?php 
+									<label for="selector_type" class="event-label"><?php 
     esc_html_e( 'Selector Type', 'advance-ecommerce-tracking' );
     ?></label>
+									<p class="short-description"><?php 
+    esc_html_e( 'Tell us whether the value above is a Class, ID, CSS Selector.', 'advance-ecommerce-tracking' );
+    ?></p>
 								</th>
 								<td class="forminp">
 									<select name="selector_type" id="selector_type" disabled>
@@ -80,12 +109,15 @@ function aet_custom_event_free_plugin_content() {
 							</tr>
 							<tr valign="top">
 								<th class="titledesc" scope="row">
-									<label for="onoffswitch"><?php 
+									<label for="event_category" class="event-label"><?php 
     esc_html_e( 'Event Category', 'advance-ecommerce-tracking' );
     ?></label>
+									<p class="short-description"><?php 
+    esc_html_e( 'Group similar events together to keep your reports organized.', 'advance-ecommerce-tracking' );
+    ?></p>
 								</th>
 								<td class="forminp">
-									<input type="text" name="event_category" id="event_category" placeholder="Enter Event Category" value="contact_me" required disabled />
+									<input type="text" name="event_category" id="event_category" placeholder="Enter Event Category" value="contact_me" disabled />
 									<span class="advance_ecommerce_tracking_tab_description"></span>
 									<p class="description" style="display:none;">
 										<?php 
@@ -95,14 +127,17 @@ function aet_custom_event_free_plugin_content() {
 									</p>
 								</td>
 							</tr>
-							<tr valign="top">
+							<tr valign="top" class="aet-field-shared">
 								<th class="titledesc" scope="row">
-									<label for="onoffswitch"><?php 
+									<label for="event_action" class="event-label"><?php 
     esc_html_e( 'Event Action', 'advance-ecommerce-tracking' );
     ?></label>
+									<p class="short-description"><?php 
+    esc_html_e( 'Describe what happened when the event was triggered.', 'advance-ecommerce-tracking' );
+    ?></p>
 								</th>
 								<td class="forminp">
-									<input type="text" name="event_action" id="event_action" placeholder="Enter Event Action" value="Button Clicked" required disabled />
+									<input type="text" name="event_action" id="event_action" placeholder="Enter Event Action" value="Button Clicked" disabled />
 									<span class="advance_ecommerce_tracking_tab_description"></span>
 									<p class="description" style="display:none;">
 										<?php 
@@ -112,14 +147,17 @@ function aet_custom_event_free_plugin_content() {
 									</p>
 								</td>
 							</tr>
-							<tr valign="top">
+							<tr valign="top" class="aet-field-shared">
 								<th class="titledesc" scope="row">
-									<label for="onoffswitch"><?php 
+									<label for="event_label" class="event-label"><?php 
     esc_html_e( 'Event Label', 'advance-ecommerce-tracking' );
     ?></label>
+									<p class="short-description"><?php 
+    esc_html_e( 'This is the event name that will appear in Google Analytics 4.', 'advance-ecommerce-tracking' );
+    ?></p>
 								</th>
 								<td class="forminp">
-									<input type="text" name="event_label" id="event_label" placeholder="Enter Event Label" value="contact button clicked" required disabled />
+									<input type="text" name="event_label" id="event_label" placeholder="Enter Event Label" value="contact button clicked" disabled />
 									<span class="advance_ecommerce_tracking_tab_description"></span>
 									<p class="description" style="display:none;">
 										<?php 
@@ -129,11 +167,14 @@ function aet_custom_event_free_plugin_content() {
 									</p>
 								</td>
 							</tr>
-							<tr valign="top">
+							<tr valign="top" class="aet-field-shared">
 								<th class="titledesc" scope="row">
-									<label for="onoffswitch"><?php 
+									<label for="event_value" class="event-label"><?php 
     esc_html_e( 'Event Value', 'advance-ecommerce-tracking' );
     ?></label>
+									<p class="short-description"><?php 
+    esc_html_e( 'Add a number to this event if you want to measure or compare it in your reports.', 'advance-ecommerce-tracking' );
+    ?></p>
 								</th>
 								<td class="forminp">
 									<input type="text" name="event_value" id="event_value" placeholder="Enter Event Value" value="1" disabled />
@@ -145,42 +186,11 @@ function aet_custom_event_free_plugin_content() {
 									</p>
 								</td>
 							</tr>
-							<tr valign="top">
-								<th class="titledesc" scope="row">
-									<label for="onoffswitch"><?php 
-    esc_html_e( 'Non-Interaction', 'advance-ecommerce-tracking' );
-    ?></label>
-								</th>
-								<td class="forminp">
-									<select name="event_interation_type" id="event_interation_type" disabled>
-										<option value="true"><?php 
-    echo esc_html_e( 'true', 'advance-ecommerce-tracking' );
-    ?></option>
-										<option value="false"><?php 
-    echo esc_html_e( 'false', 'advance-ecommerce-tracking' );
-    ?></option>
-									</select>
-									<span class="advance_ecommerce_tracking_tab_description"></span>
-									<p class="description" style="display:none;">
-										<?php 
-    $html = sprintf(
-        '%s<br><strong>%s</strong>%s',
-        esc_html__( 'Using this option, you can set event type interaction or non-interaction.', 'advance-ecommerce-tracking' ),
-        esc_html__( ' Note: ', 'advance-ecommerce-tracking' ),
-        esc_html__( ' Please make sure to set "Non-Interaction Hit" to "True" if you don\'t want that event to count towards the bounce rate.
-										Otherwise, if the event fires on a page, analytics will think you didn\'t bounce and subsequently
-										set that session\'s page bounce rate to 0.', 'advance-ecommerce-tracking' )
-    );
-    echo wp_kses_post( $html );
-    ?>
-									</p>
-								</td>
-							</tr>
 							</tbody>
 						</table>
 						<p class="submit">
 							<input type="submit" name="custom_event_setting" class="button button-primary button-large" value="<?php 
-    esc_attr_e( 'Submit', 'advance-ecommerce-tracking' );
+    esc_attr_e( 'Save Event', 'advance-ecommerce-tracking' );
     ?>">
 						</p>
 					</div>

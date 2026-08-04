@@ -114,26 +114,148 @@
 			$( 'a[href="admin.php?page=aet-et-settings"]' ).parents().addClass( 'current wp-has-current-submenu' );
 			$( 'a[href="admin.php?page=aet-et-settings"]' ).addClass( 'current' );
 			
-			$('#general_setting table tr td span.switch').click( function(){
-				if( true === $(this).find('input').is(':checked') ){
+			$('body').on('click', '#general_setting span.switch', function () {
+				if ( $(this).hasClass('aet-pro-feature') || $(this).find('input').is(':disabled') ) {
+					return;
+				}
+				if ( true === $(this).find('input').is(':checked') ) {
 					$(this).find('input').prop('checked', false);
-				}else{
+				} else {
 					$(this).find('input').prop('checked', true);
 				}
 			});
 
-			/* description toggle */
-			$('span.advance_ecommerce_tracking_tab_description').click(function (event) {
+			/* description toggle (legacy custom event list and other non-settings pages) */
+			$('body').on('click', 'span.advance_ecommerce_tracking_tab_description', function (event) {
+				if ( $(this).closest('.aet-settings-page').length ) {
+					return;
+				}
 				event.preventDefault();
 				$(this).next('p.description').toggle();
 			});
+
+			$('body').on('click', '.aet-config-section__toggle .aet-help-tip', function (e) {
+				e.stopPropagation();
+			});
+
+			$('body').on('click', '.aet-config-section__docs', function (e) {
+				e.stopPropagation();
+			});
+
+			function aetInitCustomTooltips () {
+				if ( ! $( '.aet-settings-page' ).length ) {
+					return;
+				}
+
+				var $body = $( 'body' );
+				var $tooltip = $( '#aet-help-tooltip' );
+				var hideTimer = null;
+
+				if ( ! $tooltip.length ) {
+					$tooltip = $( '<div id="aet-help-tooltip" class="aet-help-tooltip" role="tooltip"></div>' );
+					$body.append( $tooltip );
+				}
+
+				function clearHide () {
+					if ( hideTimer ) {
+						clearTimeout( hideTimer );
+						hideTimer = null;
+					}
+				}
+
+				function hideTooltip () {
+					clearHide();
+					hideTimer = setTimeout( function () {
+						if ( $tooltip.is( ':hover' ) || $( '.aet-help-tip:hover' ).length ) {
+							return;
+						}
+						$tooltip.removeClass( 'is-visible' ).empty().hide();
+					}, 200 );
+				}
+
+				function showTooltip ( $tip ) {
+					var tipHtml = $tip.attr( 'data-tip' );
+					if ( ! tipHtml ) {
+						return;
+					}
+
+					clearHide();
+					$tooltip.html( tipHtml ).show().addClass( 'is-visible' );
+
+					var tipOffset = $tip.offset();
+					var tipWidth = $tip.outerWidth();
+					var tipHeight = $tip.outerHeight();
+					var tooltipWidth = $tooltip.outerWidth();
+					var tooltipHeight = $tooltip.outerHeight();
+					var top = tipOffset.top - tooltipHeight - 10;
+					var left = tipOffset.left + ( tipWidth / 2 ) - ( tooltipWidth / 2 );
+
+					if ( top < $( window ).scrollTop() + 8 ) {
+						top = tipOffset.top + tipHeight + 10;
+						$tooltip.addClass( 'is-below' ).removeClass( 'is-above' );
+					} else {
+						$tooltip.addClass( 'is-above' ).removeClass( 'is-below' );
+					}
+
+					if ( left < 8 ) {
+						left = 8;
+					} else if ( left + tooltipWidth > $( window ).width() - 8 ) {
+						left = $( window ).width() - tooltipWidth - 8;
+					}
+
+					$tooltip.css( {
+						top: top + 'px',
+						left: left + 'px'
+					} );
+				}
+
+				$body.off( '.aetHelpTip' );
+				$body.on( 'mouseenter.aetHelpTip focus.aetHelpTip', '.aet-settings-page .aet-help-tip', function () {
+					showTooltip( $( this ) );
+				} );
+				$body.on( 'mouseleave.aetHelpTip blur.aetHelpTip', '.aet-settings-page .aet-help-tip', hideTooltip );
+				$tooltip.off( '.aetHelpTip' ).on( 'mouseenter.aetHelpTip', clearHide ).on( 'mouseleave.aetHelpTip', hideTooltip );
+			}
+
+			aetInitCustomTooltips();
+
+			/* Settings page redesign: collapsible sections */
+			function aetUpdateExpandAllLabel () {
+				var $sections = $('.aet-settings-page .aet-config-section');
+				var allExpanded = $sections.length && $sections.filter('.is-expanded').length === $sections.length;
+				var $btn = $('#aet_expand_all');
+				if ( ! $btn.length ) {
+					return;
+				}
+				$btn.attr('aria-expanded', allExpanded ? 'true' : 'false');
+				$btn.find('.aet-expand-all-text').text(allExpanded ? 'Collapse All' : 'Expand All');
+			}
+
+			aetUpdateExpandAllLabel();
+
+			$('body').on('click', '.aet-config-section__toggle', function () {
+				var $section = $(this).closest('.aet-config-section');
+				var isExpanded = $section.hasClass('is-expanded');
+				$section.toggleClass('is-expanded', ! isExpanded);
+				$(this).attr('aria-expanded', ! isExpanded);
+				aetUpdateExpandAllLabel();
+			});
+
+			$('body').on('click', '#aet_expand_all', function () {
+				var $sections = $('.aet-settings-page .aet-config-section');
+				var allExpanded = $sections.filter('.is-expanded').length === $sections.length;
+				$sections.toggleClass('is-expanded', ! allExpanded);
+				$sections.find('.aet-config-section__toggle').attr('aria-expanded', ! allExpanded);
+				aetUpdateExpandAllLabel();
+			});
+
 			$('body').on('click', '#update_manually_ft_px, #update_manually_et_px', function () {
 				let btn_attr = $(this).attr('data-attr');
 				let get_attr = $('#manually_' + btn_attr + '_px').attr('data-attr');
 				let get_val = $.trim($('#manually_' + btn_attr + '_px').val());
 				let get_attr_two = $('#manually_' + btn_attr + '_px').attr('data-attr-two');
 				
-				if ('' === get_val) {
+				if ('' === get_val || !/^G-[A-Z0-9]{6,15}$/.test(get_val)) {
 					let sub_wizard_field = document.getElementById('sub_wizard_field').getElementsByClassName('field_div')[0];
 					if ($('#main_error_div').length === 0) {
 						let div = document.createElement('div');
@@ -148,10 +270,11 @@
 								'class': 'error'
 							}
 						);
-						span.textContent = 'Please enter ID here';
+						span.textContent = 'Please enter a valid GA4 Measurement ID';
 						div.appendChild(span);
-						sub_wizard_field.appendChild(div);
+						sub_wizard_field.appendChild(div); 
 					}
+					return false;
 				}
 				update_manually_ID(get_val, get_attr, get_attr_two);
 			});
@@ -284,7 +407,15 @@
 			$('body').on('click', '.condition-check-all', function () {
 				$('input.multiple_delete_chk:checkbox').not(this).prop('checked', this.checked);
 			});
-			
+			$('.multiple_delete_chk, .condition-check-all').on('change', function () {
+				if($('.multiple_delete_chk:checkbox:checked').length >= 2 || $('.condition-check-all:checkbox:checked').length >= 1){
+					$('#delete-custom-event').addClass('show-delete-button');
+					$('#delete-custom-event').removeClass('hide-delete-button');
+				} else {
+					$('#delete-custom-event').addClass('hide-delete-button');
+					$('#delete-custom-event').removeClass('show-delete-button');
+				}
+			});
 			$('#delete-custom-event').click(function () {
 				let dynamic_string = $(this).attr('data-attr');
 				if (0 === $('.multiple_delete_chk:checkbox:checked').length) {
@@ -440,6 +571,21 @@
 		    });
 		    /** Upgrade Dashboard Script End */
 
+			$('body').on('click', '#mp_backend_tracking + .slider.round', function () {
+				var $checkbox = $('#mp_backend_tracking');
+			
+				if ( $checkbox.is(':checked') ) {
+					$('#mp_measurement_id').prop('readonly', true);
+					$('#mp_api_secret').prop('readonly', true);
+					$('#mp_debug_mode').prop('checked', false);
+					$('#mp_debug_mode').prop('disabled', true);
+				} else {
+					$('#mp_measurement_id').prop('readonly', false);
+					$('#mp_api_secret').prop('readonly', false);
+					$('#mp_debug_mode').prop('disabled', false);
+				}
+			});
+
 	   		// Script for Beacon configuration
       		var helpBeaconCookie = getCookie( 'aet-help-beacon-hide' );
         	if ( ! helpBeaconCookie ) {
@@ -489,6 +635,8 @@
 	            e.preventDefault();
 	            upgradeToProFreemius( '' );
 	        });
+			// Visibility is rendered by PHP; only toggle on change to avoid field blink on load.
+			$(document).on('change', '#custom_event_general_setting #event_type', aetToggleCustomEventFields);
 		});
 		
 		// Set cookies
@@ -515,6 +663,14 @@
 	        return null;
 	   	}
 	   	
+	   	/** Mark aet_et_convert_to_pro after successful Freemius purchase */
+	    function aetEtMarkConvertToPro() {
+	        $.post( aet_vars.ajaxurl, {
+	            action: 'aet_et_convert_to_pro_purchase',
+	            security: aet_vars.aet_et_convert_to_pro_nonce
+	        } );
+	    }
+
 	   	/** Script for Freemius upgrade popup */
 	    function upgradeToProFreemius( couponCode ) {
 	        let handler;
@@ -530,10 +686,38 @@
 	            subtitle: 'You’re a step closer to our Pro features',
 	            licenses: jQuery('input[name="licence"]:checked').val(),
 	            purchaseCompleted: function(  ) {
+	                aetEtMarkConvertToPro();
 	            },
 	            success: function () {
 	            }
 	        });
 	    }
-	}
-)(jQuery);
+		function aetToggleCustomEventFields() {
+			var $form = $('#custom_event_general_setting');
+			if ( ! $form.length ) {
+				return;
+			}
+
+			var type = $form.find('#event_type').val();
+
+			// Hide all type-specific + shared fields and disable their inputs.
+			$form.find('.aet-field-click, .aet-field-scroll_depth, .aet-field-time_on_page, .aet-field-custom_js, .aet-field-shared')
+				.hide()
+				.find(':input')
+				.prop('disabled', true);
+
+			// Show fields for the selected event type and enable their inputs.
+			$form.find('.aet-field-' + type)
+				.show()
+				.find(':input')
+				.prop('disabled', false);
+
+			// Shared GA params are click-only.
+			if ( 'click' === type ) {
+				$form.find('.aet-field-shared')
+					.show()
+					.find(':input')
+					.prop('disabled', false);
+			}
+		}
+})(jQuery);

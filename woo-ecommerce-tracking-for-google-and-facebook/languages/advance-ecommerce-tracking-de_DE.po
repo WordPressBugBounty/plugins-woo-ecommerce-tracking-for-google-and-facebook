@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Advance Ecommerce Tracking Premium\n"
 "POT-Creation-Date: 2020-02-04 09:13+0530\n"
-"PO-Revision-Date: 2024-07-12 10:56+0000\n"
+"PO-Revision-Date: 2026-08-04 05:00+0000\n"
 "Last-Translator: \n"
 "Language-Team: German\n"
 "Language: de_DE\n"
@@ -15,75 +15,45 @@ msgstr ""
 "X-Poedit-KeywordsList: __;_e;esc_html__;esc_html_e\n"
 "X-Poedit-SearchPath-0: .\n"
 "Report-Msgid-Bugs-To: \n"
-"X-Loco-Version: 2.6.6; wp-6.3.1"
+"X-Loco-Version: 2.8.8; wp-7.0.2; php-8.2.10"
 
-#: admin/partials/aet-et-settings.php:529
-#: admin/partials/aet-et-settings.php:720
-#: admin/partials/aet-et-settings.php:914
+#: admin/partials/aet-et-settings-form.php:303
 msgid ""
 " <input type=\"hidden\" name=\"aet_form\" value=\"Enter your form name\"/>"
 msgstr ""
 "<input type=\"hidden\" name=\"aet_form\" value=\"Geben Sie Ihren "
 "Formularnamen ein\"/>"
 
-#: admin/partials/aet-cat-list.php:37 admin/partials/aet-cat-list.php:60
-#: admin/partials/aet-cat-list.php:247 admin/partials/aet-cat-list.php:270
-#: admin/partials/aet-et-settings.php:484
-#: admin/partials/aet-et-settings.php:506
-#: admin/partials/aet-et-settings.php:675
-#: admin/partials/aet-et-settings.php:697
-#: admin/partials/aet-et-settings.php:869
-#: admin/partials/aet-et-settings.php:891
+#: admin/partials/aet-cat-list.php:53 admin/partials/aet-cat-list.php:77
+#: admin/partials/aet-cat-list.php:284 admin/partials/aet-cat-list.php:308
+#: admin/partials/aet-et-settings-form.php:189
 msgid " Click Here"
 msgstr "Klicken Sie hier"
 
-#: admin/partials/aet-et-settings.php:251
-#: admin/partials/aet-et-settings.php:258
-#: admin/partials/aet-et-settings.php:266
-msgid " enhanced ecommerce"
-msgstr "verbesserter E-Commerce"
-
-#: admin/partials/aet-et-settings.php:478
-#: admin/partials/aet-et-settings.php:669
+#: admin/partials/aet-cat-list.php:355
 msgid ""
-" for the most accurate link attribution,\n"
-"\t\t\t\t\t\t\t\t\t\teach of the links on your page should have a unique "
-"element ID."
+" GA4's built-in \"Enhanced Measurement\" already sends its own scroll event "
+"at 90% depth on every property, by default. If you select 90% here too, you "
+"may see duplicate/competing scroll signals. Go to GA4 Admin → Data Streams → "
+"Enhanced Measurement and turn off \"Scrolls\" there if you want this "
+"plugin's 90% to be the only one, or simply skip 90% here and rely on GA4's "
+"native event for that checkpoint."
 msgstr ""
-"für die genaueste Linkzuordnung,\n"
-"Jeder der Links auf Ihrer Seite sollte eine eindeutige Element-ID haben."
+"Die in GA4 integrierte „Optimierte Analytik“ (Enhanced Measurement) sendet "
+"standardmäßig bereits bei einer Scrolltiefe von 90 % ein eigenes Scroll-"
+"Ereignis für jede Property. Wenn Sie hier ebenfalls 90 % auswählen, kann es "
+"zu doppelten oder konkurrierenden Scroll-Signalen kommen. Navigieren Sie zu "
+"GA4-Verwaltung → Datenstreams → Optimierte Analytik und deaktivieren Sie "
+"dort die Option „Scrollvorgänge“, falls die 90-%-Messung dieses Plugins die "
+"einzige sein soll; alternativ können Sie die 90-%-Einstellung hier einfach "
+"weglassen und sich für diesen Messpunkt auf das native Ereignis von GA4 "
+"verlassen."
 
-#: admin/partials/aet-et-settings.php:863
-msgid ""
-" for the most accurate link attribution,\n"
-"\t\t\t\t\t\t\t\t\teach of the links on your page should have a unique "
-"element ID."
-msgstr ""
-"Für eine möglichst genaue Linkzuordnung sollte jeder der Links auf Ihrer "
-"Seite eine eindeutige Element-ID haben."
-
-#: admin/partials/aet-et-settings.php:477
-#: admin/partials/aet-et-settings.php:668
-#: admin/partials/aet-et-settings.php:862
-msgid " Note:"
-msgstr "Notiz:"
-
-#: admin/partials/aet-cat-list.php:132 admin/partials/aet-cat-list.php:342
-#: admin/partials/aet-et-settings.php:525
-#: admin/partials/aet-et-settings.php:716
-#: admin/partials/aet-et-settings.php:910
+#: admin/partials/aet-et-settings-form.php:301
 msgid " Note: "
 msgstr "Notiz:"
 
-#: admin/partials/aet-et-settings.php:482
-#: admin/partials/aet-et-settings.php:673
-#: admin/partials/aet-et-settings.php:867
-msgid " option for this feature."
-msgstr "Option für diese Funktion."
-
-#: admin/partials/aet-et-settings.php:504
-#: admin/partials/aet-et-settings.php:695
-#: admin/partials/aet-et-settings.php:889
+#: admin/partials/aet-et-settings-form.php:187
 msgid ""
 " Please follow screenshot how to enable this option on google analytics "
 "section."
@@ -91,82 +61,27 @@ msgstr ""
 "Bitte folgen Sie dem Screenshot, wie Sie diese Option im Google Analytics-"
 "Bereich aktivieren."
 
-#: admin/partials/aet-cat-list.php:343
-#| msgid ""
-#| " Please make sure to set \"Non-Interaction Hit\" to \"True\" if you don't "
-#| "want that event to count towards the bounce rate.\n"
-#| "\t\t\t\t\t\t\t\t\t\t\t\tOtherwise, if the event fires on a page, "
-#| "analytics will think you didn't bounce and subsequently\n"
-#| "\t\t\t\t\t\t\t\t\t\t\t\tset that session's page bounce rate to 0."
-msgid ""
-" Please make sure to set \"Non-Interaction Hit\" to \"True\" if you don't "
-"want that event to count towards the bounce rate.\n"
-"\t\t\t\t\t\t\t\t\t\t\t\t\tOtherwise, if the event fires on a page, analytics "
-"will think you didn't bounce and subsequently\n"
-"\t\t\t\t\t\t\t\t\t\t\t\t\tset that session's page bounce rate to 0."
-msgstr ""
-"Stellen Sie sicher, dass „Non-Interaction Hit“ auf „True“ gesetzt ist, wenn "
-"dieses Ereignis nicht zur Absprungrate gezählt werden soll.\n"
-"Andernfalls geht Analytics davon aus, dass Sie nicht abgesprungen sind, wenn "
-"das Ereignis auf einer Seite ausgelöst wird, und setzt die "
-"Seitenabsprungrate dieser Sitzung anschließend auf 0."
-
-#: admin/partials/aet-cat-list.php:133
-msgid ""
-" Please make sure to set \"Non-Interaction Hit\" to \"True\" if you don't "
-"want that event to count towards the bounce rate.\n"
-"\t\t\t\t\t\t\t\t\t\tOtherwise, if the event fires on a page, analytics will "
-"think you didn't bounce and subsequently\n"
-"\t\t\t\t\t\t\t\t\t\tset that session's page bounce rate to 0."
-msgstr ""
-"Stellen Sie sicher, dass „Non-Interaction Hit“ auf „True“ gesetzt ist, wenn "
-"dieses Ereignis nicht zur Absprungrate gezählt werden soll.\n"
-"Andernfalls geht Analytics davon aus, dass Sie nicht abgesprungen sind, wenn "
-"das Ereignis auf einer Seite ausgelöst wird, und setzt die "
-"Seitenabsprungrate dieser Sitzung anschließend auf 0."
-
-#: admin/partials/aet-et-settings.php:377
+#: admin/partials/aet-et-settings-form.php:205
 msgid " Read More"
 msgstr "Weiterlesen"
 
-#: admin/partials/aet-et-settings.php:291
-#: admin/partials/aet-et-settings.php:315
-#: admin/partials/aet-et-settings.php:340
-msgid " Search. "
-msgstr "Suche."
-
-#: admin/partials/aet-et-settings.php:526
-#: admin/partials/aet-et-settings.php:717
+#: admin/partials/aet-et-settings-form.php:302
 msgid ""
 " We get default form name for those plugins. Contact Form 7, WPForms, "
-"Formidable Forms, Mailchimp Form, Gravity Form, Caldera Forms, Ninja Form.\n"
-"\t\t\t\t\t\t\t\t\t\t\tIf you have any custom form then please add below "
-"field in your form.\n"
-"\t\t\t\t\t\t\t\t\t\t\tUsing this you can easily understood which form has "
-"been submitted."
+"Formidable Forms, Mailchimp Form, Gravity Form, Caldera Forms, Ninja Form. "
+"If you have any custom form then please add below field in your form. Using "
+"this you can easily understood which form has been submitted."
 msgstr ""
-"Wir erhalten den Standardformularnamen für diese Plugins. Kontaktformular 7, "
-"WPForms, Formidable Forms, Mailchimp Form, Gravity Form, Caldera Forms, "
-"Ninja Form.\n"
-"Wenn Sie ein benutzerdefiniertes Formular haben, fügen Sie bitte das "
-"folgende Feld in Ihr Formular ein.\n"
-"Damit können Sie leicht nachvollziehen, welches Formular abgeschickt wurde."
+"Für diese Plugins verwenden wir die Standard-Formularnamen: Contact Form 7, "
+"WPForms, Formidable Forms, Mailchimp Form, Gravity Form, Caldera Forms und "
+"Ninja Form. Falls Sie ein eigenes Formular verwenden, fügen Sie bitte das "
+"unten aufgeführte Feld hinzu. So lässt sich leicht erkennen, welches "
+"Formular übermittelt wurde."
 
-#: admin/partials/aet-et-settings.php:911
-msgid ""
-" We get default form name for those plugins. Contact Form 7, WPForms, "
-"Formidable Forms, Mailchimp Form, Gravity Form, Caldera Forms, Ninja Form.\n"
-"\t\t\t\t\t\t\t\t\t\tIf you have any custom form then please add below field "
-"in your form.\n"
-"\t\t\t\t\t\t\t\t\t\tUsing this you can easily understood which form has been "
-"submitted."
-msgstr ""
-"Wir erhalten den Standardformularnamen für diese Plugins. Contact Form 7, "
-"WPForms, Formidable Forms, Mailchimp Form, Gravity Form, Caldera Forms, "
-"Ninja Form.\n"
-"Wenn Sie ein benutzerdefiniertes Formular haben, fügen Sie bitte das "
-"folgende Feld in Ihr Formular ein.\n"
-"So können Sie leicht erkennen, welches Formular übermittelt wurde."
+#. translators: %s: number of seconds
+#: admin/partials/aet-cat-list.php:494
+msgid "%s seconds"
+msgstr "%s Sekunden"
 
 #: admin/partials/aet-premium-page.php:197
 msgid "1 site"
@@ -180,31 +95,17 @@ msgstr "14 Tage Geld-zurück-Garantie"
 msgid "14-Day Satisfaction Guarantee"
 msgstr "14 Tage Zufriedenheitsgarantie"
 
-#: admin/partials/aet-et-settings.php:399
+#: admin/partials/aet-et-settings-form.php:221
 msgid ""
-"<a href=\"javascript:ga4Optout()\">Click here to opt-out of Google Analytics "
-"4</a>"
+"<a href=\"https://docs.thedotstore.com/article/551-how-to-enable-google-"
+"analytics-opt-out-for-site-users\" target=\"_blank\">Click here for step by "
+"step guide</a>"
 msgstr ""
-"<a href=\"javascript:ga4Optout()\">Klicken Sie hier, um Google Analytics 4 "
-"zu deaktivieren</a>"
+"<a href=\"https://docs.thedotstore.com/article/551-how-to-enable-google-"
+"analytics-opt-out-for-site-users\" target=\"_blank\">Klicken Sie hier für "
+"eine Schritt-für-Schritt-Anleitung.</a>"
 
-#: advance-ecommerce-tracking.php:264
-msgid ""
-"<strong>Advance Ecommerce Tracking is successfully installed and ready to go."
-"</strong>"
-msgstr ""
-"<strong>Erweitertes E-Commerce-Tracking wurde erfolgreich installiert und "
-"ist einsatzbereit.</strong>"
-
-#: advance-ecommerce-tracking.php:259
-msgid ""
-"<strong>Advance Ecommerce Tracking Pro is successfully installed and ready "
-"to go.</strong>"
-msgstr ""
-"<strong>Advance Ecommerce Tracking Pro wurde erfolgreich installiert und ist "
-"einsatzbereit.</strong>"
-
-#: admin/class-advance-ecommerce-tracking-admin.php:606
+#: admin/class-advance-ecommerce-tracking-admin.php:771
 msgid ""
 "<strong>We need your support</strong> to keep updating and improving the "
 "plugin. Please <a href=\"%1$s\" target=\"_blank\">help us by leaving a good "
@@ -214,16 +115,21 @@ msgstr ""
 "aktualisieren und zu verbessern. Bitte <a href=\"%1$s\" target=\"_blank\">"
 "helfen Sie uns, indem Sie eine gute Bewertung hinterlassen</a> :) Danke!"
 
+#: admin/partials/aet-et-settings-helpers.php:127
+msgid "[new]"
+msgstr "[neu]"
+
+#: admin/partials/aet-et-settings-form.php:397
+#: admin/partials/aet-et-settings-form.php:497
+msgid "[New] "
+msgstr "[neu]"
+
 #: admin/partials/aet-premium-page.php:101
 #| msgid "Predefined list of all user role."
 msgid "A predefined list of all user roles."
 msgstr "Eine vordefinierte Liste aller Benutzerrollen."
 
-#: admin/partials/aet-et-settings.php:993
-msgid "Accept Privacy Policy of Plugin"
-msgstr "Akzeptieren Sie die Datenschutzrichtlinie des Plugins"
-
-#: admin/partials/aet-cat-list.php:388
+#: admin/partials/aet-cat-list.php:470
 msgid "Actions"
 msgstr "Aktionen"
 
@@ -244,31 +150,39 @@ msgstr ""
 "wichtigen Schritten wie „Zum Einkaufswagen hinzufügen“, „Warenkorb anzeigen“,"
 " „Zur Kasse gehen“ und „Kaufen“ zu sammeln."
 
-#: advance-ecommerce-tracking.php:393
+#: advance-ecommerce-tracking.php:345
 msgid "Activate Plugin"
 msgstr "Plugin aktivieren"
 
-#: admin/partials/aet-et-settings.php:187
+#: admin/partials/aet-et-settings-form.php:64
 msgid "Active Google Analytics 4 Account"
 msgstr "Aktives Google Analytics 4-Konto"
 
-#: admin/partials/aet-et-settings.php:414
-#: admin/partials/aet-et-settings.php:603
-#: admin/partials/aet-et-settings.php:797
-msgid "Add Code to Track the Login Step of Guest Users (Optional)"
+#: admin/partials/aet-cat-list.php:129 admin/partials/aet-cat-list.php:426
+msgid ""
+"Add a number to this event if you want to measure or compare it in your "
+"reports."
 msgstr ""
-"Code hinzufügen, um den Anmeldeschritt von Gastbenutzern zu verfolgen "
-"(optional)"
+"Fügen Sie diesem Ereignis eine Zahl hinzu, wenn Sie es in Ihren Berichten "
+"messen oder vergleichen möchten."
 
-#: admin/partials/aet-cat-list.php:15 admin/partials/aet-cat-list.php:367
+#: admin/partials/aet-et-settings-form.php:232
+msgid "Add Code to Track Login Step of Guest Users"
+msgstr "Code hinzufügen, um den Anmeldeschritt von Gastnutzern zu erfassen"
+
+#: admin/partials/aet-cat-list.php:15 admin/partials/aet-cat-list.php:451
 msgid "Add New Event"
 msgstr "Neues Ereignis hinzufügen"
 
-#: public/class-advance-ecommerce-tracking-public.php:192
+#: public/class-advance-ecommerce-tracking-public.php:174
 msgid "Add to Cart"
 msgstr "in den Warenkorb legen"
 
-#: public/class-advance-ecommerce-tracking-public.php:194
+#: admin/partials/aet-et-settings-form.php:258
+msgid "Additional Tracking"
+msgstr "Zusätzliches Tracking"
+
+#: public/class-advance-ecommerce-tracking-public.php:176
 msgid "AddToCart"
 msgstr "In den Warenkorb legen"
 
@@ -279,6 +193,19 @@ msgstr "Erweiterte Funktionen"
 #: admin/partials/aet-premium-page.php:46
 msgid "Advanced Purchase Journey Tracking"
 msgstr "Erweitertes Purchase Journey Tracking"
+
+#: admin/partials/aet-et-settings-form.php:259
+msgid "Advanced tracking & error monitoring"
+msgstr "Erweitertes Tracking & Fehlerüberwachung"
+
+#: admin/partials/aet-et-settings.php:168
+msgid "Already have your GA4 Measurement ID? Enter it manually to get started."
+msgstr ""
+"Haben Sie Ihre GA4-Mess-ID bereits? Geben Sie sie manuell ein, um loszulegen."
+
+#: admin/partials/aet-et-settings-form.php:48
+msgid "Analytics Connection"
+msgstr "Analytics-Verbindung"
 
 #: admin/partials/aet-premium-page.php:82
 msgid "Analyze All Essential Performance Metrics"
@@ -291,15 +218,20 @@ msgstr ""
 "Analysieren Sie Benutzerinteraktionen vom Einkaufswagen bis zum Kauf, um "
 "wertvolle Erkenntnisse zu gewinnen."
 
-#: public/class-advance-ecommerce-tracking-public.php:188
+#: admin/partials/aet-et-settings-form.php:536
+msgid "API Secret"
+msgstr "API-Geheimnis"
+
+#: admin/partials/aet-dashboard.php:48
+#: public/class-advance-ecommerce-tracking-public.php:170
 msgid "Apply"
 msgstr "Anwenden"
 
-#: public/class-advance-ecommerce-tracking-public.php:193
+#: public/class-advance-ecommerce-tracking-public.php:175
 msgid "ApplyCoupon"
 msgstr "AnwendenGutschein"
 
-#: admin/partials/aet-cat-list.php:426
+#: admin/partials/aet-cat-list.php:541
 msgid "Are you sure you want to delete this analytics event?"
 msgstr "Möchten Sie dieses Analytics-Ereignis wirklich löschen?"
 
@@ -307,31 +239,59 @@ msgstr "Möchten Sie dieses Analytics-Ereignis wirklich löschen?"
 msgid "Astra"
 msgstr "Astra"
 
-#: admin/partials/aet-cat-list.php:223
-msgid "Back to Event List"
-msgstr "Zurück zur Veranstaltungsliste"
+#: admin/partials/aet-et-settings.php:141
+msgid "Automatically fetches your GA4 properties"
+msgstr "Ruft Ihre GA4-Properties automatisch ab."
+
+#: admin/partials/aet-dashboard.php:153
+msgid "Avg. Session Duration"
+msgstr "Durchschnittliche Sitzungsdauer"
 
 #: admin/partials/dots-plugin-setup-wizard.php:101
 msgid "Be our friend on"
 msgstr "Sei unser Freund"
 
-#: admin/partials/aet-et-settings.php:222
-msgid "BOTH"
-msgstr "BEIDE"
+#: admin/partials/aet-et-settings-form.php:391
+msgid "Block Conversion Tracking"
+msgstr "Conversion-Tracking blockieren"
 
-#: admin/partials/aet-et-settings.php:994
+#: admin/partials/aet-dashboard.php:162
+msgid "Bounce Rate"
+msgstr "Absprungrate"
+
+#: admin/partials/aet-dashboard.php:186
+msgid "Browsers"
+msgstr "Browser"
+
+#: admin/partials/aet-et-settings-form.php:424
+msgid "Button"
+msgstr "Taste"
+
+#: admin/partials/aet-et-settings-form.php:595
 msgid "By using theDotstore Plugin, you agree to theDotstore plugin's "
 msgstr ""
 "Durch die Nutzung des Dotstore-Plugins stimmen Sie den Dotstore-Plugins zu"
+
+#: admin/partials/aet-et-settings-form.php:576
+msgid ""
+"By using theDotstore Plugin, you agree to theDotstore plugin's Privacy "
+"Policy."
+msgstr ""
+"Durch die Nutzung des theDotstore-Plugins erklären Sie sich mit der "
+"Datenschutzerklärung des theDotstore-Plugins einverstanden."
 
 #: admin/partials/aet-premium-page.php:227
 msgid "Camden Bakker"
 msgstr "Camden Bakker"
 
-#: public/class-advance-ecommerce-tracking-public.php:190
-#: public/class-advance-ecommerce-tracking-public.php:230
+#: public/class-advance-ecommerce-tracking-public.php:172
+#: public/class-advance-ecommerce-tracking-public.php:326
 msgid "Cart"
 msgstr "Wagen"
+
+#: admin/partials/aet-dashboard.php:238
+msgid "Channel"
+msgstr "Kanal"
 
 #: admin/partials/aet-premium-page.php:77
 #| msgid "Check user and Traffic acquisition"
@@ -342,37 +302,104 @@ msgstr "Überprüfen Sie Benutzer- und Verkehrserfassung."
 msgid "Checkbox to exclude multiple user roles."
 msgstr "Kontrollkästchen zum Ausschließen mehrerer Benutzerrollen."
 
-#: public/class-advance-ecommerce-tracking-public.php:191
+#: public/class-advance-ecommerce-tracking-public.php:173
 msgid "Checkout"
 msgstr "Auschecken"
 
-#: admin/partials/aet-cat-list.php:50 admin/partials/aet-cat-list.php:260
+#: admin/partials/aet-cat-list.php:361
+msgid ""
+"Choose how long a visitor must stay on the page before tracking the event."
+msgstr ""
+"Legen Sie fest, wie lange ein Besucher auf der Seite bleiben muss, bevor das "
+"Ereignis erfasst wird."
+
+#: admin/partials/aet-cat-list.php:27 admin/partials/aet-cat-list.php:255
+msgid "Choose what action you want to track"
+msgstr "Wählen Sie aus, welche Aktion Sie nachverfolgen möchten."
+
+#: admin/partials/aet-cat-list.php:35 admin/partials/aet-cat-list.php:266
+msgid ""
+"Choose what fires this event. Based on the event type the rest of the "
+"settings below will change."
+msgstr ""
+"Wählen Sie aus, was dieses Ereignis auslöst. Je nach Ereignistyp ändern sich "
+"die übrigen Einstellungen weiter unten."
+
+#: admin/partials/aet-cat-list.php:67 admin/partials/aet-cat-list.php:298
 msgid "Class"
 msgstr "Klasse"
 
-#: public/class-advance-ecommerce-tracking-public.php:184
+#: public/class-advance-ecommerce-tracking-public.php:166
 msgid "Click"
 msgstr "Klicken"
 
-#: advance-ecommerce-tracking.php:273
-msgid "Click on settings button and do your setting as per your requirement."
-msgstr ""
-"Klicken Sie auf die Schaltfläche Einstellungen und nehmen Sie Ihre "
-"Einstellung gemäß Ihren Anforderungen vor."
+#: admin/partials/aet-cat-list.php:486 admin/partials/aet-cat-list.php:511
+msgid "Click Event"
+msgstr "Klick-Ereignis"
+
+#: admin/partials/aet-cat-list.php:31 admin/partials/aet-cat-list.php:259
+msgid "Click on Selector"
+msgstr "Auf den Selektor klicken"
 
 #: admin/partials/aet-premium-page.php:140
 msgid "Close"
 msgstr "Schließen"
 
-#: public/class-advance-ecommerce-tracking-public.php:198
+#: admin/partials/aet-et-settings-form.php:116
+msgid "Collapse All"
+msgstr "Alle einklappen"
+
+#: public/class-advance-ecommerce-tracking-public.php:180
 msgid "Comment"
 msgstr "Kommentar"
 
-#: admin/partials/aet-et-settings.php:538
-#: admin/partials/aet-et-settings.php:729
-#: admin/partials/aet-et-settings.php:923
+#: admin/partials/aet-et-settings-form.php:313
 msgid "Comment Tracking"
 msgstr "Kommentarverfolgung"
+
+#: admin/partials/aet-dashboard.php:42
+msgid "Compare:"
+msgstr "Vergleichen:"
+
+#: admin/partials/aet-dashboard.php:61
+msgid "Connect GA4 to view your Overview"
+msgstr "Verbinden Sie GA4, um Ihre Übersicht aufzurufen."
+
+#: admin/partials/aet-dashboard.php:116 admin/partials/aet-et-settings.php:131
+#: admin/partials/aet-et-settings.php:147
+msgid "Connect with Google"
+msgstr "Mit Google verbinden"
+
+#: includes/class-aet-ga4-dashboard.php:566
+msgid "Connect with Google and select a GA4 property first."
+msgstr ""
+"Verbinden Sie sich mit Google und wählen Sie zuerst eine GA4-Property aus."
+
+#: admin/partials/aet-dashboard.php:63
+msgid "Connect with Google to load GA4 reports in this dashboard."
+msgstr ""
+"Verbinden Sie sich mit Google, um GA4-Berichte in diesem Dashboard zu laden."
+
+#: admin/partials/aet-et-settings.php:137
+msgid ""
+"Connect your Google Analytics account in just a few clicks. Quick, secure "
+"and hassle-free."
+msgstr ""
+"Verbinden Sie Ihr Google-Analytics-Konto mit nur wenigen Klicks. Schnell, "
+"sicher und unkompliziert."
+
+#: admin/partials/aet-et-settings-form.php:52
+msgid "Connected"
+msgstr "Verbunden"
+
+#. translators: %s: connection date
+#: admin/partials/aet-et-settings-form.php:75
+msgid "Connected on %s"
+msgstr "Verbunden über %s"
+
+#: includes/class-aet-ga4-dashboard.php:1492
+msgid "Connection successful."
+msgstr "Verbindung erfolgreich."
 
 #: admin/partials/dots-plugin-setup-wizard.php:28
 #: admin/partials/dots-plugin-setup-wizard.php:56
@@ -389,7 +416,11 @@ msgstr ""
 "Kontrollieren Sie die Nachverfolgung und stellen Sie die Einhaltung von "
 "Datenschutz und Datenschutz für bestimmte Benutzerrollen sicher."
 
-#: public/class-advance-ecommerce-tracking-public.php:189
+#: admin/partials/aet-et-settings-form.php:128
+msgid "Core Tracking"
+msgstr "Kern-Tracking"
+
+#: public/class-advance-ecommerce-tracking-public.php:171
 msgid "Coupon"
 msgstr "Coupon"
 
@@ -403,46 +434,86 @@ msgstr ""
 msgid "Custom dimensions and metrics"
 msgstr "Benutzerdefinierte Dimensionen und Metriken"
 
-#: admin/class-advance-ecommerce-tracking-admin.php:396
-#: admin/class-advance-ecommerce-tracking-admin.php:442
-#: admin/partials/aet-et-settings.php:551
-#: admin/partials/aet-et-settings.php:742
-#: admin/partials/aet-et-settings.php:936
+#: admin/class-advance-ecommerce-tracking-admin.php:560
+#: admin/class-advance-ecommerce-tracking-admin.php:606
+#: admin/partials/aet-et-settings-form.php:335
 msgid "Custom Event"
 msgstr "Benutzerdefiniertes Ereignis"
 
-#: admin/partials/aet-cat-list.php:221
+#: admin/partials/aet-cat-list.php:241
 msgid "Custom Event Configuration"
 msgstr "Benutzerdefinierte Ereigniskonfiguration"
+
+#: admin/partials/aet-cat-list.php:372 admin/partials/aet-cat-list.php:500
+msgid "Custom JavaScript"
+msgstr "Benutzerdefiniertes JavaScript"
+
+#: admin/partials/aet-cat-list.php:262
+msgid "Custom JavaScript Event"
+msgstr "Benutzerdefiniertes JavaScript-Ereignis"
 
 #: admin/partials/aet-premium-page.php:224
 msgid "Customer Profile Image"
 msgstr "Kundenprofilbild"
 
-#: admin/partials/aet-cat-list.php:370
+#: includes/class-aet-ga4-dashboard.php:1262
+#: includes/class-aet-ga4-dashboard.php:1263
+#: includes/class-aet-ga4-dashboard.php:1283
+msgid "Dashboard"
+msgstr "Armaturenbrett"
+
+#: includes/class-aet-ga4-dashboard.php:609
+msgid "Dashboard credentials are not configured."
+msgstr "Die Zugangsdaten für das Dashboard sind nicht konfiguriert."
+
+#: includes/class-aet-ga4-dashboard.php:1477
+msgid "Dashboard disconnected."
+msgstr "Dashboard-Verbindung unterbrochen."
+
+#: admin/partials/aet-dashboard.php:36
+msgid "Date range"
+msgstr "Zeitraum"
+
+#: admin/partials/aet-cat-list.php:540
+msgid "Delete"
+msgstr "Löschen"
+
+#: admin/partials/aet-cat-list.php:454
 msgid "Delete (Selected)"
 msgstr "Ausgewählte löschen)"
 
-#: admin/partials/aet-et-settings.php:431
-#: admin/partials/aet-et-settings.php:621
-#: admin/partials/aet-et-settings.php:815
-msgid "Demographics and Interests Reports for Remarketing and Advertising"
-msgstr ""
-"Berichte zu demografischen Merkmalen und Interessen für Remarketing und "
-"Werbung"
+#: admin/partials/aet-et-settings-form.php:243
+msgid "Demographics & Interests Reports"
+msgstr "Berichte zu Demografie und Interessen"
+
+#: admin/partials/aet-cat-list.php:101 admin/partials/aet-cat-list.php:398
+msgid "Describe what happened when the event was triggered."
+msgstr "Beschreiben Sie, was geschah, als das Ereignis ausgelöst wurde."
 
 #: admin/partials/dots-upgrade-popup.php:58
 msgid "Detailed eCommerce Tracking"
 msgstr "Detailliertes E-Commerce-Tracking"
 
-#: admin/partials/aet-et-settings.php:164
-#: admin/partials/aet-et-settings.php:194
+#: admin/partials/aet-dashboard.php:183
+msgid "Devices"
+msgstr "Geräte"
+
+#: admin/partials/aet-dashboard.php:51
+#: admin/partials/aet-et-settings-form.php:88
 msgid "Disconnect"
 msgstr "Trennen"
+
+#: includes/class-aet-ga4-dashboard.php:1437
+msgid "Disconnecting…"
+msgstr "Verbindung wird getrennt…"
 
 #: admin/partials/aet-premium-page.php:127
 msgid "Discover Our Top Key Features"
 msgstr "Entdecken Sie unsere wichtigsten Funktionen"
+
+#: advance-ecommerce-tracking.php:235
+msgid "Dismiss"
+msgstr "Zurückweisen"
 
 #: admin/partials/dots-plugin-setup-wizard.php:89
 msgid "Do the Woo"
@@ -452,7 +523,13 @@ msgstr "Do the Woo"
 msgid "Do you offer support for the plugin? What’s it like?"
 msgstr "Bieten Sie Support für das Plugin an? Wie sieht dieser aus?"
 
-#: admin/partials/aet-et-settings.php:118
+#: admin/partials/aet-cat-list.php:242
+#: admin/partials/aet-et-settings-form.php:133
+#: admin/partials/aet-et-settings-form.php:263
+#: admin/partials/aet-et-settings-form.php:407
+#: admin/partials/aet-et-settings-form.php:460
+#: admin/partials/aet-et-settings-form.php:504
+#: admin/partials/aet-et-settings.php:117
 msgid "Documentation"
 msgstr "Dokumentation"
 
@@ -460,7 +537,12 @@ msgstr "Dokumentation"
 msgid "Done"
 msgstr "Erledigt"
 
-#: public/class-advance-ecommerce-tracking-public.php:187
+#: includes/class-aet-ga4-dashboard.php:236
+msgid "DotStore handoff did not return an access token."
+msgstr ""
+"Die DotStore-Übergabe hat kein Zugriffstoken zurückgegeben.\n"
+
+#: public/class-advance-ecommerce-tracking-public.php:169
 msgid "Download"
 msgstr "Herunterladen"
 
@@ -474,29 +556,26 @@ msgstr ""
 "Aktivieren oder deaktivieren Sie ganz einfach die erweiterten Tracking-"
 "Funktionen."
 
-#: admin/class-advance-ecommerce-tracking-admin.php:420
-#: admin/class-advance-ecommerce-tracking-admin.php:437
+#: admin/class-advance-ecommerce-tracking-admin.php:584
+#: admin/class-advance-ecommerce-tracking-admin.php:601
 msgid "Ecommerce Tracking"
 msgstr "E-Commerce-Tracking"
 
-#: admin/partials/aet-et-settings.php:88
+#: admin/partials/aet-et-settings.php:98
 msgid "Ecommerce Tracking Configuration"
 msgstr "E-Commerce-Tracking-Konfiguration"
 
-#: admin/partials/aet-et-settings.php:109
-#| msgid ""
-#| "Ecommerce Tracking makes it \"effortless\" to setup Google Analytics in "
-#| "WordPress, the Right way.\n"
-#| "\t\t\t\t\t\t\t\t\t\tYou can watch video tutorial or use our easy setup "
-#| "wizard."
+#: admin/partials/aet-et-settings.php:113
 msgid ""
-"Ecommerce Tracking makes it \"effortless\" to setup Google Analytics in "
-"WordPress, the Right way.\n"
-"\t\t\t\t\t\t\t\t\t\tYou can watch video tutorial."
+"Ecommerce Tracking makes it effortless to set up Google Analytics in "
+"WordPress the right way. Follow our documentation to get started quickly."
 msgstr ""
-"E-Commerce-Tracking macht es „mühelos“, Google Analytics in WordPress "
-"richtig einzurichten.\n"
-"Sie können sich ein Video-Tutorial ansehen."
+"Mit E-Commerce-Tracking lässt sich Google Analytics in WordPress mühelos und "
+"korrekt einrichten. Folgen Sie unserer Dokumentation, um schnell loszulegen."
+
+#: admin/partials/aet-cat-list.php:535
+msgid "Edit"
+msgstr "Bearbeiten"
 
 #: admin/partials/aet-premium-page.php:114
 msgid ""
@@ -506,20 +585,24 @@ msgstr ""
 "Verwalten Sie GA4-Tracking-Funktionen mühelos über Backend-Optionen für eine "
 "verbesserte Analysekontrolle."
 
-#: public/class-advance-ecommerce-tracking-public.php:185
+#: public/class-advance-ecommerce-tracking-public.php:167
 msgid "Email"
 msgstr "Email"
 
-#: admin/partials/aet-et-settings.php:212
-msgid "Enable Analytics Tracking"
-msgstr "Analytics-Tracking aktivieren"
-
-#: admin/partials/aet-et-settings.php:228
+#: admin/partials/aet-et-settings-form.php:147
 #| msgid "Enable tracking on your site using this option"
 msgid "Enable Analytics trackings on your site using this option"
 msgstr "Aktivieren Sie mit dieser Option Analytics-Tracking auf Ihrer Website"
 
-#: admin/partials/aet-et-settings.php:237
+#: admin/partials/aet-et-settings-form.php:518
+msgid "Enable Backend Tracking"
+msgstr "Backend-Tracking aktivieren"
+
+#: admin/partials/aet-et-settings-form.php:553
+msgid "Enable Debug Mode"
+msgstr "Debug-Modus aktivieren"
+
+#: admin/partials/aet-et-settings-form.php:156
 msgid "Enable Enhanced eCommerce"
 msgstr "Enhanced eCommerce aktivieren"
 
@@ -534,41 +617,45 @@ msgstr ""
 "Aktivieren Sie GA-Opt-out, demografische und Interessenberichte, "
 "Suchverfolgung, IP-Anonymisierung und mehr."
 
-#: admin/partials/aet-et-settings.php:467
-#: admin/partials/aet-et-settings.php:658
-#: admin/partials/aet-et-settings.php:852
-msgid "Enhanced Link Attribution"
-msgstr "Verbesserte Link-Attribution"
+#: admin/partials/aet-et-settings-form.php:144
+#| msgid "Enable Analytics Tracking"
+msgid "Enable GA4 Analytics Tracking"
+msgstr "GA4-Analytics-Tracking aktivieren"
 
-#: admin/partials/aet-et-settings.php:475
-#: admin/partials/aet-et-settings.php:666
+#: admin/partials/aet-et-settings-form.php:375
 msgid ""
-"Enhanced Link Attribution improves the accuracy of your In-Page Analytics "
-"report by automatically\n"
-"\t\t\t\t\t\t\t\t\t\tdifferentiating between multiple links to the same URL "
-"on a single page by using link element IDs."
+"Enable to send a sign_up event when a visitor registers. Disable to stop "
+"tracking this event. View in GA4: Reports > Engagement > Events (event name: "
+"sign_up)."
 msgstr ""
-"Enhanced Link Attribution verbessert die Genauigkeit Ihres In-Page-"
-"Analyseberichts automatisch um\n"
-"Unterscheiden zwischen mehreren Links zu derselben URL auf einer einzelnen "
-"Seite mithilfe von Linkelement-IDs."
+"Aktivieren Sie diese Option, um ein „sign_up“-Ereignis zu senden, wenn sich "
+"ein Besucher registriert. Deaktivieren Sie sie, um die Erfassung dieses "
+"Ereignisses zu beenden. Ansicht in GA4: Berichte > Interaktion > Ereignisse "
+"(Ereignisname: sign_up)."
 
-#: admin/partials/aet-et-settings.php:860
-msgid ""
-"Enhanced Link Attribution improves the accuracy of your In-Page Analytics "
-"report by automatically\n"
-"\t\t\t\t\t\t\t\t\tdifferentiating between multiple links to the same URL on "
-"a single page by using link element IDs."
-msgstr ""
-"Verbesserte Linkzuordnung verbessert die Genauigkeit Ihres In-Page-"
-"Analyseberichts, indem anhand von Linkelement-IDs automatisch zwischen "
-"mehreren Links zur gleichen URL auf einer einzelnen Seite unterschieden wird."
+#: admin/partials/aet-cat-list.php:490
+msgid "Engagement Time"
+msgstr "Interaktionsdauer"
 
-#: admin/partials/aet-et-settings.php:132
+#: admin/partials/aet-et-settings-form.php:545
+msgid "Enter API Secret"
+msgstr "API-Secret eingeben"
+
+#: admin/partials/aet-et-settings-form.php:106
 msgid "Enter GA4 ID"
 msgstr "Geben Sie die GA4-ID ein"
 
-#: admin/partials/aet-cat-list.php:298
+#: admin/partials/aet-et-settings.php:163
+msgid "Enter GA4 Measurement ID"
+msgstr "GA4-Mess-ID eingeben"
+
+#: admin/partials/aet-cat-list.php:42 admin/partials/aet-cat-list.php:273
+msgid "Enter the class, ID, or selector of the element you want to track."
+msgstr ""
+"Geben Sie die Klasse, die ID oder den Selektor des Elements ein, das Sie "
+"erfassen möchten."
+
+#: admin/partials/aet-cat-list.php:404
 #| msgid ""
 #| "Enter the event action name which you want to display in analytics "
 #| "section.\n"
@@ -584,7 +671,7 @@ msgstr ""
 "Sie können diesen Bericht im Bereich „Verhalten“ > „Ereignisse“ anzeigen. "
 "(Ereignisaktion – Sie haben hier den Anzeigenamen eingegeben)"
 
-#: admin/partials/aet-cat-list.php:88
+#: admin/partials/aet-cat-list.php:107
 msgid ""
 "Enter the event action name which you want to display in analytics section.\n"
 "\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
@@ -595,7 +682,7 @@ msgstr ""
 "Sie können diesen Bericht im Bereich „Verhalten“ > „Ereignisse“ anzeigen. "
 "(Ereignisaktion – Sie haben hier den Anzeigenamen eingegeben)"
 
-#: admin/partials/aet-cat-list.php:311
+#: admin/partials/aet-cat-list.php:418
 #| msgid ""
 #| "Enter the event label name which you want to display in analytics section."
 #| "\n"
@@ -611,7 +698,7 @@ msgstr ""
 "Sie können diesen Bericht im Abschnitt „Verhalten“ > „Ereignisse“ anzeigen. "
 "(Ereignisbezeichnung – Sie haben hier den anzuzeigenden Namen eingegeben)"
 
-#: admin/partials/aet-cat-list.php:101
+#: admin/partials/aet-cat-list.php:121
 msgid ""
 "Enter the event label name which you want to display in analytics section.\n"
 "\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
@@ -622,7 +709,7 @@ msgstr ""
 "Sie können diesen Bericht im Abschnitt „Verhalten“ > „Ereignisse“ anzeigen. "
 "(Ereignisbezeichnung – Sie haben hier den anzuzeigenden Namen eingegeben)"
 
-#: admin/partials/aet-cat-list.php:285
+#: admin/partials/aet-cat-list.php:390
 #| msgid ""
 #| "Enter the event name which you want to display in analytics section.\n"
 #| "\t\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events "
@@ -637,7 +724,7 @@ msgstr ""
 "Sie können diesen Bericht im Bereich „Verhalten“ > „Ereignisse“ anzeigen. "
 "(Ereigniskategorie – Sie haben hier den Anzeigenamen eingegeben)"
 
-#: admin/partials/aet-cat-list.php:75
+#: admin/partials/aet-cat-list.php:93
 msgid ""
 "Enter the event name which you want to display in analytics section.\n"
 "\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
@@ -648,7 +735,7 @@ msgstr ""
 "Sie können diesen Bericht im Abschnitt „Verhalten“ > „Ereignisse“ anzeigen. "
 "(Ereigniskategorie – Sie haben hier den Anzeigenamen eingegeben)"
 
-#: admin/partials/aet-cat-list.php:114 admin/partials/aet-cat-list.php:324
+#: admin/partials/aet-cat-list.php:135 admin/partials/aet-cat-list.php:432
 msgid ""
 "Enter the event value which will count unique event. Value must be an "
 "integer."
@@ -656,61 +743,72 @@ msgstr ""
 "Geben Sie den Ereigniswert ein, der eindeutige Ereignisse zählt. Der Wert "
 "muss eine ganze Zahl sein."
 
-#: public/class-advance-ecommerce-tracking-public.php:181
+#: admin/partials/aet-dashboard.php:216
+msgid "Entry Pages"
+msgstr "Einstiegsseiten"
+
+#: admin/partials/aet-et-settings-form.php:129
+msgid "Essential tracking for your store and visitors"
+msgstr "Wichtiges Tracking für Ihren Shop und Ihre Besucher"
+
+#: public/class-advance-ecommerce-tracking-public.php:163
 msgid "event"
 msgstr "Veranstaltung"
 
-#: admin/partials/aet-cat-list.php:82 admin/partials/aet-cat-list.php:292
-#: admin/partials/aet-cat-list.php:385
+#: admin/partials/aet-cat-list.php:100 admin/partials/aet-cat-list.php:397
 msgid "Event Action"
 msgstr "Ereignisaktion"
 
-#: admin/partials/aet-cat-list.php:69 admin/partials/aet-cat-list.php:279
-#: admin/partials/aet-cat-list.php:384
+#: admin/partials/aet-cat-list.php:86 admin/partials/aet-cat-list.php:383
 msgid "Event Category"
 msgstr "Ereigniskategorie"
 
-#: admin/partials/aet-cat-list.php:95 admin/partials/aet-cat-list.php:305
-#: admin/partials/aet-cat-list.php:386
+#: admin/partials/aet-cat-list.php:114 admin/partials/aet-cat-list.php:411
+#: admin/partials/aet-cat-list.php:466
 msgid "Event Label"
 msgstr "Event-Label"
 
-#: admin/partials/aet-cat-list.php:383
-msgid "Event Name"
-msgstr "Veranstaltungsname"
+#: admin/partials/aet-cat-list.php:26 admin/partials/aet-cat-list.php:254
+#: admin/partials/aet-cat-list.php:465
+#| msgid "Event Name"
+msgid "Event Type"
+msgstr "Veranstaltungstyp"
 
-#: admin/partials/aet-cat-list.php:108 admin/partials/aet-cat-list.php:318
-#: admin/partials/aet-cat-list.php:387
+#: admin/partials/aet-cat-list.php:128 admin/partials/aet-cat-list.php:425
 msgid "Event Value"
 msgstr ""
 "\n"
 "Ereigniswert"
 
-#: admin/partials/aet-et-settings.php:574
-#: admin/partials/aet-et-settings.php:767
-#: admin/partials/aet-et-settings.php:961
-msgid "Excluding traking for roles"
-msgstr "Ausgenommen Traking für Rollen"
+#: admin/partials/aet-et-settings-form.php:445
+#| msgid "Excluding traking for roles"
+msgid "Exclude tracking for roles"
+msgstr "Tracking für Rollen ausschließen"
 
-#: public/class-advance-ecommerce-tracking-public.php:182
+#: admin/partials/aet-dashboard.php:217
+msgid "Exit Pages"
+msgstr "Ausstiegsseiten"
+
+#: public/class-advance-ecommerce-tracking-public.php:164
 msgid "External"
 msgstr "Extern"
 
-#: admin/partials/aet-cat-list.php:125 admin/partials/aet-cat-list.php:335
-msgid "false"
-msgstr "falsch"
+#: includes/class-aet-ga4-dashboard.php:276
+msgid "Failed to refresh Google access token. Please reconnect."
+msgstr ""
+"Das Aktualisieren des Google-Zugriffstokens ist fehlgeschlagen. Bitte "
+"stellen Sie die Verbindung erneut her."
 
 #: admin/partials/aet-premium-page.php:247
 msgid "FAQs"
 msgstr "FAQs"
 
-#: public/class-advance-ecommerce-tracking-public.php:186
+#: admin/partials/aet-et-settings-form.php:425
+#: public/class-advance-ecommerce-tracking-public.php:168
 msgid "File"
 msgstr "Datei"
 
-#: admin/partials/aet-et-settings.php:453
-#: admin/partials/aet-et-settings.php:644
-#: admin/partials/aet-et-settings.php:838
+#: admin/partials/aet-et-settings-form.php:285
 msgid "File Downloads"
 msgstr "Datei-Downloads"
 
@@ -729,15 +827,36 @@ msgid "Find the role-based tracking exclusion in e-commerce tracking."
 msgstr ""
 "Finden Sie den rollenbasierten Tracking-Ausschluss im E-Commerce-Tracking."
 
-#: public/class-advance-ecommerce-tracking-public.php:197
+#: admin/partials/aet-et-settings-form.php:539
+msgid ""
+"Find this in Google Analytics 4: Admin → Data Streams → select your web "
+"stream → Measurement Protocol API secrets → Create (or copy an existing "
+"secret). Paste the full secret here."
+msgstr ""
+"Sie finden dies in Google Analytics 4 unter: Verwaltung → Datenstreams → "
+"Ihren Web-Stream auswählen → Measurement-Protocol-API-Secrets → Erstellen "
+"(oder ein vorhandenes Secret kopieren). Fügen Sie das vollständige Secret "
+"hier ein."
+
+#: admin/partials/aet-cat-list.php:366
+msgid ""
+"Fires once, this many seconds of active (foreground tab) time after the page "
+"loads."
+msgstr ""
+"Wird einmal ausgelöst – und zwar nach Ablauf der angegebenen Anzahl an "
+"Sekunden aktiver Nutzungszeit (Tab im Vordergrund) seit dem Laden der Seite."
+
+#: public/class-advance-ecommerce-tracking-public.php:179
 msgid "Form"
 msgstr "Form"
 
-#: admin/partials/aet-et-settings.php:515
-#: admin/partials/aet-et-settings.php:706
-#: admin/partials/aet-et-settings.php:900
+#: admin/partials/aet-et-settings-form.php:296
 msgid "Form Tracking"
 msgstr "Formularverfolgung"
+
+#: admin/partials/aet-et-settings.php:177
+msgid "Format: G-XXXXXXXXXX"
+msgstr "Format: G-XXXXXXXXXX"
 
 #: admin/partials/header/plugin-header.php:16
 #: admin/partials/header/plugin-header.php:20
@@ -745,9 +864,13 @@ msgstr "Formularverfolgung"
 msgid "Free"
 msgstr "Frei"
 
-#: admin/partials/aet-et-settings.php:221
+#: admin/partials/aet-et-settings-form.php:65
 msgid "GA4"
 msgstr "GA4"
+
+#: includes/class-aet-ga4-dashboard.php:994
+msgid "GA4 Data API request failed."
+msgstr "GA4-Data-API-Anfrage fehlgeschlagen."
 
 #: admin/partials/aet-premium-page.php:86
 msgid ""
@@ -756,6 +879,23 @@ msgid ""
 msgstr ""
 "GA4 ermöglicht Ihnen die Analyse aller wesentlichen Leistungskennzahlen und "
 "ermöglicht so eine datengesteuerte Entscheidungsfindung."
+
+#: admin/partials/aet-et-settings-form.php:94
+#: admin/partials/aet-et-settings.php:172
+msgid "GA4 Measurement ID"
+msgstr "GA4-Mess-ID"
+
+#: includes/class-aet-ga4-dashboard.php:525
+msgid "GA4 Property ID is required."
+msgstr "Die GA4-Property-ID ist erforderlich."
+
+#: includes/class-aet-ga4-dashboard.php:1463
+msgid "GA4 property saved."
+msgstr "GA4-Property gespeichert."
+
+#: admin/partials/aet-dashboard.php:31
+msgid "Get an overview of your website analytics."
+msgstr "Verschaffen Sie sich einen Überblick über Ihre Website-Analysen."
 
 #: admin/partials/dots-plugin-setup-wizard.php:39
 msgid ""
@@ -768,7 +908,7 @@ msgstr ""
 "helfen, das Plugin besser mit Ihrer Website kompatibel zu machen. Es werden "
 "keine personenbezogenen Daten erfasst oder gespeichert."
 
-#: admin/class-advance-ecommerce-tracking-admin.php:447
+#: admin/class-advance-ecommerce-tracking-admin.php:611
 msgid "Get Premium"
 msgstr "Premium bekommen"
 
@@ -777,28 +917,44 @@ msgstr "Premium bekommen"
 msgid "Get The Premium Version"
 msgstr "Holen Sie sich die Premium-Version"
 
-#: admin/partials/aet-et-settings.php:179
-msgid "Google Analytics 4 Account"
-msgstr "Google Analytics 4-Konto"
+#: admin/partials/aet-dashboard.php:74
+msgid "Google account connected successfully."
+msgstr "Google-Konto erfolgreich verbunden."
 
-#: admin/partials/aet-et-settings.php:156
-msgid "Google Analytics Account"
-msgstr "Google Analytics-Konto"
+#: admin/partials/aet-dashboard.php:79
+msgid "Google account connected. Select a GA4 property below."
+msgstr "Google-Konto verbunden. Wählen Sie unten eine GA4-Property aus."
 
-#: admin/partials/aet-cat-list.php:13 admin/partials/aet-cat-list.php:365
-#: admin/partials/aet-et-settings.php:565
-#: admin/partials/aet-et-settings.php:758
-#: admin/partials/aet-et-settings.php:952
+#: includes/class-aet-ga4-dashboard.php:1017
+msgid "Google account is not connected."
+msgstr "Das Google-Konto ist nicht verbunden."
+
+#: admin/partials/aet-et-settings-form.php:203
+msgid ""
+"Google Analytics 4 automatically handles IP anonymization. No additional "
+"configuration is required."
+msgstr ""
+"Google Analytics 4 übernimmt die IP-Anonymisierung automatisch. Es ist keine "
+"zusätzliche Konfiguration erforderlich."
+
+#: admin/partials/aet-cat-list.php:13 admin/partials/aet-cat-list.php:449
+#: admin/partials/aet-et-settings-form.php:340
 msgid "Google Analytics Custom Event"
 msgstr "Benutzerdefiniertes Google Analytics-Ereignis"
 
-#: admin/partials/aet-et-settings.php:386
+#: admin/partials/aet-et-settings-form.php:216
 msgid "Google Analytics Opt Out"
 msgstr "Deaktivierung von Google Analytics"
 
 #: admin/partials/aet-premium-page.php:198
 msgid "Great for website owners with a single WooCommerce Store"
 msgstr "Ideal für Websitebesitzer mit einem einzelnen WooCommerce-Store"
+
+#: admin/partials/aet-cat-list.php:87 admin/partials/aet-cat-list.php:384
+msgid "Group similar events together to keep your reports organized."
+msgstr ""
+"Fassen Sie ähnliche Ereignisse zusammen, um Ihre Berichte übersichtlich zu "
+"halten."
 
 #: admin/partials/header/plugin-header.php:53
 msgid "Help"
@@ -811,37 +967,64 @@ msgstr ""
 "Helfen Sie uns, ein besseres Plugin für das „Enhanced Ecommerce Tracking“ zu "
 "entwickeln!"
 
+#: admin/partials/aet-dashboard.php:206
+#: includes/class-aet-ga4-dashboard.php:1435
+msgid "High"
+msgstr "Hoch"
+
 #: admin/partials/aet-get-started-page.php:12
 msgid "How to Get Started"
 msgstr "Wie man anfängt"
 
-#: admin/partials/aet-cat-list.php:381
-msgid "Html Selector"
-msgstr "HTML-Selektor"
+#: admin/partials/aet-et-settings-form.php:593
+#| msgid "Accept Privacy Policy of Plugin"
+msgid "I accept Privacy Policy of Plugin"
+msgstr "Ich akzeptiere die Datenschutzerklärung des Plugins."
 
 #: admin/partials/aet-premium-page.php:284
 msgid "I have more questions…"
 msgstr "Ich habe weitere Fragen…"
 
-#: admin/partials/aet-cat-list.php:51 admin/partials/aet-cat-list.php:261
+#: admin/partials/aet-cat-list.php:68 admin/partials/aet-cat-list.php:299
 msgid "ID"
 msgstr "ICH WÜRDE"
 
-#: admin/partials/aet-et-settings.php:398
-msgid ""
-"If you want to allow opt out to user then please add below link in your "
-"theme."
-msgstr ""
-"Wenn Sie die Abmeldung für den Benutzer zulassen möchten, fügen Sie bitte "
-"den folgenden Link in Ihr Thema ein."
+#: admin/partials/aet-et-settings-form.php:427
+msgid "Image"
+msgstr "Bild"
 
 #: admin/partials/aet-premium-page.php:70
 msgid "Improve Shopping Experience"
 msgstr "Verbessern Sie das Einkaufserlebnis"
 
-#: admin/partials/aet-et-settings.php:363
+#: admin/partials/aet-et-settings-form.php:418
+msgid ""
+"In the block settings sidebar, open Conversion Tracking and turn it on. "
+"Optionally add a custom label."
+msgstr ""
+"Öffnen Sie in der Seitenleiste mit den Blockeinstellungen den Bereich "
+"„Conversion-Tracking“ und aktivieren Sie ihn. Fügen Sie optional eine "
+"benutzerdefinierte Bezeichnung hinzu."
+
+#: includes/class-aet-ga4-dashboard.php:1509
+msgid "Invalid date range."
+msgstr "Ungültiger Datumsbereich."
+
+#: includes/class-aet-ga4-dashboard.php:129
+msgid "Invalid OAuth handoff."
+msgstr "Ungültige OAuth-Übergabe."
+
+#: admin/partials/aet-et-settings-form.php:199
 msgid "IP Anonymization"
 msgstr "IP-Anonymisierung"
+
+#: admin/partials/aet-cat-list.php:498
+msgid "JavaScript Event"
+msgstr "JavaScript-Ereignis"
+
+#: admin/partials/aet-cat-list.php:499
+msgid "JS Event"
+msgstr "JS-Ereignis"
 
 #: admin/partials/aet-premium-page.php:258
 msgid "knowledge base"
@@ -851,13 +1034,39 @@ msgstr "Wissensbasis"
 msgid "LearnWoo"
 msgstr "LearnWoo"
 
-#: admin/class-advance-ecommerce-tracking-admin.php:430
+#: public/class-advance-ecommerce-tracking-public.php:181
+msgid "Leave product review"
+msgstr "Produktbewertung abgeben"
+
+#: admin/partials/aet-et-settings-form.php:324
+msgid "Leaving Product Review Tracking"
+msgstr "Verlassen der Produktbewertungs-Nachverfolgung"
+
+#: admin/class-advance-ecommerce-tracking-admin.php:594
 msgid "License"
 msgstr "Lizenz"
 
-#: public/class-advance-ecommerce-tracking-public.php:183
+#: public/class-advance-ecommerce-tracking-public.php:165
 msgid "Link"
 msgstr "Verknüpfung"
+
+#: admin/partials/aet-dashboard.php:126
+#: includes/class-aet-ga4-dashboard.php:1429
+msgid "Loading analytics…"
+msgstr "Analysedaten werden geladen…"
+
+#: admin/partials/aet-et-settings-form.php:555
+msgid ""
+"Logs Measurement Protocol requests and responses to WooCommerce logs (source:"
+" aet-measurement-protocol)."
+msgstr ""
+"Protokolliert Measurement-Protocol-Anfragen und -Antworten in den "
+"WooCommerce-Logs (Quelle: aet-measurement-protocol)."
+
+#: admin/partials/aet-dashboard.php:204
+#: includes/class-aet-ga4-dashboard.php:1434
+msgid "Low"
+msgstr "Niedrig"
 
 #: admin/partials/aet-premium-page.php:83
 msgid ""
@@ -867,6 +1076,23 @@ msgstr ""
 "Ordnen Sie die Benutzerreise mit Erkenntnissen über die kleinsten "
 "Datenpunkte zu. Verfolgen Sie Suchanfragen, Kommentare, anonymisierte "
 "Analysedaten und mehr."
+
+#: admin/partials/aet-et-settings-form.php:527
+msgid "Measurement ID"
+msgstr "Mess-ID"
+
+#: admin/partials/aet-et-settings-form.php:491
+msgid "Measurement Protocol Backend Tracking"
+msgstr "Measurement-Protokoll für Backend-Tracking"
+
+#. translators: %d: HTTP status code
+#: includes/class-aet-ga4-measurement-protocol.php:345
+msgid "Measurement Protocol HTTP error: %d"
+msgstr "HTTP-Fehler des Measurement-Protokolls: %d"
+
+#: includes/class-aet-ga4-measurement-protocol.php:279
+msgid "Measurement Protocol is not configured."
+msgstr "Das Measurement Protocol ist nicht konfiguriert."
 
 #: admin/partials/dots-plugin-setup-wizard.php:93
 msgid "Medium"
@@ -892,21 +1118,62 @@ msgstr "Mein Konto"
 msgid "Never miss an important update"
 msgstr "Verpassen Sie nie wieder ein wichtiges Update"
 
+#: includes/class-aet-ga4-dashboard.php:1432
+msgid "New Users"
+msgstr "Neue Benutzer"
+
+#: admin/partials/aet-dashboard.php:172
+msgid "New vs Returning Users"
+msgstr "Neue vs. wiederkehrende Nutzer"
+
 #: admin/partials/aet-premium-page.php:215
 msgid "Nice and useful!"
 msgstr "Schön und nützlich!"
 
-#: admin/partials/aet-cat-list.php:442
+#: admin/partials/aet-cat-list.php:557
 msgid "No analytics event found"
 msgstr "Kein Analyseereignis gefunden"
+
+#: admin/partials/aet-et-settings-form.php:68
+msgid "No GA4 Measurement ID configured"
+msgstr "Keine GA4-Mess-ID konfiguriert"
 
 #: admin/partials/aet-premium-page.php:290
 msgid "No problem, we’re happy to help! Please reach out at %s."
 msgstr "Kein Problem, wir helfen Ihnen gerne! Wenden Sie sich bitte an %s."
 
-#: admin/partials/aet-cat-list.php:120 admin/partials/aet-cat-list.php:330
-msgid "Non-Interaction"
-msgstr "Nicht-Interaktion"
+#: includes/class-aet-ga4-dashboard.php:154
+msgid ""
+"No tokens returned from DotStore OAuth handoff. Please try connecting again."
+msgstr ""
+"Bei der DotStore-OAuth-Übergabe wurden keine Tokens zurückgegeben. Bitte "
+"versuchen Sie erneut, die Verbindung herzustellen."
+
+#: admin/partials/aet-et-settings-form.php:52
+msgid "Not Connected"
+msgstr "Nicht verbunden"
+
+#: admin/partials/aet-cat-list.php:355
+#| msgid " Note:"
+msgid "Note: "
+msgstr "Notiz: "
+
+#: admin/partials/aet-et-settings-form.php:433
+msgid ""
+"Note: For Image blocks, conversion tracking applies only when the image is "
+"linked."
+msgstr ""
+"Hinweis: Bei Bildblöcken gilt das Conversion-Tracking nur, wenn das Bild "
+"verlinkt ist."
+
+#: includes/class-aet-ga4-dashboard.php:135
+msgid "OAuth state mismatch. Please try connecting again."
+msgstr ""
+"OAuth-State-Fehler. Bitte versuchen Sie erneut, die Verbindung herzustellen."
+
+#: admin/partials/aet-et-settings-form.php:416
+msgid "Open a page or post in the block editor."
+msgstr "Öffne eine Seite oder einen Beitrag im Block-Editor."
 
 #: admin/partials/dots-plugin-setup-wizard.php:47
 msgid ""
@@ -929,17 +1196,42 @@ msgstr ""
 "Optimieren Sie das Einkaufserlebnis mithilfe einer Vielzahl von Berichten, "
 "die in GA4 verfügbar sind."
 
-#: admin/partials/aet-et-settings.php:126
-msgid "OR Enter manually analytics id in below field"
-msgstr "ODER Geben Sie die Analytics-ID manuell in das untere Feld ein"
+#: admin/partials/aet-et-settings.php:122
+msgid "OR"
+msgstr "ODER"
+
+#: admin/partials/aet-dashboard.php:185
+msgid "OS"
+msgstr "Betriebssystem"
 
 #: admin/partials/dots-plugin-setup-wizard.php:94
 msgid "Others"
 msgstr "Andere"
 
+#: admin/partials/aet-dashboard.php:30
+msgid "Overview"
+msgstr "Überblick"
+
+#: admin/partials/aet-dashboard.php:223
+msgid "Page"
+msgstr "Seite"
+
+#: admin/partials/aet-cat-list.php:504
+msgid "Page Scroll"
+msgstr "Seitenlauf"
+
+#: admin/partials/aet-dashboard.php:199
+msgid "Page Views"
+msgstr "Seitenaufrufe"
+
 #: admin/partials/aet-premium-page.php:193
 msgid "Pay $%s today. Renews in 12 months."
 msgstr "Zahlen Sie heute $%s. Verlängert sich in 12 Monaten."
+
+#: includes/class-aet-ga4-dashboard.php:111
+#: includes/class-aet-ga4-dashboard.php:1525
+msgid "Permission denied."
+msgstr "Zugriff verweigert."
 
 #: admin/partials/aet-premium-page.php:186
 msgid "Personal"
@@ -949,43 +1241,43 @@ msgstr "persönlich"
 msgid "Personal Plan"
 msgstr "Persönlicher Plan"
 
-#: admin/partials/aet-et-settings.php:480
-#: admin/partials/aet-et-settings.php:671
-#: admin/partials/aet-et-settings.php:865
-msgid "Please enable "
-msgstr "Bitte aktivieren"
+#: admin/partials/aet-dashboard.php:187
+msgid "Platforms"
+msgstr "Plattformen"
 
-#: admin/partials/aet-cat-list.php:454
+#: admin/partials/aet-cat-list.php:569
 msgid "Please enable custom event option from Google Ecommerce setting."
 msgstr ""
 "Bitte aktivieren Sie die benutzerdefinierte Ereignisoption in den Google E-"
 "Commerce-Einstellungen."
 
+#: includes/class-aet-ga4-dashboard.php:1439
+msgid "Please select a GA4 property."
+msgstr "Bitte wählen Sie eine GA4-Property aus."
+
 #: admin/partials/aet-get-started-page.php:29
 msgid "Plugin Tour"
 msgstr "Plugin-Tour"
 
-#: admin/partials/aet-et-settings.php:995
+#: admin/partials/aet-et-settings-form.php:571
+#: admin/partials/aet-et-settings-form.php:578
+#: admin/partials/aet-et-settings-form.php:596
 msgid "Privacy Policy"
 msgstr "Datenschutzrichtlinie"
-
-#: admin/partials/aet-et-settings.php:989
-msgid "Privacy Policy*"
-msgstr "Datenschutzrichtlinie*"
 
 #: admin/partials/header/plugin-header.php:13
 msgid "Pro"
 msgstr "Profi"
 
-#: public/class-advance-ecommerce-tracking-public.php:222
+#: public/class-advance-ecommerce-tracking-public.php:318
 msgid "Product category"
 msgstr "Produktkategorie"
 
-#: public/class-advance-ecommerce-tracking-public.php:228
+#: public/class-advance-ecommerce-tracking-public.php:324
 msgid "Product Detail"
 msgstr "Produktdetail"
 
-#: public/class-advance-ecommerce-tracking-public.php:224
+#: public/class-advance-ecommerce-tracking-public.php:320
 msgid "Product tag"
 msgstr "Produkt-Tag"
 
@@ -994,25 +1286,76 @@ msgstr "Produkt-Tag"
 msgid "Quick Tour"
 msgstr "Schnelle Tour"
 
+#: admin/partials/aet-et-settings-form.php:428
+msgid "Read More"
+msgstr "Mehr lesen"
+
 #: admin/partials/aet-get-started-page.php:25
 msgid "Read the Setup Guide"
 msgstr "Lesen Sie die Installationsanleitung"
 
-#: admin/partials/aet-et-settings.php:161
+#: admin/partials/aet-et-settings.php:132
+msgid "Recommended"
+msgstr "Empfohlen"
+
+#: admin/partials/aet-et-settings.php:142
+msgid "Recommended for most users"
+msgstr "Für die meisten Benutzer empfohlen"
+
+#: admin/partials/aet-et-settings-form.php:85
 msgid "Reconnect to Wizard"
 msgstr "Erneut mit Wizard verbinden"
 
-#: public/class-advance-ecommerce-tracking-public.php:195
+#: public/class-advance-ecommerce-tracking-public.php:177
 msgid "RemoveFromCart"
 msgstr "RemoveFromCart"
+
+#: includes/class-aet-ga4-dashboard.php:1433
+msgid "Returning Users"
+msgstr "Wiederkehrende Nutzer"
 
 #: admin/partials/aet-premium-page.php:94
 msgid "Role-Based Exclusion"
 msgstr "Rollenbasierter Ausschluss"
 
+#: advance-ecommerce-tracking.php:234
+msgid ""
+"Same functionality plugin found: <a href=\"%s\" target=\"_blank\">Google "
+"Site Kit</a> is also active. It may conflict with analytics reports. We "
+"recommend disabling one of them."
+msgstr ""
+"Es wurde ein Plugin mit ähnlicher Funktionalität gefunden: <a href=\"%s\" "
+"target=\"_blank\">Google Site Kit</a> ist ebenfalls aktiv. Dies kann zu "
+"Konflikten mit Analytics-Berichten führen. Wir empfehlen, eines der beiden "
+"zu deaktivieren."
+
 #: admin/partials/aet-et-settings.php:7
 msgid "Save changes"
 msgstr "Änderungen speichern"
+
+#: admin/partials/aet-cat-list.php:142 admin/partials/aet-cat-list.php:166
+msgid "Save Event"
+msgstr "Veranstaltung speichern"
+
+#: admin/partials/aet-et-settings-form.php:419
+msgid ""
+"Save or update the page. Clicks are sent to GA4 under Reports → Engagement → "
+"Events."
+msgstr ""
+"Speichern oder aktualisieren Sie die Seite. Klicks werden unter Berichte → "
+"Interaktion → Ereignisse an GA4 gesendet."
+
+#: admin/partials/aet-dashboard.php:108
+msgid "Save Property"
+msgstr "Immobilie speichern"
+
+#: includes/class-aet-ga4-dashboard.php:1438
+msgid "Saved."
+msgstr "Gespeichert."
+
+#: includes/class-aet-ga4-dashboard.php:1436
+msgid "Saving…"
+msgstr "Wird gespeichert…"
 
 #: admin/partials/aet-premium-page.php:71
 msgid ""
@@ -1022,17 +1365,31 @@ msgstr ""
 "Verabschieden Sie sich vom Raten des Benutzerverhaltens. Verfolgen Sie das "
 "tatsächliche Verhalten Ihrer Kunden und Besucher im Detail."
 
+#: admin/partials/aet-dashboard.php:188
+msgid "Screens"
+msgstr "Bildschirme"
+
+#: admin/partials/aet-cat-list.php:260 admin/partials/aet-cat-list.php:503
+msgid "Scroll Depth"
+msgstr "Scrolltiefe"
+
+#: admin/partials/aet-cat-list.php:317
+msgid "Scroll Depth Thresholds"
+msgstr "Schwellenwerte für die Scrolltiefe"
+
+#: admin/partials/aet-et-settings-form.php:429
+msgid "Search"
+msgstr "Suchen"
+
 #: admin/partials/dots-plugin-setup-wizard.php:85
 msgid "Search Engine"
 msgstr "Suchmaschine"
 
-#: public/class-advance-ecommerce-tracking-public.php:220
+#: public/class-advance-ecommerce-tracking-public.php:316
 msgid "Search Result"
 msgstr "Suchergebnis"
 
-#: admin/partials/aet-et-settings.php:280
-#: admin/partials/aet-et-settings.php:304
-#: admin/partials/aet-et-settings.php:329
+#: admin/partials/aet-et-settings-form.php:167
 msgid "Search Tracking"
 msgstr "Suchverfolgung"
 
@@ -1041,7 +1398,24 @@ msgstr "Suchverfolgung"
 msgid "Search Tracking, Track 404 (Not found) Errors."
 msgstr "Suchverfolgung, Verfolgung von 404-Fehlern (Nicht gefunden)."
 
-#: admin/partials/aet-cat-list.php:267
+#: admin/partials/aet-cat-list.php:360
+msgid "Seconds on Page"
+msgstr "Sekunden auf der Seite"
+
+#: admin/partials/aet-et-settings.php:152
+msgid "Secure & Private. We never store your credentials."
+msgstr "Sicher und privat. Wir speichern niemals Ihre Zugangsdaten."
+
+#: admin/partials/aet-et-settings.php:140
+msgid "Secure authentication with Google"
+msgstr "Sichere Authentifizierung mit Google"
+
+#: admin/partials/aet-et-settings-form.php:417
+msgid "Select a supported block (for example, Button or Image)."
+msgstr ""
+"Wählen Sie einen unterstützten Block aus (zum Beispiel „Button“ oder „Bild“)."
+
+#: admin/partials/aet-cat-list.php:305
 #| msgid ""
 #| "Select element's selector type where you want to apply this event.\n"
 #| "\t\t\t\t\t\t\t\t\t\t\t\tPlease check screenshot for selector's type."
@@ -1052,7 +1426,7 @@ msgstr ""
 "Wählen Sie den Elementauswahltyp aus, auf den Sie dieses Ereignis anwenden "
 "möchten. Bitte überprüfen Sie den Screenshot für den ausgewählten Typ."
 
-#: admin/partials/aet-cat-list.php:57
+#: admin/partials/aet-cat-list.php:74
 msgid ""
 "Select element's selector type where you want to apply this event.\n"
 "\t\t\t\t\t\t\t\t\t\tPlease check screenshot for selector's type."
@@ -1060,7 +1434,7 @@ msgstr ""
 "Wählen Sie den Elementauswahltyp aus, auf den Sie dieses Ereignis anwenden "
 "möchten. Bitte überprüfen Sie den Screenshot für den ausgewählten Typ."
 
-#: admin/partials/aet-cat-list.php:244
+#: admin/partials/aet-cat-list.php:281
 #| msgid ""
 #| "Select element's selector where you want to apply this event.\n"
 #| "\t\t\t\t\t\t\t\t\t\t\t\tPlease check screenshot for selector's."
@@ -1071,7 +1445,7 @@ msgstr ""
 "Wählen Sie den Elementselektor aus, auf den Sie dieses Ereignis anwenden "
 "möchten. Bitte sehen Sie sich den Screenshot des Selektors an."
 
-#: admin/partials/aet-cat-list.php:34
+#: admin/partials/aet-cat-list.php:50
 msgid ""
 "Select element's selector where you want to apply this event.\n"
 "\t\t\t\t\t\t\t\t\t\tPlease check screenshot for selector's."
@@ -1079,46 +1453,107 @@ msgstr ""
 "Wählen Sie den Elementselektor aus, auf den Sie dieses Ereignis anwenden "
 "möchten. Bitte sehen Sie sich den Screenshot des Selektors an."
 
+#: admin/partials/aet-dashboard.php:85
+msgid "Select GA4 Property"
+msgstr "GA4-Property auswählen"
+
 #: admin/partials/dots-plugin-setup-wizard.php:83
 msgid "Select One"
 msgstr "Select One"
 
-#: admin/partials/aet-cat-list.php:26 admin/partials/aet-cat-list.php:236
+#: admin/partials/aet-et-settings-form.php:456
+msgid "Select user roles to exclude from analytics tracking"
+msgstr ""
+"Wählen Sie Benutzerrollen aus, die vom Analytics-Tracking ausgeschlossen "
+"werden sollen."
+
+#: admin/partials/aet-cat-list.php:41 admin/partials/aet-cat-list.php:272
+#: admin/partials/aet-cat-list.php:467
 msgid "Selector"
 msgstr "Wählerin"
 
-#: admin/partials/aet-cat-list.php:46 admin/partials/aet-cat-list.php:256
+#: admin/partials/aet-cat-list.php:62 admin/partials/aet-cat-list.php:293
 msgid "Selector Type"
 msgstr "Selektortyp"
 
-#: public/class-advance-ecommerce-tracking-public.php:180
+#: public/class-advance-ecommerce-tracking-public.php:162
 msgid "send"
 msgstr "senden"
 
-#: advance-ecommerce-tracking.php:286
-msgid "Settings"
-msgstr "Einstellungen"
+#: admin/partials/aet-et-settings-form.php:520
+msgid ""
+"Send purchase and refund events from your server. Browser purchase events "
+"are disabled to prevent duplicates."
+msgstr ""
+"Senden Sie Kauf- und Rückerstattungsereignisse von Ihrem Server aus. "
+"Kaufereignisse aus dem Browser sind deaktiviert, um Duplikate zu vermeiden."
 
-#: public/class-advance-ecommerce-tracking-public.php:226
+#: admin/partials/aet-et-settings-form.php:500
+msgid "Send purchase-related events from your server to Google Analytics 4."
+msgstr ""
+"Senden Sie kaufbezogene Ereignisse von Ihrem Server an Google Analytics 4."
+
+#: admin/partials/aet-et-settings-form.php:326
+msgid ""
+"Sends a leave_product_review event when a customer submits a product review. "
+"View in GA4: Reports > Engagement > Events (event name: leave_product_review)"
+"."
+msgstr ""
+"Sendet ein „leave_product_review“-Ereignis, wenn ein Kunde eine "
+"Produktbewertung abgibt. Ansicht in GA4: Berichte > Interaktion > Ereignisse "
+"(Ereignisname: leave_product_review)."
+
+#: admin/partials/aet-et-settings-form.php:353
+msgid ""
+"Sends a sign_in event to analytics when a user logs in. View in GA4: Reports "
+"> Engagement > Events (event name: sign_in)."
+msgstr ""
+"Sendet ein „sign_in“-Ereignis an Analytics, wenn sich ein Nutzer anmeldet. "
+"Ansicht in GA4: Berichte > Interaktion > Ereignisse (Ereignisname: sign_in)."
+
+#: admin/partials/aet-et-settings-form.php:364
+msgid ""
+"Sends a sign_out event to analytics when a user logs out. View in GA4: "
+"Reports > Engagement > Events (event name: sign_out)."
+msgstr ""
+"Sendet ein „sign_out“-Ereignis an Analytics, wenn sich ein Nutzer abmeldet. "
+"Ansicht in GA4: Berichte > Interaktion > Ereignisse (Ereignisname: sign_out)."
+
+#: admin/partials/aet-dashboard.php:198 admin/partials/aet-dashboard.php:239
+msgid "Sessions"
+msgstr "Sitzungen"
+
+#: public/class-advance-ecommerce-tracking-public.php:322
 msgid "Shop"
 msgstr "Einkaufen"
+
+#: admin/partials/aet-et-settings-form.php:351
+msgid "Sign In Tracking"
+msgstr "Anmelden / Sendungsverfolgung"
+
+#: admin/partials/aet-et-settings-form.php:362
+msgid "Sign Out Tracking"
+msgstr "Abmeldung und Nachverfolgung"
+
+#: admin/partials/aet-et-settings-form.php:373
+msgid "Sign Up Tracking"
+msgstr "Registrierungs-Tracking"
+
+#: admin/partials/aet-et-settings-form.php:426
+msgid "Social Link"
+msgstr "Social-Media-Link"
 
 #: admin/partials/dots-plugin-setup-wizard.php:84
 msgid "Social Media"
 msgstr "Sozialen Medien"
 
-#: admin/partials/aet-et-settings.php:115
-msgid "Start to Setup"
-msgstr "Beginnen Sie mit der Einrichtung"
-
 #: admin/partials/aet-get-started-page.php:24
 msgid "Start Tracking Your Store"
 msgstr "Beginnen Sie mit der Verfolgung Ihres Shops"
 
-#: admin/partials/aet-cat-list.php:145 admin/partials/aet-cat-list.php:170
-#: admin/partials/aet-et-settings.php:139
-msgid "Submit"
-msgstr "einreichen"
+#: admin/partials/aet-et-settings.php:180
+msgid "Submit & Save"
+msgstr "Absenden & Speichern"
 
 #: admin/partials/header/plugin-header.php:49
 msgid "Suggest"
@@ -1132,6 +1567,16 @@ msgstr "Unterstützung"
 msgid "support ticket"
 msgstr "Unterstüzungsticket"
 
+#: admin/partials/aet-et-settings-form.php:422
+msgid "Supported blocks:"
+msgstr "Unterstützte Blöcke:"
+
+#: admin/partials/aet-cat-list.php:63 admin/partials/aet-cat-list.php:294
+msgid "Tell us whether the value above is a Class, ID, CSS Selector."
+msgstr ""
+"Teilen Sie uns mit, ob es sich bei dem obigen Wert um eine Klasse, eine ID "
+"oder einen CSS-Selektor handelt."
+
 #: admin/partials/aet-get-started-page.php:14
 msgid ""
 "Thank you for choosing our top-rated Ecommerce Tracking plugin. Our user-"
@@ -1142,171 +1587,92 @@ msgstr ""
 "Plugin entschieden haben. Unsere benutzerfreundliche Oberfläche erleichtert "
 "die Einrichtung und bietet Einblicke in das Kundenverhalten."
 
-#: admin/partials/aet-et-settings.php:544
-#: admin/partials/aet-et-settings.php:735
-msgid ""
-"This feature will be send data to analytics when comment is posted on your "
-"website.\n"
-"\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - Comment)"
-msgstr ""
-"Diese Funktion sendet Daten an Analytics, wenn ein Kommentar auf Ihrer "
-"Website veröffentlicht wird.\n"
-"Sie können diesen Bericht im Abschnitt Verhalten > Ereignisse anzeigen. "
-"(Kategoriename - Kommentar)"
+#: admin/partials/header/plugin-header.php:99
+msgid "Thank you for purchasing the plugin!"
+msgstr "Vielen Dank für den Kauf des Plugins!"
 
-#: admin/partials/aet-et-settings.php:929
-msgid ""
-"This feature will be send data to analytics when comment is posted on your "
-"website.\n"
-"\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - Comment)"
-msgstr ""
-"Diese Funktion sendet Daten an Analytics, wenn auf Ihrer Website ein "
-"Kommentar gepostet wird.\n"
-"Sie können diesen Bericht im Abschnitt „Verhalten“ > „Ereignisse“ anzeigen. "
-"(Kategoriename – Kommentar)"
+#: admin/partials/aet-et-settings-form.php:584
+msgid "TheDotstore plugin's Privacy Policy."
+msgstr "Datenschutzerklärung des TheDotstore-Plugins."
 
-#: admin/partials/aet-et-settings.php:523
-#: admin/partials/aet-et-settings.php:714
-msgid ""
-"This feature will be send forms event to analytics when forms are submitted "
-"on site.\n"
-"\t\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - Form)"
-msgstr ""
-"Diese Funktion wird ein Formularereignis an Analytics senden, wenn Formulare "
-"vor Ort gesendet werden.\n"
-"Sie können diesen Bericht im Abschnitt Verhalten > Ereignisse anzeigen. "
-"(Kategoriename - Formular)"
-
-#: admin/partials/aet-et-settings.php:908
-msgid ""
-"This feature will be send forms event to analytics when forms are submitted "
-"on site.\n"
-"\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - Form)"
-msgstr ""
-"Diese Funktion sendet Formularereignisse an Analytics, wenn Formulare auf "
-"der Site übermittelt werden.\n"
-"Sie können diesen Bericht im Abschnitt Verhalten > Ereignisse anzeigen. "
-"(Kategoriename – Formular)"
-
-#: admin/partials/aet-et-settings.php:446
-#: admin/partials/aet-et-settings.php:637
+#: admin/partials/aet-et-settings-form.php:276
 msgid ""
 "This feature will be sent event to analytics whenever a user lands on your "
-"404 Error Page.\n"
-"\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - 404 Error)"
+"404 Error Page. View in GA4: Reports > Engagement > Events (event name: 404 "
+"Error)."
 msgstr ""
-"Diese Funktion wird jedes Mal an Analytics gesendet, wenn ein Benutzer auf "
-"Ihrer 404-Fehlerseite landet.\n"
-"Sie können diesen Bericht im Abschnitt Verhalten > Ereignisse anzeigen. "
-"(Kategoriename - 404-Fehler)"
+"Dieses Ereignis wird an Analytics gesendet, sobald ein Nutzer auf Ihrer 404-"
+"Fehlerseite landet. Ansicht in GA4: Berichte > Interaktion > Ereignisse "
+"(Ereignisname: 404 Error)."
 
-#: admin/partials/aet-et-settings.php:831
+#: admin/partials/aet-et-settings-form.php:287
 msgid ""
-"This feature will be sent event to analytics whenever a user lands on your "
-"404 Error Page.\n"
-"\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - 404 Error)"
+"This feature will be sent event to analytics whenever a user view or "
+"download file from this type(zip, exe, pdf, doc, docx, xls, ppt, csv, xml). "
+"View in GA4: Reports > Engagement > Events (event name: file_download)."
 msgstr ""
-"Diese Funktion sendet ein Ereignis an Analytics, wenn ein Benutzer auf Ihrer "
-"404-Fehlerseite landet.\n"
-"Sie können diesen Bericht im Abschnitt „Verhalten“ > „Ereignisse“ anzeigen. "
-"(Kategoriename – 404-Fehler)"
+"Bei dieser Funktion wird ein Ereignis an Analytics gesendet, sobald ein "
+"Nutzer eine Datei dieses Typs (zip, exe, pdf, doc, docx, xls, ppt, csv, xml) "
+"aufruft oder herunterlädt. Ansicht in GA4: Berichte > Interaktion > "
+"Ereignisse (Ereignisname: file_download)."
 
-#: admin/partials/aet-et-settings.php:459
-#: admin/partials/aet-et-settings.php:650
-msgid ""
-"This feature will be sent event to analytics whenever a user view or\n"
-"\t\t\t\t\t\t\t\t\t\tdownload file from this type(zip, exe, pdf, doc, docx, "
-"xls, ppt, csv, xml).\n"
-"\t\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - File Download)"
-msgstr ""
-"Diese Funktion wird jedes Mal an Analytics gesendet, wenn ein Benutzer sie "
-"anzeigt oder\n"
-"Laden Sie eine Datei von diesem Typ herunter (zip, exe, pdf, doc, docx, xls, "
-"ppt, csv, xml).\n"
-"Sie können diesen Bericht im Abschnitt Verhalten > Ereignisse anzeigen. "
-"(Kategoriename - Datei-Download"
-
-#: admin/partials/aet-et-settings.php:844
-msgid ""
-"This feature will be sent event to analytics whenever a user view or\n"
-"\t\t\t\t\t\t\t\t\tdownload file from this type(zip, exe, pdf, doc, docx, xls,"
-" ppt, csv, xml).\n"
-"\t\t\t\t\t\t\t\t\tYou can view this report in Behavior > Events section. "
-"(Category Name - File Download)"
-msgstr ""
-"Diese Funktion sendet ein Ereignis an Analytics, wenn ein Benutzer eine "
-"Datei dieses Typs (zip, exe, pdf, doc, docx, xls, ppt, csv, xml) anzeigt "
-"oder herunterlädt.\n"
-"Sie können diesen Bericht im Abschnitt „Verhalten > Ereignisse“ anzeigen. "
-"(Kategoriename – Dateidownload)"
-
-#: admin/partials/aet-et-settings.php:424
-#: admin/partials/aet-et-settings.php:614
-#: admin/partials/aet-et-settings.php:808
+#: admin/partials/aet-et-settings-form.php:234
 msgid ""
 "This feature will fire event when the guest user process for a checkout."
 msgstr ""
 "Diese Funktion löst ein Ereignis aus, wenn der Gastbenutzer einen Checkout "
 "ausführt."
 
-#: admin/partials/aet-et-settings.php:374
+#: admin/partials/aet-et-settings-form.php:315
 msgid ""
-"This option will be allow to request that all of their users\n"
-"\t\t\t\t\t\t\t\t\t\t\t\tIP addresses be anonymized within Google Analytics."
+"This feature will send data to analytics when a comment is posted on your "
+"website. View in GA4: Reports > Engagement > Events (event name: Comment)."
 msgstr ""
-"Mit dieser Option können Sie alle ihre Benutzer anfordern\n"
-"IP-Adressen werden innerhalb von Google Analytics anonymisiert."
+"Diese Funktion sendet Daten an Analytics, wenn ein Kommentar auf Ihrer "
+"Website veröffentlicht wird. Ansicht in GA4: Berichte > Interaktion > "
+"Ereignisse (Ereignisname: Comment)."
 
-#: admin/partials/aet-et-settings.php:288
-#: admin/partials/aet-et-settings.php:312
+#: admin/partials/aet-et-settings-form.php:300
 msgid ""
-"This option will be sent website's search term to Google Analytics .\n"
-"\t\t\t\t\t\t\t\t\t\t    See the setup guide for"
+"This feature will send form events to analytics when forms are submitted on "
+"your site. View in GA4: Reports > Engagement > Events (event name: Form)."
 msgstr ""
-"Bei dieser Option wird der Suchbegriff der Website an Google Analytics "
-"gesendet.\n"
-"Siehe die Einrichtungsanleitung für"
+"Diese Funktion sendet Formularereignisse an Analytics, wenn Formulare auf "
+"Ihrer Website abgeschickt werden. Ansicht in GA4: Berichte > Interaktion > "
+"Ereignisse (Ereignisname: Form)."
 
-#: admin/partials/aet-et-settings.php:337
-msgid ""
-"This option will be sent website's search term to Google Analytics .\n"
-"\t\t\t\t\t\t\t\t\t    See the setup guide for"
-msgstr ""
-"Mit dieser Option werden die Suchbegriffe der Website an Google Analytics "
-"gesendet.\n"
-"Weitere Informationen finden Sie im Einrichtungshandbuch für"
+#: admin/partials/aet-cat-list.php:115 admin/partials/aet-cat-list.php:412
+msgid "This is the event name that will appear in Google Analytics 4."
+msgstr "Dies ist der Ereignisname, der in Google Analytics 4 angezeigt wird."
 
-#: admin/partials/aet-et-settings.php:247
-msgid ""
-"This option will sent website's data to Google Analytics,\n"
-"\t\t\t\t\t\t\t\t\t\t    like: Transaction, Revenue, Product View, Add to "
-"Cart, Remove From Cart, Apply Coupon,\n"
-"\t\t\t\t\t\t\t\t\t\t\tIncrease and Decrease Cart Qty or etc. See the setup "
-"guide for"
+#: admin/partials/aet-et-settings-form.php:171
+msgid "This option will be sent website's search term to Google Analytics."
 msgstr ""
-"Bei dieser Option werden die Daten der Website an Google Analytics gesendet,"
-"\n"
-"wie: Transaktion, Umsatz, Produktansicht, In den Warenkorb, Aus dem "
-"Warenkorb entfernen, Coupon anwenden,\n"
-"Erhöhen und verringern Sie die Warenkorbmenge usw. Siehe die "
-"Einrichtungsanleitung für"
+"Mit dieser Option wird der Suchbegriff der Website an Google Analytics "
+"gesendet."
 
-#: admin/partials/aet-et-settings.php:255
-#: admin/partials/aet-et-settings.php:263
+#: admin/partials/aet-et-settings-form.php:29
 msgid ""
-"This option will sent website's data to Google Analytics,\n"
-"\t\t\t\t\t\t\t\t\t\t    like: Transaction, Revenue. See the setup guide for"
+"This option will sent website's data to Google Analytics, like: Transaction, "
+"Revenue, Product View, Add to Cart, Remove From Cart, Apply Coupon, Increase "
+"and Decrease Cart Qty or etc."
 msgstr ""
-"Bei dieser Option werden die Daten der Website an Google Analytics gesendet,"
-"\n"
-"wie: Transaktion, Umsatz. Siehe die Einrichtungsanleitung für"
+"Diese Option übermittelt Website-Daten an Google Analytics, wie zum Beispiel:"
+" Transaktionen, Umsatz, Produktaufrufe, Hinzufügen zum Warenkorb, Entfernen "
+"aus dem Warenkorb, Einlösen von Gutscheinen, Erhöhen oder Verringern der "
+"Warenkorbmenge usw."
+
+#: admin/partials/aet-et-settings-form.php:34
+msgid ""
+"This option will sent website's data to Google Analytics, like: Transaction, "
+"Revenue."
+msgstr ""
+"Diese Option übermittelt Website-Daten wie Transaktionen und Umsatz an "
+"Google Analytics."
+
+#: admin/partials/aet-cat-list.php:261 admin/partials/aet-cat-list.php:489
+msgid "Time on Page"
+msgstr "Verweildauer auf der Seite"
 
 #: admin/partials/aet-get-started-page.php:18
 msgid ""
@@ -1318,9 +1684,36 @@ msgstr ""
 "rechts an. Weitere Hilfe finden Sie in unseren Hilfedokumenten oder besuchen "
 "Sie unsere %s für ausführliche Video-Tutorials."
 
-#: admin/partials/aet-et-settings.php:440
-#: admin/partials/aet-et-settings.php:631
-#: admin/partials/aet-et-settings.php:825
+#: admin/partials/header/plugin-header.php:104
+msgid ""
+"To use pro features, please <strong>remove this free plugin</strong> and "
+"<strong>install and activate the premium version</strong>. Don't worry — "
+"this will not remove any of your tracking settings. Once you activate the "
+"premium version, all your settings will be automatically restored."
+msgstr ""
+"Um die Pro-Funktionen nutzen zu können, <strong>entfernen Sie bitte dieses "
+"kostenlose Plugin</strong> und <strong>installieren sowie aktivieren Sie die "
+"Premium-Version</strong>. Keine Sorge – Ihre Tracking-Einstellungen gehen "
+"dabei nicht verloren. Sobald Sie die Premium-Version aktivieren, werden alle "
+"Ihre Einstellungen automatisch wiederhergestellt."
+
+#: admin/partials/aet-dashboard.php:233
+msgid "Top Channels"
+msgstr "Top-Kanäle"
+
+#: admin/partials/aet-dashboard.php:215
+msgid "Top Pages"
+msgstr "Beliebteste Seiten"
+
+#: admin/partials/aet-dashboard.php:144
+msgid "Total Page Views"
+msgstr "Gesamtzahl der Seitenaufrufe"
+
+#: admin/partials/aet-dashboard.php:135
+msgid "Total Sessions"
+msgstr "Gesamtzahl der Sitzungen"
+
+#: admin/partials/aet-et-settings-form.php:274
 msgid "Track 404 (Not found) Errors"
 msgstr "Track 404 (Nicht gefunden) Fehler"
 
@@ -1331,6 +1724,22 @@ msgid ""
 msgstr ""
 "Verfolgen und analysieren Sie kritische Ereignisse, um das Benutzerverhalten "
 "zu verstehen und Konvertierungspfade zu optimieren."
+
+#: admin/partials/aet-et-settings-form.php:403
+msgid "Track clicks on Gutenberg blocks from the block editor sidebar."
+msgstr ""
+"Verfolge Klicks auf Gutenberg-Blöcke über die Seitenleiste des Block-Editors."
+
+#: admin/partials/aet-et-settings-form.php:394
+msgid ""
+"Track clicks on supported Gutenberg blocks by enabling Conversion Tracking "
+"in each block's settings sidebar. This is configured in the editor, not with "
+"a global toggle here."
+msgstr ""
+"Verfolgen Sie Klicks auf unterstützte Gutenberg-Blöcke, indem Sie das "
+"Conversion-Tracking in der Einstellungs-Seitenleiste des jeweiligen Blocks "
+"aktivieren. Die Konfiguration erfolgt im Editor und nicht über einen "
+"globalen Schalter an dieser Stelle."
 
 #: admin/partials/aet-premium-page.php:59
 msgid ""
@@ -1350,6 +1759,11 @@ msgid "Track user purchase journeys with predefined events."
 msgstr ""
 "Verfolgen Sie die Kaufprozesse der Benutzer mit vordefinierten Ereignissen."
 
+#: admin/partials/aet-cat-list.php:318
+msgid "Track when visitors scroll to specific parts of the page."
+msgstr ""
+"Verfolgen Sie, wann Besucher zu bestimmten Bereichen der Seite scrollen."
+
 #: admin/partials/dots-plugin-setup-wizard.php:25
 #| msgid ""
 #| "Track your conversions in an easy manner, integration with Google "
@@ -1360,21 +1774,25 @@ msgstr ""
 "Verfolgen Sie Ihre Conversions auf einfache Weise – Integration mit Google "
 "Analytics!"
 
-#: admin/partials/aet-cat-list.php:124 admin/partials/aet-cat-list.php:334
-msgid "true"
-msgstr "wahr"
+#: admin/partials/aet-et-settings-form.php:113
+msgid "Tracking Configuration"
+msgstr "Tracking-Konfiguration"
 
 #: admin/partials/aet-premium-page.php:202
 msgid "Trusted by 100,000+ store owners and WP experts!"
 msgstr "Mehr als 100.000 Ladenbesitzer und WP-Experten vertrauen uns!"
 
-#: admin/partials/aet-cat-list.php:382
-msgid "Type"
-msgstr "Typ"
+#: includes/class-aet-ga4-dashboard.php:228
+msgid "Unable to complete Google connection via DotStore."
+msgstr "Google-Verbindung über DotStore konnte nicht hergestellt werden."
 
-#: admin/partials/aet-et-settings.php:220
-msgid "UA - Deprecated"
-msgstr "UA – Veraltet"
+#: includes/class-aet-ga4-dashboard.php:332
+msgid "Unable to list GA4 properties."
+msgstr "GA4-Properties können nicht aufgelistet werden."
+
+#: includes/class-aet-ga4-dashboard.php:1430
+msgid "Unable to load analytics data."
+msgstr "Analysedaten konnten nicht geladen werden."
 
 #: admin/partials/dots-upgrade-popup.php:56
 msgid ""
@@ -1422,29 +1840,25 @@ msgstr ""
 msgid "Upgrade to Unlock Premium Features"
 msgstr "Upgrade zum Freischalten von Premium-Funktionen"
 
-#: admin/partials/aet-et-settings.php:481
-#: admin/partials/aet-et-settings.php:672
-#: admin/partials/aet-et-settings.php:866
-msgid "Use enhanced link attribution"
-msgstr "Verwenden Sie die erweiterte Link-Attribution"
+#: admin/partials/aet-et-settings-form.php:413
+msgid ""
+"Use Conversion Tracking on supported Gutenberg blocks to send click events "
+"to Google Analytics 4. Enable it per block in the editor — there is no "
+"global on/off setting on this page."
+msgstr ""
+"Nutzen Sie das Conversion-Tracking für unterstützte Gutenberg-Blöcke, um "
+"Klick-Ereignisse an Google Analytics 4 zu senden. Aktivieren Sie die "
+"Funktion direkt im Editor für den jeweiligen Block – es gibt auf dieser "
+"Seite keine globale Ein-/Ausschaltoption."
 
 #: admin/partials/aet-premium-page.php:78
 #| msgid "Users engagement and monetization."
 msgid "User engagement and monetization."
 msgstr "Benutzereinbindung und Monetarisierung."
 
-#: admin/partials/aet-et-settings.php:493
-#: admin/partials/aet-et-settings.php:684
-#: admin/partials/aet-et-settings.php:878
+#: admin/partials/aet-et-settings-form.php:182
 msgid "User ID Tracking"
 msgstr "Benutzer-ID-Tracking"
-
-#: admin/partials/aet-cat-list.php:131 admin/partials/aet-cat-list.php:341
-msgid ""
-"Using this option, you can set event type interaction or non-interaction."
-msgstr ""
-"Mit dieser Option können Sie die Ereignistyp-Interaktion oder Nicht-"
-"Interaktion festlegen."
 
 #: admin/partials/aet-premium-page.php:238
 msgid "Verified Customer"
@@ -1460,21 +1874,45 @@ msgstr ""
 "habe</strong>. Es ist mir eine große Hilfe, <strong>Updates für Bestellungen "
 "meiner Kunden bereitzustellen</strong>. Sehr nützlich."
 
-#: admin/partials/aet-et-settings.php:202
+#: admin/partials/aet-et-settings-form.php:172
+msgid ""
+"View in GA4: Reports > Engagement > Events (event name: view_search_results)."
+msgstr ""
+"Ansicht in GA4: Berichte > Interaktion > Ereignisse (Ereignisname: "
+"view_search_results)"
+
+#: admin/partials/aet-et-settings-form.php:101
 msgid "View More"
 msgstr "Mehr sehen"
+
+#: admin/partials/header/plugin-header.php:114
+msgid "View step-by-step guide"
+msgstr "Schritt-für-Schritt-Anleitung ansehen"
+
+#: admin/partials/aet-dashboard.php:224
+msgid "Views"
+msgstr "Ansichten"
+
+#: includes/class-aet-ga4-dashboard.php:1431
+msgid "vs previous period"
+msgstr "im Vergleich zum Vorjahreszeitraum"
 
 #: admin/partials/aet-premium-page.php:279
 msgid "We have a 14-day money-back guarantee."
 msgstr "Wir haben eine 14-tägige Geld-zurück-Garantie."
 
-#: admin/partials/aet-et-settings.php:105
-msgid "Welcome to Ecommerce Tracking"
-msgstr "Willkommen beim E-Commerce-Tracking"
+#: admin/partials/aet-dashboard.php:196
+msgid "Weekdays"
+msgstr "Wochentage"
 
 #: admin/partials/aet-get-started-page.php:13
 msgid "Welcome to Ecommerce Tracking Plugin"
 msgstr "Willkommen beim E-Commerce-Tracking-Plugin"
+
+#: admin/partials/aet-et-settings.php:111
+#| msgid "Welcome to Ecommerce Tracking"
+msgid "Welcome to Ecommerce Tracking!"
+msgstr "Willkommen beim E-Commerce-Tracking!"
 
 #: admin/partials/dots-plugin-setup-wizard.php:23
 msgid "Welcome! 🤗"
@@ -1488,67 +1926,54 @@ msgstr "Welche Zahlungsmethoden werden akzeptiert?"
 msgid "What’s your refund policy?"
 msgstr "Wie sind Ihre Rückerstattungsrichtlinien?"
 
-#: admin/partials/aet-et-settings.php:400
+#: admin/partials/aet-et-settings-form.php:494
+#: admin/partials/aet-et-settings-form.php:510
 msgid ""
-"When user will click on this link after that data will not send to google "
-"analytics."
+"When enabled, purchase-related events are sent securely from your server "
+"directly to Google Analytics 4 using the Measurement Protocol."
 msgstr ""
-"Wenn der Benutzer auf diesen Link klickt, werden diese Daten nicht an Google "
-"Analytics gesendet."
+"Wenn diese Funktion aktiviert ist, werden kaufbezogene Ereignisse über das "
+"Measurement Protocol sicher von Ihrem Server direkt an Google Analytics 4 "
+"gesendet."
 
-#: admin/partials/aet-et-settings.php:397
+#: admin/partials/aet-et-settings-form.php:220
+#| msgid ""
+#| "When you will enable this option then plugin will stop to sending data to "
+#| "Google Analytics."
 msgid ""
 "When you will enable this option then plugin will stop to sending data to "
-"Google Analytics."
+"Google Analytics. "
 msgstr ""
-"Wenn Sie diese Option aktivieren, sendet das Plugin keine Daten mehr an "
-"Google Analytics."
+"Wenn Sie diese Option aktivieren, stellt das Plugin das Senden von Daten an "
+"Google Analytics ein."
 
-#: admin/partials/aet-et-settings.php:562
-#: admin/partials/aet-et-settings.php:755
+#: admin/partials/aet-et-settings-form.php:339
+#| msgid ""
+#| "With custom events, you can track important actions as per your "
+#| "requirement.\n"
+#| "\t\t\t\t\t\t\t\t\t\tWhen you checked this checkbox and save this then new "
+#| "menu will display\n"
+#| "\t\t\t\t\t\t\t\t\t\twith name "
 msgid ""
-"With custom events, you can track important actions as per your requirement."
-"\n"
-"\t\t\t\t\t\t\t\t\t\t\tWhen you checked this checkbox and save this then new "
-"menu will display\n"
-"\t\t\t\t\t\t\t\t\t\t\twith name "
+"With custom events, you can track important actions as per your requirement. "
+"When you checked this checkbox and save this then new menu will display with "
+"name "
 msgstr ""
-"Mit benutzerdefinierten Ereignissen können Sie wichtige Aktionen nach Ihren "
-"Anforderungen verfolgen.\n"
-"Wenn Sie dieses Kontrollkästchen aktiviert und gespeichert haben, wird ein "
-"neues Menü angezeigt\n"
-"mit Namen"
+"Mit benutzerdefinierten Ereignissen können Sie wichtige Aktionen Ihren "
+"Anforderungen entsprechend erfassen. Wenn Sie dieses Kontrollkästchen "
+"aktivieren und die Einstellung speichern, wird ein neues Menü mit dem "
+"entsprechenden Namen angezeigt."
 
-#: admin/partials/aet-et-settings.php:949
+#: admin/partials/aet-et-settings-form.php:448
+#| msgid ""
+#| "With this features, users that have roles from above selected roles\n"
+#| "\t\t\t\t\t\t\t\t\twill not be tracked into Google Analytics."
 msgid ""
-"With custom events, you can track important actions as per your requirement."
-"\n"
-"\t\t\t\t\t\t\t\t\t\tWhen you checked this checkbox and save this then new "
-"menu will display\n"
-"\t\t\t\t\t\t\t\t\t\twith name "
+"With this features, users that have roles from above selected roles will not "
+"be tracked into Google Analytics."
 msgstr ""
-"Mit benutzerdefinierten Ereignissen können Sie wichtige Aktionen nach Bedarf "
-"verfolgen.\n"
-"Wenn Sie dieses Kontrollkästchen aktiviert und gespeichert haben, wird ein "
-"neues Menü mit dem Namen angezeigt:"
-
-#: admin/partials/aet-et-settings.php:592
-#: admin/partials/aet-et-settings.php:785
-msgid ""
-"With this features, users that have roles from above selected roles\n"
-"\t\t\t\t\t\t\t\t\t\twill not be tracked into Google Analytics."
-msgstr ""
-"Mit diesen Funktionen können Benutzer mit Rollen aus den oben ausgewählten "
-"Rollen\n"
-"werden nicht in Google Analytics erfasst."
-
-#: admin/partials/aet-et-settings.php:979
-msgid ""
-"With this features, users that have roles from above selected roles\n"
-"\t\t\t\t\t\t\t\t\twill not be tracked into Google Analytics."
-msgstr ""
-"Mit dieser Funktion werden Benutzer, die Rollen aus den oben ausgewählten "
-"Rollen haben, nicht in Google Analytics verfolgt."
+"Mit dieser Funktion werden Nutzer, denen eine der oben genannten Rollen "
+"zugewiesen ist, nicht in Google Analytics erfasst."
 
 #: admin/partials/dots-plugin-setup-wizard.php:81
 msgid "Would you mind telling how did you hear about us?"
@@ -1571,6 +1996,14 @@ msgstr "WPExplorer"
 msgid "WPLift"
 msgstr "WPLift"
 
+#: admin/partials/aet-cat-list.php:377
+msgid ""
+"Write the full trigger condition and your own gtag()/dataLayer call. This "
+"code runs as-is on the front end."
+msgstr ""
+"Schreiben Sie die vollständige Auslösebedingung sowie Ihren eigenen gtag()- "
+"bzw. dataLayer-Aufruf. Dieser Code wird unverändert im Frontend ausgeführt."
+
 #: admin/partials/aet-premium-page.php:257
 msgid ""
 "Yes! You can read our %s or submit a %s. We are very responsive and strive "
@@ -1588,6 +2021,10 @@ msgstr "Ja, zähl mich mit!"
 msgid "You are all set, almost!"
 msgstr "Sie sind fast fertig!"
 
+#: admin/partials/header/plugin-header.php:100
+msgid "You are currently using the free version of Ecommerce Tracking."
+msgstr "Sie nutzen derzeit die kostenlose Version von Ecommerce Tracking."
+
 #: admin/partials/aet-premium-page.php:211
 msgid ""
 "You are fully protected by our 100% Satisfaction Guarantee. If over the next "
@@ -1599,15 +2036,7 @@ msgstr ""
 "oder ein Problem haben, das wir nicht lösen können, erstatten wir Ihnen "
 "gerne 100% Ihres Geldes zurück."
 
-#: admin/partials/aet-et-settings.php:168
-msgid ""
-"You can change analytics ID using Reconnect button and also\n"
-"\t\t\t\t\t\t\t\t\t\tyou can disconnect analytics ID if not need."
-msgstr ""
-"Sie können die Analytics-ID mit der Schaltfläche Reconnect ändern und auch\n"
-"Sie können die Analyse-ID trennen, wenn dies nicht erforderlich ist."
-
-#: admin/partials/aet-et-settings.php:200
+#: admin/partials/aet-et-settings-form.php:99
 msgid "You can disconnect analytics ID if not need. "
 msgstr "Sie können die Analyse-ID trennen, wenn dies nicht erforderlich ist."
 
@@ -1619,41 +2048,36 @@ msgstr ""
 "Sie können mit Ihrer Kreditkarte über Stripe Checkout bezahlen. Oder über "
 "Ihr PayPal-Konto."
 
-#: admin/partials/aet-et-settings.php:501
-#: admin/partials/aet-et-settings.php:692
+#: admin/partials/aet-et-settings-form.php:186
+#| msgid ""
+#| "You can send a User ID when a pageview (or other data) is sent to Google "
+#| "Analytics.\n"
+#| "\t\t\t\t\t\t\t\t\t\tThis allows you to tie sessions together when the "
+#| "User ID is the same,\n"
+#| "\t\t\t\t\t\t\t\t\t\teven if the sessions are on different devices."
 msgid ""
 "You can send a User ID when a pageview (or other data) is sent to Google "
-"Analytics.\n"
-"\t\t\t\t\t\t\t\t\t\t\tThis allows you to tie sessions together when the User "
-"ID is the same,\n"
-"\t\t\t\t\t\t\t\t\t\t\teven if the sessions are on different devices."
+"Analytics. This allows you to tie sessions together when the User ID is the "
+"same, even if the sessions are on different devices."
 msgstr ""
-"Sie können eine User-ID senden, wenn ein Seitenaufruf (oder andere Daten) an "
-"Google Analytics gesendet werden.\n"
-"Auf diese Weise können Sie Sitzungen zusammenfassen, wenn die Benutzer-ID "
-"gleich ist.\n"
-"auch wenn die Sitzungen auf verschiedenen Geräten stattfinden."
+"Sie können eine User-ID übermitteln, wenn ein Seitenaufruf (oder andere "
+"Daten) an Google Analytics gesendet wird. Dies ermöglicht es Ihnen, "
+"Sitzungen bei identischer User-ID miteinander zu verknüpfen – selbst dann, "
+"wenn die Sitzungen auf unterschiedlichen Geräten stattfinden."
 
-#: admin/partials/aet-et-settings.php:886
-msgid ""
-"You can send a User ID when a pageview (or other data) is sent to Google "
-"Analytics.\n"
-"\t\t\t\t\t\t\t\t\t\tThis allows you to tie sessions together when the User "
-"ID is the same,\n"
-"\t\t\t\t\t\t\t\t\t\teven if the sessions are on different devices."
-msgstr ""
-"Sie können eine Benutzer-ID senden, wenn ein Seitenaufruf (oder andere Daten)"
-" an Google Analytics gesendet wird.\n"
-"Auf diese Weise können Sie Sitzungen miteinander verknüpfen, wenn die "
-"Benutzer-ID dieselbe ist,\n"
-"selbst wenn die Sitzungen auf unterschiedlichen Geräten stattfinden."
-
-#: admin/partials/aet-et-settings.php:292
-#: admin/partials/aet-et-settings.php:316
-#: admin/partials/aet-et-settings.php:341
-msgid "You can view this report in Behavior > Site Search."
-msgstr "Sie können diesen Bericht unter Verhalten > Site Search anzeigen."
+#: includes/class-aet-ga4-dashboard.php:1356
+msgid "You do not have permission to access this page."
+msgstr "Sie haben keine Berechtigung, auf diese Seite zuzugreifen."
 
 #: admin/partials/aet-get-started-page.php:19
 msgid "YouTube channel"
 msgstr "Youtube Kanal"
+
+#: admin/partials/aet-dashboard.php:88
+msgid "— Select property —"
+msgstr "— Immobilie auswählen —"
+
+#: admin/partials/aet-cat-list.php:237
+#| msgid "Back to Event List"
+msgid "← Back to Event List"
+msgstr "← Zurück zur Veranstaltungsliste"

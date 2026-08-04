@@ -1450,13 +1450,18 @@ table.table-outer.form-table.custom-event-listing.tablesorter tr th {
   background-position: center right 5px;
   cursor: pointer;
   background-size: 25px;
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+#custom-event-listing th.th_chk,
+#custom-event-listing td:first-child {
+    width: 60px !important;
 }
 table.custom-event-listing tr.afrsm-head th {
   padding: 9px 7px;
 }
 table.table-outer.free_and_paid_table, .upgrader_pro_version_button, th.name,
-th.del_checkbox, th.cost, th.remove, .tab-dot table.table-outer tr td,
-table.custom-event-listing tr th, table.custom-event-listing tr td {
+th.del_checkbox, th.cost, th.remove, .tab-dot table.table-outer tr td, table.custom-event-listing tr td.th_action {
   text-align: center;
 }
 .waet-table table.table-outer tr td input.input-text.regular-input, .waet-table #custom-event-listing thead {

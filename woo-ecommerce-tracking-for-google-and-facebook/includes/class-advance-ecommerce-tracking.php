@@ -121,6 +121,14 @@ if ( !class_exists( 'Advance_Ecommerce_Tracking' ) ) {
              */
             require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/required_function.php';
             /**
+             * GA4 Measurement Protocol backend tracking.
+             */
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-aet-ga4-measurement-protocol.php';
+            /**
+             * GA4 Analytics Overview dashboard (OAuth + Data API).
+             */
+            require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-aet-ga4-dashboard.php';
+            /**
              * The class responsible for defining all actions that occur in the public-facing
              * side of the site.
              */
@@ -160,10 +168,26 @@ if ( !class_exists( 'Advance_Ecommerce_Tracking' ) ) {
             $this->loader->add_action( 'wp_ajax_aet_update_manually_id', $plugin_admin, 'aet_update_manually_id' );
             $this->loader->add_action( 'wp_ajax_aet_wc_multiple_delete_row__premium_only', $plugin_admin, 'aet_wc_multiple_delete_row__premium_only' );
             $this->loader->add_action( 'wp_ajax_aet_plugin_setup_wizard_submit', $plugin_admin, 'aet_plugin_setup_wizard_submit' );
+            if ( !(aet_fs()->is__premium_only() && aet_fs()->can_use_premium_code()) ) {
+                $this->loader->add_action(
+                    'admin_init',
+                    $plugin_admin,
+                    'aet_et_handle_convert_to_pro_dismiss',
+                    5
+                );
+            }
+            $this->loader->add_action( 'wp_ajax_aet_et_convert_to_pro_purchase', $plugin_admin, 'aet_et_convert_to_pro_purchase' );
+            if ( class_exists( 'AET_GA4_Measurement_Protocol' ) ) {
+                AET_GA4_Measurement_Protocol::instance()->init();
+            }
             $this->loader->add_action( 'admin_init', $plugin_admin, 'aet_send_wizard_data_after_plugin_activation' );
             $get_page = filter_input( INPUT_GET, 'page', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
             if ( !empty( $get_page ) && false !== strpos( $get_page, 'aet' ) ) {
                 $this->loader->add_filter( 'admin_footer_text', $plugin_admin, 'aet_admin_footer_review' );
+            }
+            // Gutenberg "Conversion Tracking" panel (premium feature).
+            if ( aet_fs()->is__premium_only() && aet_fs()->can_use_premium_code() ) {
+                $this->loader->add_action( 'enqueue_block_editor_assets', $plugin_admin, 'aet_enqueue_block_editor_assets' );
             }
         }
 

@@ -1,727 +1,195 @@
 <?php
-
 // If this file is called directly, abort.
-if ( !defined( 'ABSPATH' ) ) {
-    exit;
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
 }
-require_once plugin_dir_path( __FILE__ ) . 'header/plugin-header.php';
-$submit_text = __( 'Save changes', 'advance-ecommerce-tracking' );
-$track_setting = filter_input( INPUT_POST, 'track_setting', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-$aet_admin_object = new Advance_Ecommerce_Tracking_Admin('', '');
+require_once( plugin_dir_path( __FILE__ ) . 'header/plugin-header.php' );
+$submit_text      = __( 'Save changes', 'advance-ecommerce-tracking' );
+$track_setting    = filter_input( INPUT_POST, 'track_setting', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+$aet_admin_object = new Advance_Ecommerce_Tracking_Admin( '', '' );
 if ( isset( $track_setting ) ) {
-    $post_wpnonce = filter_input( INPUT_POST, 'aet_et_conditions_save', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-    $post_retrieved_nonce = ( isset( $post_wpnonce ) ? sanitize_text_field( wp_unslash( $post_wpnonce ) ) : '' );
-    if ( !wp_verify_nonce( $post_retrieved_nonce, 'aet_et_save_action' ) ) {
-        die( 'Failed security check' );
-    } else {
-        $post_data = $_POST;
-        $aet_admin_object->aet_save_settings( $post_data );
-    }
+	$post_wpnonce         = filter_input( INPUT_POST, 'aet_et_conditions_save', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+	$post_retrieved_nonce = isset( $post_wpnonce ) ? sanitize_text_field( wp_unslash( $post_wpnonce ) ) : '';
+	if ( ! wp_verify_nonce( $post_retrieved_nonce, 'aet_et_save_action' ) ) {
+		die( 'Failed security check' );
+	} else {
+		$post_data = $_POST;
+		$aet_admin_object->aet_save_settings( $post_data );
+	}
 }
-$aet_et_tracking_settings = $aet_admin_object->aet_ad_get_setting_option( 'et' );
-$manually_et_px_ver_4 = ( empty( $aet_et_tracking_settings->manually_et_px_ver_4 ) ? '' : $aet_et_tracking_settings->manually_et_px_ver_4 );
-$at_enable = ( empty( $aet_et_tracking_settings->at_enable ) ? '' : $aet_et_tracking_settings->at_enable );
-$enhance_ecommerce_tracking = ( empty( $aet_et_tracking_settings->enhance_ecommerce_tracking ) ? '' : $aet_et_tracking_settings->enhance_ecommerce_tracking );
-$search_tracking = ( empty( $aet_et_tracking_settings->search_tracking ) ? '' : $aet_et_tracking_settings->search_tracking );
-$ip_anonymization = ( empty( $aet_et_tracking_settings->ip_anonymization ) ? '' : $aet_et_tracking_settings->ip_anonymization );
-$privacy_policy = ( empty( $aet_et_tracking_settings->privacy_policy ) ? '' : $aet_et_tracking_settings->privacy_policy );
-$google_analytics_opt_out = ( empty( $aet_et_tracking_settings->google_analytics_opt_out ) ? '' : $aet_et_tracking_settings->google_analytics_opt_out );
-$trc_guest_users = ( empty( $aet_et_tracking_settings->trc_guest_users ) ? '' : $aet_et_tracking_settings->trc_guest_users );
-$demogr_int_rema_adver = ( empty( $aet_et_tracking_settings->demogr_int_rema_adver ) ? '' : $aet_et_tracking_settings->demogr_int_rema_adver );
-$track_404 = ( empty( $aet_et_tracking_settings->track_404 ) ? '' : $aet_et_tracking_settings->track_404 );
-$file_downloads = ( empty( $aet_et_tracking_settings->file_downloads ) ? '' : $aet_et_tracking_settings->file_downloads );
-$exl_tracking_for_roles = ( empty( $aet_et_tracking_settings->exl_tracking_for_roles ) ? array() : $aet_et_tracking_settings->exl_tracking_for_roles );
-$user_id_tracking = ( empty( $aet_et_tracking_settings->user_id_tracking ) ? '' : $aet_et_tracking_settings->user_id_tracking );
-$form_tracking = ( empty( $aet_et_tracking_settings->form_tracking ) ? '' : $aet_et_tracking_settings->form_tracking );
-$comment_tracking = ( empty( $aet_et_tracking_settings->comment_tracking ) ? '' : $aet_et_tracking_settings->comment_tracking );
-$sign_in_tracking = ( empty( $aet_et_tracking_settings->sign_in_tracking ) ? '' : $aet_et_tracking_settings->sign_in_tracking );
-$sign_out_tracking = ( empty( $aet_et_tracking_settings->sign_out_tracking ) ? '' : $aet_et_tracking_settings->sign_out_tracking );
-$product_review_tracking = ( empty( $aet_et_tracking_settings->product_review_tracking ) ? '' : $aet_et_tracking_settings->product_review_tracking );
-$sign_up_tracking = ( empty( $aet_et_tracking_settings->sign_up_tracking ) ? '' : $aet_et_tracking_settings->sign_up_tracking );
-$custom_event = ( empty( $aet_et_tracking_settings->custom_event ) ? 'on' : $aet_et_tracking_settings->custom_event );
-$get_data = filter_input( INPUT_GET, 'data', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-$get_four_data = filter_input( INPUT_GET, 'fdata', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-$get_four_data = ( isset( $get_four_data ) && !empty( $get_four_data ) ? $get_four_data : '' );
-$get_four_data_val = urldecode( base64_decode( $get_four_data ) );
-if ( isset( $get_four_data_val ) && !empty( $get_four_data_val ) ) {
-    $four_id = $get_four_data_val;
-    $set_arry = get_option( 'aet_et_tracking_settings' );
-    $set_arr = json_decode( $set_arry, true );
-    $set_arr = ( NULL === $set_arr ? array() : $set_arr );
-    if ( array_key_exists( 'manually_et_px_ver_4', $set_arr ) ) {
-        $set_arr['manually_et_px_ver_4'] = $four_id;
-        $nset_array = wp_json_encode( $set_arr );
-        update_option( 'aet_et_tracking_settings', $nset_array );
-    } else {
-        $set_arr['manually_et_px_ver_4'] = $four_id;
-        $nset_array = wp_json_encode( $set_arr );
-        update_option( 'aet_et_tracking_settings', $nset_array );
-    }
+$aet_et_tracking_settings   = $aet_admin_object->aet_ad_get_setting_option( 'et' );
+
+$manually_et_px_ver_4       = empty( $aet_et_tracking_settings->manually_et_px_ver_4 ) ? '' : $aet_et_tracking_settings->manually_et_px_ver_4;
+$at_enable                  = empty( $aet_et_tracking_settings->at_enable ) ? '' : $aet_et_tracking_settings->at_enable;
+$enhance_ecommerce_tracking = empty( $aet_et_tracking_settings->enhance_ecommerce_tracking ) ? '' : $aet_et_tracking_settings->enhance_ecommerce_tracking;
+$search_tracking            = empty( $aet_et_tracking_settings->search_tracking ) ? '' : $aet_et_tracking_settings->search_tracking;
+$privacy_policy             = empty( $aet_et_tracking_settings->privacy_policy ) ? '' : $aet_et_tracking_settings->privacy_policy;
+$google_analytics_opt_out   = empty( $aet_et_tracking_settings->google_analytics_opt_out ) ? '' : $aet_et_tracking_settings->google_analytics_opt_out;
+$trc_guest_users   			= empty( $aet_et_tracking_settings->trc_guest_users ) ? '' : $aet_et_tracking_settings->trc_guest_users;
+$demogr_int_rema_adver      = empty( $aet_et_tracking_settings->demogr_int_rema_adver ) ? '' : $aet_et_tracking_settings->demogr_int_rema_adver;
+$track_404                  = empty( $aet_et_tracking_settings->track_404 ) ? '' : $aet_et_tracking_settings->track_404;
+$file_downloads             = empty( $aet_et_tracking_settings->file_downloads ) ? '' : $aet_et_tracking_settings->file_downloads;
+$exl_tracking_for_roles     = empty( $aet_et_tracking_settings->exl_tracking_for_roles ) ? array() : $aet_et_tracking_settings->exl_tracking_for_roles;
+$user_id_tracking           = empty( $aet_et_tracking_settings->user_id_tracking ) ? '' : $aet_et_tracking_settings->user_id_tracking;
+$form_tracking              = empty( $aet_et_tracking_settings->form_tracking ) ? '' : $aet_et_tracking_settings->form_tracking;
+$comment_tracking           = empty( $aet_et_tracking_settings->comment_tracking ) ? '' : $aet_et_tracking_settings->comment_tracking;
+$sign_in_tracking           = empty( $aet_et_tracking_settings->sign_in_tracking ) ? '' : $aet_et_tracking_settings->sign_in_tracking;
+$sign_out_tracking          = empty( $aet_et_tracking_settings->sign_out_tracking ) ? '' : $aet_et_tracking_settings->sign_out_tracking;
+$product_review_tracking    = empty( $aet_et_tracking_settings->product_review_tracking ) ? '' : $aet_et_tracking_settings->product_review_tracking;
+$sign_up_tracking           = empty( $aet_et_tracking_settings->sign_up_tracking ) ? '' : $aet_et_tracking_settings->sign_up_tracking;
+$custom_event               = empty( $aet_et_tracking_settings->custom_event ) ? 'on' : $aet_et_tracking_settings->custom_event;
+$mp_backend_tracking        = empty( $aet_et_tracking_settings->mp_backend_tracking ) ? '' : $aet_et_tracking_settings->mp_backend_tracking;
+$mp_measurement_id          = empty( $aet_et_tracking_settings->mp_measurement_id ) ? '' : $aet_et_tracking_settings->mp_measurement_id;
+$mp_api_secret              = empty( $aet_et_tracking_settings->mp_api_secret ) ? '' : $aet_et_tracking_settings->mp_api_secret;
+$mp_debug_mode              = empty( $aet_et_tracking_settings->mp_debug_mode ) ? '' : $aet_et_tracking_settings->mp_debug_mode;
+if ( empty( $mp_measurement_id ) && ! empty( $manually_et_px_ver_4 ) ) {
+	$mp_measurement_id = $manually_et_px_ver_4;
 }
+$get_data                   = filter_input( INPUT_GET, 'data', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+$get_four_data              = filter_input( INPUT_GET, 'fdata', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+$get_four_data              = isset( $get_four_data ) && !empty( $get_four_data ) ? $get_four_data : '';
+$get_four_data_val          = urldecode( base64_decode( $get_four_data ) );
+
+if( isset( $get_four_data_val ) && !empty( $get_four_data_val ) ){
+	$four_id = $get_four_data_val;
+	$set_arry = get_option('aet_et_tracking_settings') ;
+	$set_arr = json_decode( $set_arry, true );
+	$set_arr = NULL === $set_arr ? array() : $set_arr;
+	
+	if( array_key_exists( 'manually_et_px_ver_4', $set_arr ) ){
+		$set_arr['manually_et_px_ver_4'] = $four_id;
+		$nset_array = wp_json_encode($set_arr);
+		update_option( 'aet_et_tracking_settings', $nset_array );
+	}else{
+		$set_arr['manually_et_px_ver_4'] = $four_id;
+		$nset_array = wp_json_encode($set_arr);
+		update_option( 'aet_et_tracking_settings', $nset_array );
+	}
+	$aet_admin_object->aet_sync_ga4_connected_date( $four_id );
+}
+
 if ( isset( $get_data ) ) {
-    $aet_admin_object->aet_update_selected_ua_id(
-        $get_data,
-        'et',
-        'ecommerce',
-        'update',
-        'load'
-    );
+	$aet_admin_object->aet_update_selected_ua_id( $get_data, 'et', 'ecommerce', 'update', 'load' );
 }
-$setup_link = $aet_admin_object->aet_setup_link( '' );
-$selected_data_ua = get_option( 'selected_data_ua_et' );
+
+$setup_link        = $aet_admin_object->aet_setup_link( '' );
+$selected_data_ua  = get_option( 'selected_data_ua_et' );
 $allowed_tooltip_html = wp_kses_allowed_html( 'post' )['span'];
 $wizard_style_attr = '';
-$data_style_attr = '';
+$data_style_attr   = '';
 if ( empty( $selected_data_ua ) ) {
-    $wizard_style_attr = "display:block;";
-    $data_style_attr = "display:none;";
+	$wizard_style_attr = "display:block;";
+	$data_style_attr   = "display:none;";
 } else {
-    $wizard_style_attr = "display:none;";
-    $data_style_attr = "display:block;";
+	$wizard_style_attr = "display:none;";
+	$data_style_attr   = "display:block;";
 }
 $get_act = filter_input( INPUT_GET, 'act', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
 if ( isset( $get_act ) ) {
-    $aet_admin_object->aet_update_selected_ua_id(
-        $get_data,
-        'et',
-        'ecommerce',
-        'delete',
-        'load'
-    );
+	$aet_admin_object->aet_update_selected_ua_id( $get_data, 'et', 'ecommerce', 'delete', 'load' );
 }
+
 ?>
-	<div class="waet-section-left">
+	<div class="waet-section-left aet-settings-page">
 		<div class="waet-table res-cl">
 			<div class="title_div">
 				<h2>
-					<?php 
-esc_html_e( 'Ecommerce Tracking Configuration', 'advance-ecommerce-tracking' );
-?>
+					<?php esc_html_e( 'Ecommerce Tracking Configuration', 'advance-ecommerce-tracking' ); ?>
 				</h2>
 			</div>
 
-			<div class="table-outer" id="table_outer_wizard" style="<?php 
-echo esc_attr( $wizard_style_attr );
-?>">
+			<div class="table-outer" id="table_outer_wizard" style="<?php echo esc_attr( $wizard_style_attr ); ?>">
 				<div class="wizard_section" id="wizard_id">
-					<div class="progress_bar">
-
-					</div>
 					<div class="sub_wizard" id="sub_wizard_id">
-						<div class="sub_wizard_logo_container">
-							<div class="sub_wizard_logo sub_wizard_bg_img">
-							</div>
-						</div>
 						<div class="first_step steping_div" id="first_step">
-							<div class="sub_wizard_content">
-								<div class="sub_wizard_heading sub_wizard_content_common">
-									<h2><?php 
-echo esc_html__( 'Welcome to Ecommerce Tracking', 'advance-ecommerce-tracking' );
-?></h2>
-								</div>
-								<div class="sub_wizard_description sub_wizard_content_common">
+							<div class="aet-welcome-setup">
+								<div class="aet-welcome-setup__hero">
+									<div class="aet-welcome-setup__icon">
+										<img src="<?php echo esc_url( AET_PLUGIN_URL . 'admin/images/WSFL-1.png' ); ?>" alt="" />
+									</div>
+									<h2><?php esc_html_e( 'Welcome to Ecommerce Tracking!', 'advance-ecommerce-tracking' ); ?> 🚀</h2>
 									<p>
-										<?php 
-echo esc_html__( 'Ecommerce Tracking makes it "effortless" to setup Google Analytics in WordPress, the Right way.
-										You can watch video tutorial.', 'advance-ecommerce-tracking' );
-?>
+										<?php esc_html_e( 'Ecommerce Tracking makes it effortless to set up Google Analytics in WordPress the right way. Follow our documentation to get started quickly.', 'advance-ecommerce-tracking' ); ?>
 									</p>
-								</div>
-								<div class="sub_wizard_button sub_wizard_content_common" id="sub_wizard_button">
-									<a href="<?php 
-echo esc_url( $setup_link );
-?>" id="start_to_setup" data-attr="second_step" class="button button-secondory button-large sub_wizard_button_a sub_wizard_button_first_a">
-										<?php 
-echo esc_html__( 'Start to Setup', 'advance-ecommerce-tracking' );
-?>
-									</a>
-									<a href="<?php 
-echo esc_url( 'https://docs.thedotstore.com/category/545-premium-plugin-settings' );
-?>" target="_blank" class="button button-secondory button-large sub_wizard_button_a sub_wizard_button_second_a">
-										<?php 
-echo esc_html__( 'Documentation', 'advance-ecommerce-tracking' );
-?>
+									<a href="<?php echo esc_url( 'https://docs.thedotstore.com/article/546-how-to-connect-your-google-analytics-tracking-id' ); ?>" target="_blank" rel="noopener noreferrer" class="aet-welcome-setup__doc-btn">
+										<span class="dashicons dashicons-book-alt" aria-hidden="true"></span>
+										<?php esc_html_e( 'Documentation', 'advance-ecommerce-tracking' ); ?>
 									</a>
 								</div>
-							</div>
-							<div class="sub_wizard_content">
-								<div class="strong_content">
-									<strong>
-										<?php 
-echo esc_html__( 'OR Enter manually analytics id in below field', 'advance-ecommerce-tracking' );
-?>
-									</strong>
-								</div>
-								<div class="sub_wizard_fieldset sub_wizard_content_common" id="sub_wizard_field">
-									<div class="label_div">
-										<label><?php 
-echo esc_html__( 'Enter GA4 ID', 'advance-ecommerce-tracking' );
-?></label>
+
+								<div class="aet-welcome-setup__cards">
+									<span class="aet-welcome-setup__divider" aria-hidden="true"><?php esc_html_e( 'OR', 'advance-ecommerce-tracking' ); ?></span>
+
+									<div class="aet-welcome-setup__card aet-welcome-setup__card--google">
+										<div class="aet-welcome-setup__card-head">
+											<span class="aet-welcome-setup__card-icon aet-welcome-setup__card-icon--google" aria-hidden="true">
+												<span class="dashicons dashicons-admin-tools"></span>
+											</span>
+											<div>
+												<h3 class="aet-welcome-setup__card-title">
+													<?php esc_html_e( 'Connect with Google', 'advance-ecommerce-tracking' ); ?>
+													<span class="aet-welcome-setup__badge"><?php esc_html_e( 'Recommended', 'advance-ecommerce-tracking' ); ?></span>
+												</h3>
+											</div>
+										</div>
+										<p class="aet-welcome-setup__card-desc">
+											<?php esc_html_e( 'Connect your Google Analytics account in just a few clicks. Quick, secure and hassle-free.', 'advance-ecommerce-tracking' ); ?>
+										</p>
+										<ul class="aet-welcome-setup__features">
+											<li><span class="dashicons dashicons-yes-alt" aria-hidden="true"></span><?php esc_html_e( 'Secure authentication with Google', 'advance-ecommerce-tracking' ); ?></li>
+											<li><span class="dashicons dashicons-yes-alt" aria-hidden="true"></span><?php esc_html_e( 'Automatically fetches your GA4 properties', 'advance-ecommerce-tracking' ); ?></li>
+											<li><span class="dashicons dashicons-yes-alt" aria-hidden="true"></span><?php esc_html_e( 'Recommended for most users', 'advance-ecommerce-tracking' ); ?></li>
+										</ul>
+										<div class="sub_wizard_button sub_wizard_content_common" id="sub_wizard_button">
+											<a href="<?php echo esc_url( $setup_link ); ?>" id="start_to_setup" data-attr="second_step" class="aet-welcome-setup__connect-btn sub_wizard_button_a sub_wizard_button_first_a">
+												<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#fff" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#fff" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#fff" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+												<?php esc_html_e( 'Connect with Google', 'advance-ecommerce-tracking' ); ?>
+											</a>
+										</div>
+										<p class="aet-welcome-setup__secure-note">
+											<span class="dashicons dashicons-lock" aria-hidden="true"></span>
+											<?php esc_html_e( 'Secure & Private. We never store your credentials.', 'advance-ecommerce-tracking' ); ?>
+										</p>
 									</div>
-									<div class="field_div">
-										<input type="text" name="manually_et_px" id="manually_et_px" value="" data-attr="et" data-attr-two="ecommerce" class="manually_et_px_class"/>
+
+									<div class="aet-welcome-setup__card aet-welcome-setup__card--manual">
+										<div class="aet-welcome-setup__card-head">
+											<span class="aet-welcome-setup__card-icon aet-welcome-setup__card-icon--manual" aria-hidden="true">
+												<span class="dashicons dashicons-editor-kitchensink"></span>
+											</span>
+											<div>
+												<h3 class="aet-welcome-setup__card-title">
+													<?php esc_html_e( 'Enter GA4 Measurement ID', 'advance-ecommerce-tracking' ); ?>
+												</h3>
+											</div>
+										</div>
+										<p class="aet-welcome-setup__card-desc">
+											<?php esc_html_e( 'Already have your GA4 Measurement ID? Enter it manually to get started.', 'advance-ecommerce-tracking' ); ?>
+										</p>
+										<div class="aet-welcome-setup__field sub_wizard_fieldset sub_wizard_content_common" id="sub_wizard_field">
+											<label for="manually_et_px">
+												<?php esc_html_e( 'GA4 Measurement ID', 'advance-ecommerce-tracking' ); ?>
+											</label>
+											<div class="field_div">
+												<input type="text" name="manually_et_px" id="manually_et_px" value="" data-attr="et" data-attr-two="ecommerce" class="manually_et_px_class" placeholder="G-XXXXXXXXXX" />
+											</div>
+											<p class="aet-welcome-setup__field-hint"><?php esc_html_e( 'Format: G-XXXXXXXXXX', 'advance-ecommerce-tracking' ); ?></p>
+										</div>
+										<div class="sub_wizard_field sub_wizard_content_common">
+											<input type="button" class="button aet-welcome-setup__submit-btn sub_wizard_button_a" name="update_manually_et_px" id="update_manually_et_px" value="<?php echo esc_attr__( 'Submit & Save', 'advance-ecommerce-tracking' ); ?>" data-attr="et" />
+										</div>
 									</div>
-								</div>
-								<div class="sub_wizard_field sub_wizard_content_common">
-									<input type="button" class="button button-primary button-large sub_wizard_button_a" name="update_manually_et_px" id="update_manually_et_px" value="<?php 
-echo esc_attr_e( 'Submit', 'advance-ecommerce-tracking' );
-?>" data-attr="et"/>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="table-outer" id="table_outer_data" style="<?php 
-echo esc_attr( $data_style_attr );
-?>">
-				<form method="POST" name="aetfrm" action="">
-					<?php 
-wp_nonce_field( 'aet_et_save_action', 'aet_et_conditions_save' );
-?>
-					<input type="hidden" name="track_save" id="track_save" value="ecommerce"/>
-					<input type="hidden" name="track_type" id="track_type" value="et"/>
-					<div class="general_setting" id="general_setting">
-						<table class="form-table table-outer">
-							<tbody>
-							<tr valign="top">
-								<th class="titledesc" scope="row">
-									<label for="onoffswitch"><?php 
-esc_html_e( 'Google Analytics Account', 'advance-ecommerce-tracking' );
-?></label>
-								</th>
-								<td class="forminp">
-									<div class="profile_button_div">
-										<a href="javascript:void(0);" id="reconnect_to_wizard" class="button button-secondory button-large general_setting_a general_setting_first_a">
-											<?php 
-echo esc_html__( 'Reconnect to Wizard', 'advance-ecommerce-tracking' );
-?>
-										</a>
-										<a href="<?php 
-echo esc_url( $setup_link );
-?>&act=logout" id="discoonect" class="button button-secondory button-large general_setting_a general_setting_second_a">
-											<?php 
-echo esc_html__( 'Disconnect', 'advance-ecommerce-tracking' );
-?>
-										</a>
-										<span class="advance_ecommerce_tracking_tab_description ett"></span>
-										<p class="description" style="display:none;">
-											<?php 
-esc_html_e( 'You can change analytics ID using Reconnect button and also
-										you can disconnect analytics ID if not need.', 'advance-ecommerce-tracking' );
-?>
-										</p>
-									</div>
-								</td>
-							</tr>
-							<?php 
-$newfeaturepro = "[new]";
-?>
-							<tr valign="top">
-								<th class="titledesc" scope="row">
-									<label for="onoffswitch"><?php 
-esc_html_e( 'Google Analytics 4 Account', 'advance-ecommerce-tracking' );
-?></label>
-									<?php 
-if ( !empty( $newfeaturepro ) ) {
-    ?>
-									<span class="aet-new-feture-master"><?php 
-    echo esc_html( $newfeaturepro );
-    ?></span>
-									<?php 
-}
-?>
-								</th>
-								<td class="forminp">
-									<?php 
-if ( !empty( $manually_et_px_ver_4 ) ) {
-    ?>
-										<label class="switch">
-											<?php 
-    echo esc_html__( 'Active Google Analytics 4 Account', 'advance-ecommerce-tracking' );
-    ?>
-											&#58;&nbsp;<?php 
-    echo esc_html( $manually_et_px_ver_4 );
-    ?>
-										</label>
-									<?php 
-}
-?>
-									<div class="profile_button_div">
-										<input type="text" name="manually_et_px_ver_4" id="manually_et_px_ver_4" value="<?php 
-echo esc_attr( $manually_et_px_ver_4 );
-?>" data-attr="et" data-attr-two="ecommerce" class="manually_et_px_class" placeholder="Enter GA4 ID" />
-										<!--<a href="<?php 
-echo esc_url( $setup_link );
-?>&act=logout" id="discoonect" class="button button-primary button-large general_setting_a general_setting_second_a">
-											<?php 
-echo esc_html__( 'Disconnect', 'advance-ecommerce-tracking' );
-?>
-										</a>-->
-										<span class="advance_ecommerce_tracking_tab_description et"></span>
-										<p class="description" style="display:none;">
-											<?php 
-$html = sprintf(
-    '%s<a href=%s target="_blank">%s</a>',
-    esc_html__( 'You can disconnect analytics ID if not need. ', 'advance-ecommerce-tracking' ),
-    esc_url( 'https://support.google.com/analytics/answer/10447272?hl=en&ref_topic=9303319#zippy=%2Cwoocommerce' ),
-    esc_html__( 'View More', 'advance-ecommerce-tracking' )
-);
-echo wp_kses_post( $html );
-?>
-										</p>
-									</div>
-								</td>
-							</tr>
-							<tr valign="top">
-								<th class="titledesc" scope="row">
-									<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Enable Analytics Tracking', 'advance-ecommerce-tracking' );
-?></label>
-									<?php 
-if ( !empty( $newfeaturepro ) ) {
-    ?>
-									<span class="aet-new-feture-master"><?php 
-    echo esc_html( $newfeaturepro );
-    ?></span>
-									<?php 
-}
-?>
-								</th>
-								<td class="forminp">
-									<select name="at_enable" id="at_tracking_option">
-										<option value="off" <?php 
-if ( $at_enable === "off" ) {
-    echo esc_attr( 'selected' );
-}
-?> >Select</option>
-										<option value="GA4" <?php 
-if ( $at_enable === "GA4" || $at_enable === "UA" || $at_enable === "BOTH" ) {
-    echo esc_attr( 'selected' );
-}
-?> ><?php 
-esc_html_e( 'GA4', 'advance-ecommerce-tracking' );
-?></option>
-									</select>
-									<span class="advance_ecommerce_tracking_tab_description et"></span>	
-									<p class="description" style="display:none;">
-										<?php 
-$html = sprintf( '%s', esc_html__( 'Enable Analytics trackings on your site using this option', 'advance-ecommerce-tracking' ) );
-echo wp_kses_post( $html );
-?>
-									</p>
-								</td>
-							</tr>
-							<tr valign="top">
-								<th class="titledesc" scope="row">
-									<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Enable Enhanced eCommerce', 'advance-ecommerce-tracking' );
-?></label>
-								</th>
-								<td class="forminp">
-									<span class="switch"> <input type="checkbox" name="enhance_ecommerce_tracking" id="enhance_ecommerce_tracking" value="on" <?php 
-checked( $enhance_ecommerce_tracking, 'on' );
-?>> <div class="slider round"></div> </span>
-									<span class="advance_ecommerce_tracking_tab_description"></span>
-									<p class="description" style="display:none;">
-										<?php 
-$html = sprintf(
-    '%s<a href=%s target="_blank">%s</a>',
-    esc_html__( 'This option will sent website\'s data to Google Analytics,
-										    like: Transaction, Revenue. See the setup guide for', 'advance-ecommerce-tracking' ),
-    esc_url( AET_PLUGIN_URL . 'admin/images/eet.png' ),
-    esc_html__( ' enhanced ecommerce', 'advance-ecommerce-tracking' )
-);
-echo wp_kses_post( $html );
-?>
-									</p>
-								</td>
-							</tr>
-							<?php 
-?>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Search Tracking', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="search_tracking" id="search_tracking" value="on" disabled> <div class="slider round"></div> </span>
-										<span class="advance_ecommerce_tracking_tab_description"></span>
-										<p class="description" style="display:none;">
-											<?php 
-$html = sprintf(
-    '%s<a href=%s target="_blank">%s</a>%s',
-    esc_html__( 'This option will be sent website\'s search term to Google Analytics .
-									    See the setup guide for', 'advance-ecommerce-tracking' ),
-    esc_url( AET_PLUGIN_URL . 'admin/images/search.png' ),
-    esc_html__( ' Search. ', 'advance-ecommerce-tracking' ),
-    esc_html__( 'View in GA4: Reports > Engagement > Events (event name: view_search_results).', 'advance-ecommerce-tracking' )
-);
-echo wp_kses_post( $html );
-?>
-										</p>
-									</td>
-								</tr>
-								<?php 
-$newfeature = "[new]";
-?>
-									<tr valign="top">
-										<th class="titledesc" scope="row">
-											<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'IP Anonymization', 'advance-ecommerce-tracking' );
-?></label>
-											<?php 
-if ( !empty( $newfeature ) ) {
-    ?>
-											<span class="aet-new-feture-master"><?php 
-    esc_html_e( $newfeature, 'advance-ecommerce-tracking' );
-    ?></span>
-											<?php 
-}
-?>
-										</th>
-										<td class="forminp">
-											<span class="switch"> <input type="checkbox" name="ip_anonymization" id="ip_anonymization" value="on" <?php 
-checked( $ip_anonymization, 'on' );
-?>> <div class="slider round"></div> </span>
-											<span class="advance_ecommerce_tracking_tab_description"></span>
-											<p class="description" style="display:none;">
-												<?php 
-$html = sprintf(
-    '%s<a href=%s target="_blank">%s</a>',
-    esc_html__( 'This option will be allow to request that all of their users
-												IP addresses be anonymized within Google Analytics.', 'advance-ecommerce-tracking' ),
-    esc_url( 'https://support.google.com/analytics/answer/2763052?hl=en' ),
-    esc_html__( ' Read More', 'advance-ecommerce-tracking' )
-);
-echo wp_kses_post( $html );
-?>
-											</p>
-										</td>
-									</tr>									
-									<tr valign="top">
-										<th class="titledesc" scope="row">
-											<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Google Analytics Opt Out', 'advance-ecommerce-tracking' );
-?></label>
-											<?php 
-if ( !empty( $newfeature ) ) {
-    ?>
-											<span class="aet-new-feture-master"><?php 
-    esc_html_e( $newfeature, 'advance-ecommerce-tracking' );
-    ?></span>
-											<?php 
-}
-?>
-										</th>
-										<td class="forminp">
-											<span class="switch"> <input type="checkbox" name="google_analytics_opt_out" id="google_analytics_opt_out" value="on" <?php 
-checked( $google_analytics_opt_out, 'on' );
-?>> <div class="slider round"></div> </span>
-											<span class="advance_ecommerce_tracking_tab_description"></span>
-											<p class="description" style="display:none;">
-												<?php 
-$html = sprintf(
-    '%s<br>%s<br><strong>%s</strong><br>%s',
-    esc_html__( 'When you will enable this option then plugin will stop to sending data to Google Analytics.', 'advance-ecommerce-tracking' ),
-    esc_html__( 'If you want to allow opt out to user then please add below link in your theme.', 'advance-ecommerce-tracking' ),
-    esc_html__( '<a href="javascript:ga4Optout()">Click here to opt-out of Google Analytics 4</a>', 'advance-ecommerce-tracking' ),
-    esc_html__( 'When user will click on this link after that data will not send to google analytics.', 'advance-ecommerce-tracking' )
-);
-echo wp_kses_post( $html );
-?>
-											</p>
-										</td>
-									</tr>
-									<?php 
-?>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard">
-											<?php 
-esc_html_e( 'Add Code to Track the Login Step of Guest Users (Optional)', 'advance-ecommerce-tracking' );
-?>
-											<?php 
-if ( !empty( $newfeaturepro ) ) {
-    ?>
-											<span class="aet-new-feture-master"><?php 
-    echo esc_html( $newfeaturepro );
-    ?></span>
-											<?php 
-}
-?>
-											<span class="aet-pro-label"></span>
-										</label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="trc_guest_users" id="trc_guest_users" value="on" disabled> <div class="slider round"></div> </span>
-										<span class="advance_ecommerce_tracking_tab_description"></span>
-										<p class="description" style="display:none;">
-											<?php 
-esc_html_e( 'This feature will fire event when the guest user process for a checkout.', 'advance-ecommerce-tracking' );
-?>
-										</p>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard">
-											<?php 
-esc_html_e( 'Demographics and Interests Reports for Remarketing and Advertising', 'advance-ecommerce-tracking' );
-?>
-											<span class="aet-pro-label"></span>
-										</label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="demogr_int_rema_adver" id="demogr_int_rema_adver" value="on" disabled> <div class="slider round"></div> </span>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Track 404 (Not found) Errors', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="track_404" id="track_404" value="on" disabled> <div class="slider round"></div> </span>
-										<span class="advance_ecommerce_tracking_tab_description"></span>
-										<p class="description" style="display:none;">
-											<?php 
-esc_html_e( 'This feature will be sent event to analytics whenever a user lands on your 404 Error Page.
-									View in GA4: Reports > Engagement > Events (event name: 404 Error).', 'advance-ecommerce-tracking' );
-?>
-										</p>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'File Downloads', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="file_downloads" id="file_downloads" value="on" disabled> <div class="slider round"></div> </span>
-										<span class="advance_ecommerce_tracking_tab_description"></span>
-										<p class="description" style="display:none;">
-											<?php 
-esc_html_e( 'This feature will be sent event to analytics whenever a user view or
-									download file from this type(zip, exe, pdf, doc, docx, xls, ppt, csv, xml).
-									View in GA4: Reports > Engagement > Events (event name: file_download).', 'advance-ecommerce-tracking' );
-?>
-										</p>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'User ID Tracking', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="user_id_tracking" id="user_id_tracking" value="on" disabled> <div class="slider round"></div> </span>
-										<span class="advance_ecommerce_tracking_tab_description"></span>
-										<p class="description" style="display:none;">
-											<?php 
-$html = sprintf(
-    '%s<br><strong>%s</strong><a href=%s target="_blank">%s</a>',
-    esc_html__( 'You can send a User ID when a pageview (or other data) is sent to Google Analytics.
-										This allows you to tie sessions together when the User ID is the same,
-										even if the sessions are on different devices.', 'advance-ecommerce-tracking' ),
-    esc_html__( ' Please follow screenshot how to enable this option on google analytics section.', 'advance-ecommerce-tracking' ),
-    esc_url( AET_PLUGIN_URL . 'admin/images/user_id_tracking.png' ),
-    esc_html__( ' Click Here', 'advance-ecommerce-tracking' )
-);
-echo wp_kses_post( $html );
-?>
-										</p>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Form Tracking', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="form_tracking" id="form_tracking" value="on" disabled> <div class="slider round"></div> </span>
-										<span class="advance_ecommerce_tracking_tab_description"></span>
-										<p class="description" style="display:none;">
-											<?php 
-$html = sprintf(
-    '%s<br><strong>%s</strong>%s<br>%s',
-    esc_html__( 'This feature will send form events to analytics when forms are submitted on your site.
-										View in GA4: Reports > Engagement > Events (event name: Form).', 'advance-ecommerce-tracking' ),
-    esc_html__( ' Note: ', 'advance-ecommerce-tracking' ),
-    esc_html__( ' We get default form name for those plugins. Contact Form 7, WPForms, Formidable Forms, Mailchimp Form, Gravity Form, Caldera Forms, Ninja Form.
-										If you have any custom form then please add below field in your form.
-										Using this you can easily understood which form has been submitted.', 'advance-ecommerce-tracking' ),
-    esc_html__( ' <input type="hidden" name="aet_form" value="Enter your form name"/>', 'advance-ecommerce-tracking' )
-);
-echo wp_kses_post( $html );
-?>
-										</p>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Comment Tracking', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="comment_tracking" id="comment_tracking" value="on" disabled> <div class="slider round"></div> </span>
-										<span class="advance_ecommerce_tracking_tab_description"></span>
-										<p class="description" style="display:none;">
-											<?php 
-esc_html_e( 'This feature will send data to analytics when a comment is posted on your website.
-									View in GA4: Reports > Engagement > Events (event name: Comment).', 'advance-ecommerce-tracking' );
-?>
-										</p>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="sign_in_tracking"><?php 
-esc_html_e( 'Sign In Tracking', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="sign_in_tracking" id="sign_in_tracking" value="on" disabled> <div class="slider round"></div> </span>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="sign_out_tracking"><?php 
-esc_html_e( 'Sign Out Tracking', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="sign_out_tracking" id="sign_out_tracking" value="on" disabled> <div class="slider round"></div> </span>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="product_review_tracking"><?php 
-esc_html_e( 'Leaving Product Review Tracking', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="product_review_tracking" id="product_review_tracking" value="on" disabled> <div class="slider round"></div> </span>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="sign_up_tracking"><?php 
-esc_html_e( 'Sign Up Tracking', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="sign_up_tracking" id="sign_up_tracking" value="on" disabled> <div class="slider round"></div> </span>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Custom Event', 'advance-ecommerce-tracking' );
-?>
-											<?php 
-if ( !empty( $newfeaturepro ) ) {
-    ?>
-											<span class="aet-new-feture-master"><?php 
-    echo esc_html( $newfeaturepro );
-    ?></span>
-											<?php 
-}
-?>
-											<span class="aet-pro-label"></span>
-										</label>
-									</th>
-									<td class="forminp">
-										<span class="switch aet-pro-feature"> <input type="checkbox" name="custom_event" id="custom_event" value="on" disabled> <div class="slider round"></div> </span>
-										<span class="advance_ecommerce_tracking_tab_description"></span>
-										<p class="description" style="display:none;">
-											<?php 
-$html = sprintf( '%s<strong>%s</strong>', esc_html__( 'With custom events, you can track important actions as per your requirement.
-										When you checked this checkbox and save this then new menu will display
-										with name ', 'advance-ecommerce-tracking' ), esc_html__( 'Google Analytics Custom Event', 'advance-ecommerce-tracking' ) );
-echo wp_kses_post( $html );
-?>
-										</p>
-									</td>
-								</tr>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Excluding traking for roles', 'advance-ecommerce-tracking' );
-?><span class="aet-pro-label"></span></label>
-									</th>
-									<td class="forminp">
-										<?php 
-$get_roles = $aet_admin_object->aet_get_editable_user_roles();
-foreach ( $get_roles as $key => $get_role ) {
-    ?>
-											<span class="exl_tracking_user_roles">
-												<span>
-													<input type="checkbox" name="exl_tracking_for_roles[]" value="<?php 
-    echo esc_attr( $key );
-    ?>" disabled/>
-													<label><?php 
-    echo esc_html( $get_role );
-    ?></label>
-												</span>
-											</span>
-											<?php 
-}
-?>
-										<span class="advance_ecommerce_tracking_tab_description"></span>
-										<p class="description" style="display:none;">
-											<?php 
-esc_html_e( 'With this features, users that have roles from above selected roles
-									will not be tracked into Google Analytics.', 'advance-ecommerce-tracking' );
-?>
-										</p>
-									</td>
-								</tr>
-								<?php 
-?>
-								<tr valign="top">
-									<th class="titledesc" scope="row">
-										<label for="reconnect_to_wizard"><?php 
-esc_html_e( 'Privacy Policy*', 'advance-ecommerce-tracking' );
-?></label>
-									</th>
-									<td class="forminp eat_privacy_policy">
-										<input type="checkbox" required name="exl_tracking_privacy_policy" value="on" <?php 
-checked( $privacy_policy, 'on' );
-?>/>
-										<?php 
-echo esc_html_e( 'Accept Privacy Policy of Plugin', 'advance-ecommerce-tracking' );
-?>
-										<p class='smalltxt'><?php 
-echo esc_html_e( 'By using theDotstore Plugin, you agree to theDotstore plugin\'s ', 'advance-ecommerce-tracking' );
-?>
-											<a href='https://www.iubenda.com/privacy-policy/15880757' target="_blank"><?php 
-echo esc_html_e( 'Privacy Policy', 'advance-ecommerce-tracking' );
-?></a>
-										</p>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<p class="submit">
-							<input type="submit" name="track_setting" class="button button-primary button-large" value="<?php 
-echo esc_attr( $submit_text );
-?>">
-						</p>
-					</div>
-				</form>
-			</div>
+			<?php require_once plugin_dir_path( __FILE__ ) . 'aet-et-settings-form.php'; ?>
 		</div>
 	</div>
 </div>
 </div>
 </div>
 </div>
-<?php 
-?><?php
+<?php

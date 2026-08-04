@@ -16,7 +16,7 @@
  * Plugin Name: Advance Ecommerce Tracking
  * Plugin URI:        https://www.thedotstore.com/woocommerce-enhanced-ecommerce-analytics-integration-with-conversion-tracking
  * Description:       Allows you to use Enhanced Ecommerce tracking without adding any new complex codes on your WooCommerce.
- * Version:           3.8.3
+ * Version:           3.8.4
  * Author:            theDotstore
  * Author URI:        https://www.thedotstore.com
  * License:           GPLv3 or later
@@ -26,8 +26,8 @@
  * Requires Plugins:  woocommerce
  *
  * WC requires at least: 5.3
- * WC tested up to:      10.6.0
- * WP tested up to:      6.9.3
+ * WC tested up to:      10.9.4
+ * WP tested up to:      7.0.2
  * Requires PHP:         7.2
  * Requires at least:    5.0
  */
@@ -84,7 +84,7 @@ if ( function_exists( 'aet_fs' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 if ( !defined( 'AET_VERSION' ) ) {
-    define( 'AET_VERSION', '3.8.3' );
+    define( 'AET_VERSION', '3.8.4' );
 }
 if ( !defined( 'AET_PLUGIN_URL' ) ) {
     define( 'AET_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
@@ -110,6 +110,9 @@ if ( !defined( 'AET_PRO_PLUGIN_BASENAME' ) ) {
 }
 if ( !defined( 'AET_STORE_URL' ) ) {
     define( 'AET_STORE_URL', 'https://www.thedotstore.com/' );
+}
+if ( !defined( 'AET_ET_PREMIUM_INSTALL_DOC_URL' ) ) {
+    define( 'AET_ET_PREMIUM_INSTALL_DOC_URL', 'https://docs.thedotstore.com/article/62-how-to-installing-and-activating-an-thedotstore-plugin' );
 }
 /**
  * The code that runs during plugin activation.

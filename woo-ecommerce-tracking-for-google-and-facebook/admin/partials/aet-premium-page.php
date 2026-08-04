@@ -104,7 +104,7 @@ $plugin_key_features = array(
     ),
     array(
         'title' => esc_html__( 'Advanced Features', 'advance-ecommerce-tracking' ),
-        'description' => esc_html__( 'Enable GA Opt-out, Demographics and Interest Reports, Search Tracking, IP Anonymization, and more.', 'advance-ecommerce-tracking' ),
+        'description' => esc_html__( 'Enable GA Opt-out, Demographics and Interest Reports, Search Tracking, and more.', 'advance-ecommerce-tracking' ),
         'popup_image' => esc_url( AET_PLUGIN_URL . 'admin/images/pro-features-img/feature-box-six-img.jpeg' ),
         'popup_content' => array(
         	esc_html__( 'Unlock GA4\'s Advanced Features for In-Depth Analytics and Insights.', 'advance-ecommerce-tracking' ),

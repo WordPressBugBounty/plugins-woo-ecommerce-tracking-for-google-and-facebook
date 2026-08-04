@@ -215,12 +215,13 @@ class Advance_Ecommerce_Tracking_Admin {
                 false
             );
             wp_localize_script( $this->plugin_name, 'aet_vars', array(
-                'ajaxurl'                 => admin_url( 'admin-ajax.php' ),
-                'trash_url'               => esc_url( AET_PLUGIN_URL . 'admin/images/rubbish-bin.png' ),
-                'aet_chk_nonce_ajax'      => wp_create_nonce( 'aet_chk_nonce' ),
-                'current_url'             => $current_url,
-                'dpb_api_url'             => AET_STORE_URL,
-                'setup_wizard_ajax_nonce' => wp_create_nonce( 'wizard_ajax_nonce' ),
+                'ajaxurl'                     => admin_url( 'admin-ajax.php' ),
+                'trash_url'                   => esc_url( AET_PLUGIN_URL . 'admin/images/rubbish-bin.png' ),
+                'aet_chk_nonce_ajax'          => wp_create_nonce( 'aet_chk_nonce' ),
+                'current_url'                 => $current_url,
+                'dpb_api_url'                 => AET_STORE_URL,
+                'setup_wizard_ajax_nonce'     => wp_create_nonce( 'wizard_ajax_nonce' ),
+                'aet_et_convert_to_pro_nonce' => wp_create_nonce( 'aet_et_convert_to_pro_purchase' ),
             ) );
             if ( !(aet_fs()->is__premium_only() && aet_fs()->can_use_premium_code()) ) {
                 wp_enqueue_style(
@@ -237,7 +238,35 @@ class Advance_Ecommerce_Tracking_Admin {
                 $this->version,
                 'all'
             );
+            if ( function_exists( 'WC' ) ) {
+                wp_enqueue_style( 'woocommerce_admin_styles' );
+            }
         }
+    }
+
+    /**
+     * Register the Block Editor (Gutenberg) JavaScript that adds the
+     * "Conversion Tracking" panel to the eligible block sidebars.
+     *
+     * @since 3.1
+     */
+    public function aet_enqueue_block_editor_assets() {
+        wp_enqueue_script(
+            $this->plugin_name . '-block-conversion-tracking',
+            plugin_dir_url( __FILE__ ) . 'js/aet-block-conversion-tracking.js',
+            array(
+                'wp-blocks',
+                'wp-element',
+                'wp-editor',
+                'wp-block-editor',
+                'wp-components',
+                'wp-compose',
+                'wp-hooks',
+                'wp-i18n'
+            ),
+            $this->version,
+            true
+        );
     }
 
     /**
@@ -277,10 +306,13 @@ class Advance_Ecommerce_Tracking_Admin {
         if ( !$order || !is_a( $order, 'WC_Order' ) ) {
             return;
         }
-        // Skip if already tracked (frontend thank you or previous admin view).
+        // Skip if already tracked (frontend thank you, backend MP, or previous admin view).
         // Use order meta API for HPOS compatibility.
         $already_tracked = $order->get_meta( 'aet_ga_placed_order_success' );
         if ( 'true' === $already_tracked || true === $already_tracked ) {
+            return;
+        }
+        if ( 'yes' === $order->get_meta( '_aet_backend_purchase_sent', true ) ) {
             return;
         }
         // Only track orders in paid/fulfillable status.
@@ -312,6 +344,11 @@ class Advance_Ecommerce_Tracking_Admin {
         }
         $data = aet_get_purchase_tracking_data( $order_id );
         if ( !$data || !is_array( $data ) ) {
+            return;
+        }
+        // Measurement Protocol backend purchase — no browser gtag purchase.
+        if ( function_exists( 'aet_is_mp_backend_tracking_enabled' ) && aet_is_mp_backend_tracking_enabled() ) {
+            AET_GA4_Measurement_Protocol::instance()->queue_purchase_for_order( $order_id );
             return;
         }
         // Mark as tracked BEFORE output to prevent duplicate on refresh.
@@ -489,6 +526,7 @@ class Advance_Ecommerce_Tracking_Admin {
      */
     public function aet_remove_admin_submenus() {
         remove_submenu_page( 'dots_store', 'dots_store' );
+        remove_submenu_page( 'dots_store', 'aet-dashboard' );
         remove_submenu_page( 'dots_store', 'aet-get-started' );
         remove_submenu_page( 'dots_store', 'aet-premium' );
         remove_submenu_page( 'dots_store', 'aet-ft-settings' );
@@ -570,6 +608,7 @@ class Advance_Ecommerce_Tracking_Admin {
                 ),
             ),
         );
+        $wpfp_menus = apply_filters( 'aet_plugin_menus', $wpfp_menus );
         ?>
 		<div class="dots-menu-main">
 			<nav>
@@ -731,7 +770,7 @@ class Advance_Ecommerce_Tracking_Admin {
                 $manually_et_px_ver_4 = filter_input( INPUT_POST, 'manually_et_px_ver_4', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                 $tracking_settings_array['manually_et_px_ver_4'] = $manually_et_px_ver_4;
                 $get_at_tracking_option_enable = filter_input( INPUT_POST, 'at_enable', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-                $at_tracking_option_enable = ( isset( $get_at_tracking_option_enable ) ? sanitize_text_field( $get_at_tracking_option_enable ) : 'GA4' );
+                $at_tracking_option_enable = ( !empty( $get_at_tracking_option_enable ) ? sanitize_text_field( $get_at_tracking_option_enable ) : 'off' );
                 if ( in_array( $at_tracking_option_enable, array('UA', 'BOTH', 'on'), true ) ) {
                     $at_tracking_option_enable = 'GA4';
                 }
@@ -739,24 +778,59 @@ class Advance_Ecommerce_Tracking_Admin {
                 $get_enhance_ecommerce_tracking = filter_input( INPUT_POST, 'enhance_ecommerce_tracking', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                 $enhance_ecommerce_tracking = ( isset( $get_enhance_ecommerce_tracking ) ? sanitize_text_field( $get_enhance_ecommerce_tracking ) : 'off' );
                 $tracking_settings_array['enhance_ecommerce_tracking'] = $enhance_ecommerce_tracking;
-                $get_ip_anonymization = filter_input( INPUT_POST, 'ip_anonymization', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
-                $ip_anonymization = ( isset( $get_ip_anonymization ) ? sanitize_text_field( $get_ip_anonymization ) : 'off' );
-                $tracking_settings_array['ip_anonymization'] = $ip_anonymization;
                 $get_privacy_policy = filter_input( INPUT_POST, 'exl_tracking_privacy_policy', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                 $privacy_policy = ( isset( $get_privacy_policy ) ? sanitize_text_field( $get_privacy_policy ) : 'off' );
                 $tracking_settings_array['privacy_policy'] = $privacy_policy;
                 $get_google_analytics_opt_out = filter_input( INPUT_POST, 'google_analytics_opt_out', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
                 $google_analytics_opt_out = ( isset( $get_google_analytics_opt_out ) ? sanitize_text_field( $get_google_analytics_opt_out ) : 'off' );
                 $tracking_settings_array['google_analytics_opt_out'] = $google_analytics_opt_out;
+                // Measurement Protocol Backend Tracking.
+                $get_mp_backend_tracking = filter_input( INPUT_POST, 'mp_backend_tracking', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+                $tracking_settings_array['mp_backend_tracking'] = ( isset( $get_mp_backend_tracking ) ? sanitize_text_field( $get_mp_backend_tracking ) : 'off' );
+                $get_mp_measurement_id = filter_input( INPUT_POST, 'mp_measurement_id', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+                $mp_measurement_id = ( isset( $get_mp_measurement_id ) ? sanitize_text_field( $get_mp_measurement_id ) : '' );
+                if ( !empty( $mp_measurement_id ) && !preg_match( '/^G-[A-Z0-9]{6,}$/i', $mp_measurement_id ) ) {
+                    $mp_measurement_id = '';
+                }
+                $tracking_settings_array['mp_measurement_id'] = $mp_measurement_id;
+                $get_mp_api_secret = filter_input( INPUT_POST, 'mp_api_secret', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+                $mp_api_secret = ( isset( $get_mp_api_secret ) ? sanitize_text_field( $get_mp_api_secret ) : '' );
+                if ( !empty( $mp_api_secret ) && (strlen( $mp_api_secret ) < 16 || !preg_match( '/^[A-Za-z0-9_-]+$/', $mp_api_secret )) ) {
+                    $mp_api_secret = '';
+                }
+                $tracking_settings_array['mp_api_secret'] = $mp_api_secret;
+                $get_mp_debug_mode = filter_input( INPUT_POST, 'mp_debug_mode', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+                $tracking_settings_array['mp_debug_mode'] = ( isset( $get_mp_debug_mode ) ? sanitize_text_field( $get_mp_debug_mode ) : 'off' );
             }
         }
         if ( !empty( $tracking_settings_array ) ) {
             update_option( $option_key, wp_json_encode( $tracking_settings_array ) );
+            if ( 'ecommerce' === $aet_track_save && isset( $tracking_settings_array['manually_et_px_ver_4'] ) ) {
+                $this->aet_sync_ga4_connected_date( $tracking_settings_array['manually_et_px_ver_4'] );
+            }
         }
         wp_safe_redirect( add_query_arg( array(
             'page' => 'aet-' . $aet_track_type . '-settings',
         ), admin_url( 'admin.php' ) ) );
         exit;
+    }
+
+    /**
+     * Store or clear GA4 connected date based on Measurement ID.
+     *
+     * @param string $ga4_id GA4 Measurement ID.
+     *
+     * @since 3.8.3
+     */
+    public function aet_sync_ga4_connected_date( $ga4_id ) {
+        $ga4_id = ( is_string( $ga4_id ) ? trim( $ga4_id ) : '' );
+        if ( empty( $ga4_id ) ) {
+            delete_option( 'aet_ga4_connected_date' );
+            return;
+        }
+        if ( empty( get_option( 'aet_ga4_connected_date', '' ) ) ) {
+            update_option( 'aet_ga4_connected_date', wp_date( get_option( 'date_format' ) ) );
+        }
     }
 
     /**
@@ -782,6 +856,7 @@ class Advance_Ecommerce_Tracking_Admin {
                 $nset_array = wp_json_encode( $set_arr );
                 update_option( 'aet_et_tracking_settings', $nset_array );
             }
+            $this->aet_sync_ga4_connected_date( $get_val );
         }
         $this->aet_update_selected_ua_id(
             $get_val,
@@ -820,8 +895,14 @@ class Advance_Ecommerce_Tracking_Admin {
         }
         if ( 'update' === $action ) {
             update_option( $option_key, $get_selected_data_ua );
+            if ( 'et' === $request && !empty( $get_selected_data_ua ) ) {
+                $this->aet_sync_ga4_connected_date( $get_selected_data_ua );
+            }
         } else {
             update_option( $option_key, '' );
+            if ( 'et' === $request ) {
+                $this->aet_sync_ga4_connected_date( '' );
+            }
         }
         $query_param = add_query_arg( array(
             'page' => 'aet-' . $request . '-settings',
@@ -1139,6 +1220,39 @@ class Advance_Ecommerce_Tracking_Admin {
                 }
             }
         }
+    }
+
+    /**
+     * Set aet_et_convert_to_pro flag after Freemius purchase.
+     *
+     * Prefixed option avoids conflict with Flat Rate's convert_to_pro option.
+     *
+     * @since 3.8.4
+     */
+    public function aet_et_convert_to_pro_purchase() {
+        check_ajax_referer( 'aet_et_convert_to_pro_purchase', 'security' );
+        if ( !current_user_can( 'manage_options' ) ) {
+            wp_send_json_error();
+        }
+        update_option( 'aet_et_convert_to_pro', true );
+        wp_send_json_success();
+    }
+
+    /**
+     * Dismiss convert to pro notice.
+     *
+     * @since 3.8.4
+     */
+    public function aet_et_handle_convert_to_pro_dismiss() {
+        $dismiss = filter_input( INPUT_GET, 'aet-et-dismiss-convert-to-pro', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        $nonce = filter_input( INPUT_GET, '_aet_et_convert_to_pro_nonce', FILTER_SANITIZE_FULL_SPECIAL_CHARS );
+        if ( '1' !== sanitize_text_field( $dismiss ) ) {
+            return;
+        }
+        if ( !wp_verify_nonce( sanitize_text_field( $nonce ), 'aet_et_convert_to_pro_dismiss' ) ) {
+            return;
+        }
+        update_option( 'aet_et_convert_to_pro', false );
     }
 
 }

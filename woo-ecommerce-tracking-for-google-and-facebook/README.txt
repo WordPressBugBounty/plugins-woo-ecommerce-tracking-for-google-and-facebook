@@ -4,12 +4,12 @@ Plugin URI: https://wordpress.org/plugins/woo-ecommerce-tracking-for-google-and-
 Author: Thedotstore
 Author URI: https://www.thedotstore.com/
 Contributors: dots, jaydeep-rami, jitendrabanjara1991
-Stable tag: 3.8.3
+Stable tag: 3.8.4
 Tags: Analytics, E-commerce, Google Analytics, E-commerce Tracking, Statistics
 Requires at least: 5.0
 Requires PHP: 7.2
-Tested up to: 6.9.3
-WC tested up to: 10.6.0
+Tested up to: 7.0.2
+WC tested up to: 10.9.4
 WC requires at least: 5.3
 Donate link: 
 Copyright: (c) 2015-2019 Thedotstore all rights reserved (support@thedotstore.com)
@@ -164,6 +164,12 @@ Absolutely. The plugin enables you to set up and track custom events, giving you
 Automatic updates should work great for you.  As always, though, we recommend backing up your site prior to making any updates just to be sure nothing goes wrong.
 
 == Changelog ==
+= 3.8.4 =
+* [New] Added GA4 API Secret and Measurement Protocol support for server-side purchase and refund tracking.
+* [Enhancement] Improved the backend settings design and user interfaces.
+* [Enhancement] Compatible with WooCommerce 10.9.x
+* [Enhancement] Compatible with WordPress 7.0.x
+
 = 3.8.3 =
 * [New] Added event tracking for manually created orders
 * [Bug Fix] Addressed minor security-related issues

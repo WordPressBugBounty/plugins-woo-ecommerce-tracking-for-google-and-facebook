@@ -96,6 +96,42 @@ echo esc_attr( $aet_get_started );
                 </div>
             </div>
 		</header>
+		<?php 
+$aet_et_convert_to_pro = filter_var( get_option( 'aet_et_convert_to_pro', false ), FILTER_VALIDATE_BOOLEAN );
+if ( !aet_fs()->is__premium_only() && true === $aet_et_convert_to_pro ) {
+    $aet_et_convert_to_pro_doc_url = AET_ET_PREMIUM_INSTALL_DOC_URL;
+    $aet_et_convert_to_pro_dismiss_url = wp_nonce_url( add_query_arg( 'aet-et-dismiss-convert-to-pro', '1' ), 'aet_et_convert_to_pro_dismiss', '_aet_et_convert_to_pro_nonce' );
+    ?>
+			<div class="notice notice-warning is-dismissible aet-et-convert-to-pro-notice">
+				<a class="notice-dismiss" href="<?php 
+    echo esc_url( $aet_et_convert_to_pro_dismiss_url );
+    ?>"></a>
+				<p><strong><?php 
+    esc_html_e( 'Thank you for purchasing the plugin!', 'advance-ecommerce-tracking' );
+    ?></strong></p>
+				<p><?php 
+    esc_html_e( 'You are currently using the free version of Ecommerce Tracking.', 'advance-ecommerce-tracking' );
+    ?></p>
+				<p>
+					<?php 
+    echo wp_kses( __( 'To use pro features, please <strong>remove this free plugin</strong> and <strong>install and activate the premium version</strong>. Don\'t worry — this will not remove any of your tracking settings. Once you activate the premium version, all your settings will be automatically restored.', 'advance-ecommerce-tracking' ), array(
+        'strong' => array(),
+    ) );
+    ?>
+				</p>
+				<p>
+					<a href="<?php 
+    echo esc_url( $aet_et_convert_to_pro_doc_url );
+    ?>" class="button button-primary" target="_blank" rel="noopener noreferrer">
+						<?php 
+    esc_html_e( 'View step-by-step guide', 'advance-ecommerce-tracking' );
+    ?>
+					</a>
+				</p>
+			</div>
+			<?php 
+}
+?>
         <!-- Upgrade to pro popup -->
         <?php 
 if ( !(aet_fs()->is__premium_only() && aet_fs()->can_use_premium_code()) ) {
